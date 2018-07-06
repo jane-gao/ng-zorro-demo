@@ -1,0 +1,102 @@
+<div [hidden]="!showList">
+  <div class="page-title">
+    <h3 class="fl">管理员列表</h3>
+    <button class="fr m btn-thc" nz-button
+            [routerLink]="routerLink.staff.add">
+      <i class="anticon anticon-plus"></i><span>新增管理员</span>
+    </button>
+  </div>
+
+  <!--搜索 start-->
+  <form nz-form class="bg-white mt-15 mb-15">
+    <div class="search-group mb">
+      <span class="search-title">管理员姓名：</span>
+      <div class="search-main">
+        <input nz-input name="staffName"
+               [(ngModel)]="query.staffName"
+               placeholder="管理员姓名"
+               (change)="queryStaffList(1)">
+      </div>
+    </div>
+    <div class="inline-block">
+      <button nz-button class="ml-20 mr" title="搜索" (click)="queryStaffList(1)">
+        <i class="anticon anticon-search"></i><span>搜索</span>
+      </button>
+      <button nz-button [nzType]="'primary'" class="mr" title="重置"
+              (click)="resetSearch()">
+        <i class="anticon anticon-sync"></i><span>重置</span>
+      </button>
+    </div>
+  </form>
+  <!--搜索 end-->
+
+  <nz-table #nzTable
+            [nzData]="staffList.voList"
+            [nzLoading]="_loading"
+            [nzFrontPagination]="false"
+            [nzPageSize]="staffList.pageSize"
+            [nzTotal]="staffList.totalRow"
+            [nzPageIndex]="staffList.curPage"
+            (nzPageIndexChange)="queryStaffList($event)">
+    <thead nz-thead>
+    <tr>
+      <th nz-th class="text-center w5"><span>序号</span></th>
+      <th nz-th class="text-center w8"><span>姓名</span></th>
+      <th nz-th class="text-center w10"><span>头像</span></th>
+      <th nz-th class="text-center w10"><span>手机号</span></th>
+      <th nz-th class="text-center w10"><span>身份证号</span></th>
+      <th nz-th class="text-center w10"><span>职位</span></th>
+      <th nz-th class="text-center w8"><span>账户</span></th>
+      <th nz-th class="text-center w7"><span>密码管理</span></th>
+      <th nz-th class="text-center w7"><span>状态</span></th>
+      <th nz-th class="text-center w8"><span>添加时间</span></th>
+      <th nz-th class="text-center w7"><span>角色管理</span></th>
+      <th nz-th class="text-center w10"><span>操作</span></th>
+    </tr>
+    </thead>
+    <tbody nz-tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+      <tr nz-tbody-tr>
+        <td nz-td class="text-center w5">{{i+1}}</td>
+        <td nz-td class="text-center w8">{{data.staffName}}</td>
+        <td nz-td class="text-center w10">
+          <nz-popover [nzTrigger]="'click'">
+            <img [src]="data.avatar | imgSize :'50'" width="50" appImgErr title="点击查看大图" nz-popover>
+            <ng-template #nzTemplate>
+              <img [src]="data.avatar | imgSize :'200'" appImgErr>
+            </ng-template>
+          </nz-popover>
+        </td>
+        <td nz-td class="text-center w10">{{data.phone}}</td>
+        <td nz-td class="text-center w10">{{data.idcard}}</td>
+        <td nz-td class="text-center w10">{{data.position}}</td>
+        <td nz-td class="text-center w8">{{data.loginCode}}</td>
+        <td nz-td class="text-center w7">
+          <button nz-button title="修改密码" class="btn-warning"
+                  (click)="showUpPwdTemplate(data.staffName,data.staffCode)">
+            <i class="anticon anticon-edit"></i>
+          </button>
+        </td>
+        <td nz-td class="text-center w7">{{data.state}}</td>
+        <td nz-td class="text-center w8">{{data.crtime | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+        <td nz-td class="text-center w7">
+          <button nz-button title="管理角色" class="btn-green"
+                  (click)="showBindRolesTemplate(data.staffName,data.staffCode)">
+            <i class="anticon anticon-tag-o"></i>
+          </button>
+        </td>
+        <td nz-td class="text-center w10">
+          <button nz-button title="修改/查看" class="btn-blue" [routerLink]="routerLink.staff.up"
+                  [queryParams]="{staffCode:data.staffCode}">
+            <i class="iconfont icon-chakan"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+
+</div>
+<!--路由嵌套 begin-->
+<router-outlet (activate)="activate($event)" (deactivate)="onDeactivate($event)"></router-outlet>
+<!--路由嵌套 end-->

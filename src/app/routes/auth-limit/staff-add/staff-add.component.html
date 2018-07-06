@@ -1,0 +1,93 @@
+<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
+  <i class="anticon anticon-rollback font20"></i>
+</button>
+<form nz-form #addStaffForm="ngForm">
+  <div class="fieldset pt-20">
+    <div class="legend bb-dashed">添加管理员</div>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="staffName">姓名</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngStaffName)" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.staffName" name="staffName" #ngStaffName="ngModel" type="text" id="staffName"
+               placeholder="请输入姓名">
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngStaffName) == valitateState.empty">请输入姓名！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="phone">手机号</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngPhone)" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.phone" name="phone" #ngPhone="ngModel" type="text" id="phone"
+               required [pattern]="patterns.phone" placeholder="请输入手机号">
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngPhone) == valitateState.empty">请输入手机号！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="idcard">身份证号</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngIdcard)" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.idcard" name="idcard" #ngIdcard="ngModel" type="text" id="idcard"
+               required [pattern]="patterns.idCard" placeholder="请输入身份证号">
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngIdcard) == valitateState.empty">请输入身份证号！</nz-form-explain>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngIdcard) == valitateState.error">请输入正确的身份证号！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="loginCode">登录账号</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngLoginCode)" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.loginCode" name="loginCode" #ngLoginCode="ngModel" type="text" id="loginCode"
+               required placeholder="请输入登录账号">
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngLoginCode) == valitateState.empty">请输入登录账号！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="pwd">设置密码</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngPwd)" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.pwd" name="pwd" #ngPwd="ngModel" type="text" id="pwd"
+               required placeholder="请设置用户登录密码">
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngPwd) == valitateState.empty">请设置用户登录密码！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24">上传头像</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <nz-upload
+          [nzAction]="uploadUrl" nzName="limitFile"
+          nzListType="picture-card"
+          [(nzFileList)]="fileList"
+          [nzShowButton]="fileList.length < 1"
+          [nzPreview]="handlePreview"
+          [nzData]="{uuid:uuid}">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">Upload</div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+          </ng-template>
+        </nz-modal>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="position">职位</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.position" name="position" type="text" id="position"
+               placeholder="请输入职位">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="home">住址</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" nzHasFeedback>
+        <input nz-input [(ngModel)]="validateForm.home" name="home" type="text" id="home"
+               placeholder="请输入住址">
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-row class="text-center pt-30">
+    <button nz-button [disabled]="!addStaffForm.valid" class="btn-thc" *ngIf="path==='add'"
+            (click)="addStaff()">
+      <span>提交</span>
+    </button>
+    <button nz-button [disabled]="!addStaffForm.valid" class="btn-thc" *ngIf="path==='up'"
+            (click)="upStaff()">
+      <span>提交</span>
+    </button>
+  </div>
+</form>

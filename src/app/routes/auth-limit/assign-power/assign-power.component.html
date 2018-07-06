@@ -1,0 +1,27 @@
+<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
+  <i class="anticon anticon-rollback font20"></i>
+</button>
+<div *ngIf="showWindow">
+  <div class="fieldset pt-20">
+    <div class="legend bb-dashed">为<span class="FontBig font20 mb-10 Bold color-red">&nbsp;{{roleName}}&nbsp;</span>
+      分配权限
+    </div>
+  </div>
+  <div class="ml-20 pl">
+    <nz-tree #nzTree
+             [(ngModel)]="nodes"
+             [nzCheckable]="true"
+             [nzMultiple]="true"
+             [nzDefaultCheckedKeys]="checkedKeys"
+             [nzDefaultExpandAll]="true"
+             (nzCheckBoxChange)="mouseAction()"
+    >
+    </nz-tree>
+  </div>
+  <nz-divider></nz-divider>
+  <div class="text-center">
+    <button nz-button title="提交" class="btn-thc mt" nzSize="large" (click)="add()" [disabled]="disabledBtn">
+      <span>提交</span>
+    </button>
+  </div>
+</div>

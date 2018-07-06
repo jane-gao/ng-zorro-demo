@@ -1,0 +1,61 @@
+<div [hidden]="!showList">
+  <div class="mb-15">
+    <div class="font16 mb-10">
+      <i class="anticon anticon-switcher mr"></i><span>角色列表</span>
+      <button nz-button class="btn-thc fr" title="添加" (click)="addRole()">
+        <i class="anticon anticon-plus"></i><span>添加</span>
+      </button>
+    </div>
+  </div>
+
+  <nz-table #nzTable
+            [nzData]="rolePage.voList"
+            [nzLoading]="_loading"
+            [nzTotal]="rolePage.totalRow"
+            [nzPageIndex]="rolePage.curPage"
+            [nzFrontPagination]="false"
+            (nzPageIndexChange)="queryRoleList($event)"
+            [nzPageSize]="rolePage.pageSize">
+    <thead nz-thead>
+    <tr>
+      <th nz-th class="text-center"><span>序号</span></th>
+      <th nz-th class="text-center"><span>角色名称</span></th>
+      <th nz-th class="text-center"><span>备注</span></th>
+      <th nz-th class="text-center"><span>权限分配</span></th>
+      <th nz-th class="text-center"><span>停启用</span></th>
+      <th nz-th class="text-center"><span>修改</span></th>
+    </tr>
+    </thead>
+    <tbody nz-tbody>
+    <tr nz-tbody-tr class="text-center" *ngFor="let role of nzTable.data;let i=index;">
+      <td nz-td>{{i+1}}</td>
+      <td nz-td>{{role.roleName}}</td>
+      <td nz-td>{{role.remarks}}</td>
+      <td nz-td>
+        <button nz-button class="mt-5" title="分配角色" class="btn-green" [routerLink]="assignRoleUrl"
+                [queryParams]="{name:role.roleName,code: role.roleCode}">
+          <i class="anticon anticon-tag-o"></i>
+        </button>
+      </td>
+      <td nz-td>
+        <nz-switch [name]="'isForever'+i" class="thc" (ngModelChange)="yesOrNo($event,role.roleCode)"
+                   [ngModelOptions]="{standalone: true}" [ngModel]="role.isUse===yesOrNoState.yes">
+          <span checked>是</span>
+          <span unchecked>否</span>
+        </nz-switch>
+      </td>
+      <td nz-td>
+        <button nz-button class="mt-5" title="修改信息" class="btn-blue" (click)="updateRole(role.roleCode	)">
+          <i class="anticon anticon-edit"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+<!--路由嵌套 begin-->
+<router-outlet (activate)="activate($event)" (deactivate)='onDeactivate($event)'></router-outlet>
+<!--路由嵌套 end-->
+

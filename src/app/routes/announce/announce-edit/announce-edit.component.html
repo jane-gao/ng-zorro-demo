@@ -1,0 +1,48 @@
+<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
+  <i class="anticon anticon-rollback font20"></i>
+</button>
+
+<form nz-form class="p-20" #announceEditForm="ngForm">
+  <div class="fieldset">
+    <div class="legend bb">编辑公告</div>
+    <nz-form-item>
+      <nz-form-label [nzMd]="4" [nzSm]="24">标题</nz-form-label>
+      <nz-form-control [nzMd]="16" [nzSm]="24" nzHasFeedback>
+        <input nz-input name="title" [(ngModel)]="validateForm.title" #ngTitle="ngModel" required type="text" placeholder="公告标题">
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngTitle)==valitateState.empty">请输入标题！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzMd]="4" [nzSm]="24">内容</nz-form-label>
+      <nz-col [nzMd]="16" [nzSm]="24">
+        <div class="w100">
+          <ckeditor class="editor" name="content" [(ngModel)]="validateForm.content"></ckeditor>
+        </div>
+      </nz-col>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzMd]="4" [nzSm]="24">状态</nz-form-label>
+      <nz-form-control [nzMd]="16" [nzSm]="24">
+        <nz-switch name="state" class="thc" [(ngModel)]="validateForm.state">
+          <span checked>上线</span>
+          <span unchecked>下线</span>
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzMd]="4" [nzSm]="24">是否置顶</nz-form-label>
+      <nz-form-control [nzMd]="16" [nzSm]="24">
+        <nz-switch name="isTop" class="thc" [(ngModel)]="validateForm.isTop">
+          <span checked>是</span>
+          <span unchecked>否</span>
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div class="text-center">
+    <button nz-button title="保存" class="mt-5 btn-thc" [disabled]="!announceEditForm.valid"
+            (click)="submitAnnounceForm()">
+      <i class="anticon anticon-save"></i> 提交
+    </button>
+  </div>
+</form>

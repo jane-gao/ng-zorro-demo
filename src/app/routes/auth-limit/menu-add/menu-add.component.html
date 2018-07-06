@@ -1,0 +1,42 @@
+<form nz-form #addMenu="ngForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="menuName">菜单名称</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngMenuName)" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.menuName" name="menuName" #ngMenuName="ngModel" type="text" required
+             id="menuName">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngMenuName) == valitateState.empty">请填写菜单名称！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="menuUrl">菜单URL</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngMenuUrl)" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.menuUrl" name="menuUrl" #ngMenuUrl="ngModel" type="text" required
+             id="menuUrl">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngMenuUrl) == valitateState.empty">请填写菜单URL路径！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="ord">菜单顺序</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngOrd)" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.ord" name="ord" #ngOrd="ngModel" type="text" required
+             id="ord">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngOrd) == valitateState.empty">请填写菜单顺序！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="menuIcon">菜单图标</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.menuIcon" name="menuIcon" type="text" id="menuIcon">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.remarks" name="remarks" type="text" id="remarks">
+    </nz-form-control>
+  </nz-form-item>
+  <div class="customize-footer text-right myTop">
+    <button nz-button [nzType]="'ghost'" (click)="handleCancel()">取消</button>
+    <button nz-button [nzType]="'primary'" (click)="handleOk()" [disabled]="!addMenu.form.valid">确定</button>
+  </div>
+</form>

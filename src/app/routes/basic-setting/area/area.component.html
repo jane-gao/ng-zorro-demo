@@ -1,0 +1,32 @@
+<div class="page-title">区域管理</div>
+<nz-table #nzTable [nzData]="dictionaryValue.voList"
+          [nzLoading]="_loading"
+          [nzShowTotal]="true"
+          [nzFrontPagination]="false">
+  <ng-template #nzFixedHeader>
+    <thead nz-thead>
+    <tr>
+      <th nz-th class="text-center" nzWidth="10%"><span>序号</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>地区编码</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>地区名称</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>层级</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>操作</span></th>
+    </tr>
+    </thead>
+  </ng-template>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center w8">{{i+1}}</td>
+      <td nz-td class="text-center w15">{{data.typeCode}}</td>
+      <td nz-td class="text-center w15">{{data.info}}</td>
+      <td nz-td class="text-center w7">{{data.sort}}</td>
+      <td nz-td class="text-center w10">
+        <button nz-button title="修改" class="btn-blue">
+          <i class="anticon anticon-edit"></i>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

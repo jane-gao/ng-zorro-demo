@@ -1,0 +1,135 @@
+<!--<div class="page-title">
+  <h3 class="fl">帮助分类</h3>
+  <button class="fr m btn-thc" nz-button>
+    <i class="anticon anticon-plus"></i><span>添加分类</span>
+  </button>
+</div>-->
+<div nz-row>
+  <div nz-col [nzSpan]="6" class="pr">
+    <div class="mb page-title">
+      <h3 class="fl">帮助分类</h3>
+      <button class="fr m btn-thc" nz-button
+              (click)="showModalForTemplate('add',typeTitle,typeContent,typeFooter)">
+        <i class="anticon anticon-plus"></i><span>添加分类</span>
+      </button>
+    </div>
+    <ng-container *ngIf="helpKindList.voList.length > 0">
+      <ul class="data-list pr">
+        <li class="data-item none mb-20" *ngFor="let data of helpKindList.voList;let i=index">
+          <nz-card class="w100" [ngClass]="{'checked': curKind.id === data.id}"
+                   [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+            <nz-card-meta [nzTitle]="data.kindName" [nzDescription]="data.description"></nz-card-meta>
+          </nz-card>
+          <ng-template #actionSetting>
+            <nz-switch class="thc" [(ngModel)]="data.state === enumState.showState.show"
+                       [ngModelOptions]="{standalone: true}"
+                       (ngModelChange)="changeIsEnable(data.id, $event)">
+              <span checked>是</span>
+              <span unchecked>否</span>
+            </nz-switch>
+          </ng-template>
+          <ng-template #actionEdit>
+            <i class="anticon anticon-edit" title="修改"
+               (click)="showModalForTemplate('up',typeTitle,typeContent,typeFooter,data.id)"></i>
+          </ng-template>
+          <ng-template #actionEllipsis>
+            <span title="查看" (click)="setCurType(data)">查看</span>
+            <!--<i class="anticon anticon-ellipsis"></i>-->
+          </ng-template>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="helpKindList.voList.length == 0">
+      <div class="ant-table-placeholder"><span class="ng-star-inserted">暂无数据</span></div>
+    </ng-container>
+  </div>
+</div>
+
+<!--弹窗—添加/修改类型 start-->
+<form nz-form #editTypeForm="ngForm">
+  <ng-template #typeTitle>
+    <span>{{typeEditTitle}}</span>
+  </ng-template>
+  <ng-template #typeContent>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngName)" nzHasFeedback>
+        <input [(ngModel)]="validateForm.name" name="name" id="name" #ngName="ngModel" required type="text" nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngName) == valitateState.empty">请输入类型名称！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>备注</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngRemark)" nzHasFeedback>
+        <input name="remark" [(ngModel)]="validateForm.remark" #ngRemark="ngModel" type="text" id="remark" required
+               nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngRemark) == valitateState.empty">请输入类型备注！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code" nzRequired>编码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngCode)" nzHasFeedback>
+        <input name="code" [(ngModel)]="validateForm.code" #ngCode="ngModel" type="text" id="code" required
+               nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngCode) == valitateState.empty">请输入类型编码！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">是否唯一</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch name="isUniqueVal" class="thc" [(ngModel)]="validateForm.isUniqueVal">
+          <span checked>是</span>
+          <span unchecked>否</span>
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-template>
+  <ng-template #typeFooter>
+    <div>
+      <button nz-button class="btn" [nzType]="'ghost'" (click)="handleCancel()"> 取消
+      </button>
+      <button nz-button class="btn" [nzType]="'primary'" (click)="handleOk()"
+              [nzLoading]="isConfirmLoading" [disabled]="!editTypeForm.valid">
+        确定
+      </button>
+    </div>
+  </ng-template>
+</form>
+<!--弹窗—添加/修改类型 end-->
+<!--<nz-table #nzTable [nzData]="helpKindList.voList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false"
+          [nzPageSize]="helpKindList.pageSize"
+          [nzTotal]="helpKindList.totalRow"
+          [nzPageIndex]="helpKindList.curPage"
+          (nzPageIndexChange)="queryHelpKindList($event)">
+  <ng-template #nzFixedHeader>
+    <thead nz-thead>
+    <tr>
+      <th nz-th class="text-center" nzWidth="10%"><span>序号</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>名称</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>描述</span></th>
+      <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
+      <th nz-th class="text-center" nzWidth="10%"><span>时间</span></th>
+      <th nz-th class="text-center" nzWidth="20%"><span>管理</span></th>
+    </tr>
+    </thead>
+  </ng-template>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-center">{{data.typeCode}}</td>
+      <td nz-td class="text-center">{{data.info}}</td>
+      <td nz-td class="text-center">{{data.info}}</td>
+      <td nz-td class="text-center">{{data.sort}}</td>
+      <td nz-td class="text-center">
+        <button nz-button title="修改" class="btn-blue">
+          <i class="anticon anticon-edit"></i>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>-->

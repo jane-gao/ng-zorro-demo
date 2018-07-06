@@ -1,0 +1,16 @@
+<form nz-form #upPwdForm="ngForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="newpwd">设置密码</nz-form-label>
+    <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngNewpwd)" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.newpwd" name="pwd" #ngNewpwd="ngModel" type="text" id="newpwd"
+             required placeholder="输入新的登录密码">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngNewpwd) == valitateState.empty">请设置登录密码！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row class="text-center pt-30">
+    <button nz-button [disabled]="!upPwdForm.valid" class="btn-thc"
+            (click)="upStaffPwd()">
+      <span>提交</span>
+    </button>
+  </div>
+</form>

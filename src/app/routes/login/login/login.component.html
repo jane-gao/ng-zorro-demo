@@ -1,0 +1,70 @@
+<nz-layout class="login-layout">
+  <!--登录页的顶部start-->
+  <nz-header class="login-header">
+    <!--登录页logo start-->
+    <div class="login-logo">
+      <img [src]="app.logoDark">
+    </div>
+    <!--登录页logo end-->
+  </nz-header>
+  <!--登录页的顶部end-->
+  <!--登录页中心的广告banner start-->
+  <nz-content>
+    <div class="login-center" style="padding: 0;">
+      <nz-carousel nzAutoPlay>
+        <div class="login-center-banner" nz-carousel-content *ngFor="let index of array">
+          <img [src]="index">
+        </div>
+      </nz-carousel>
+    </div>
+  </nz-content>
+  <!--登录页中心的广告banner end-->
+  <!--登录页底部 start-->
+  <nz-footer class="login-footer">{{app.copyright}}</nz-footer>
+  <!--登录页底 部 end-->
+</nz-layout>
+
+<!--登录验证表单start-->
+<form nz-form [formGroup]="validateForm" class="login-form">
+  <!--表单头部start-->
+  <div class="headings"><h1>账号登录</h1></div>
+  <!--表单头部end-->
+  <!--表单用户名input框start-->
+  <nz-form-item class="login-form-information">
+    <nz-form-control [nzValidateStatus]="validateForm.controls['account']" nzHasFeedback>
+      <nz-input-group nzPrefixIcon="anticon anticon-user font18" >
+        <input nz-input name="account" type="text" placeholder="请填写用户名" nzSize="large">
+      </nz-input-group>
+      <nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('required')">请填写用户名</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <!--表单用户名input框end-->
+  <!--表单密码input框start-->
+  <nz-form-item class="login-form-information">
+    <nz-form-control [nzValidateStatus]="validateForm.controls['pwd']" nzHasFeedback>
+      <nz-input-group nzPrefixIcon="anticon anticon-lock font18">
+        <input nz-input name="pwd" type="password" placeholder="密码" nzSize="large">
+      </nz-input-group>
+      <nz-form-explain *ngIf="getFormControl('pwd').dirty&&getFormControl('pwd').hasError('required')">请填写密码</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <!--表单密码input框end-->
+
+  <!--表单底部start-->
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button" [nzType]="'primary'"
+              (click)="login($event,validateForm.value)">登录
+      </button>
+      <div class="passed">
+        <!--<ul class="fr mr-20 mt-5">
+          <li [routerLink]="registerUrl" class="br">注册</li>
+          <li [routerLink]="resetPwdUrl">忘记密码？</li>
+        </ul>-->
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <!--表单底部end-->
+</form>
+<!--登录验证的表单end-->
+

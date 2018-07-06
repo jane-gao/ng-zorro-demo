@@ -1,0 +1,31 @@
+<nz-table #nzTable
+          [nzData]="userCandyList.voList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false"
+          [nzTotal]="userCandyList.totalRow"
+          [nzPageIndex]="userCandyList.curPage"
+          [nzPageSize]="userCandyList.pageSize"
+          (nzPageIndexChange)="queryCandyList($event)">
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center w10"><span>序号</span></th>
+    <th nz-th class="text-center w10"><span>交易额</span></th>
+    <th nz-th class="text-center w20"><span>会计科目</span></th>
+    <th nz-th class="text-center w15"><span>记录方向</span></th>
+    <th nz-th class="text-center w25"><span>备注</span></th>
+    <th nz-th class="text-center w20"><span>创建时间</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center w10">{{i+1}}</td>
+      <td nz-td class="text-center w10">{{data.amount}}</td>
+      <td nz-td class="text-center w20">{{data.subjectName}}</td>
+      <td nz-td class="text-center w15">{{data.direction}}</td>
+      <td nz-td class="text-center w25">{{data.remark}}</td>
+      <td nz-td class="text-center w20">{{data.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

@@ -1,0 +1,25 @@
+
+<form nz-form #updateShopForm="ngForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">
+      <span>角色名称</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.roleName" name="roleName" #ngRoleName="ngModel" type="text" required>
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngRoleName) == valitateState.empty">请输入角色名称！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">
+      <span>备注</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input [(ngModel)]="validateForm.remarks" name="remarks" #ngRemarks="ngModel" type="text" required>
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngRemarks) == valitateState.empty">请输入备注！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="customize-footer text-right myTop">
+    <button nz-button [nzType]="'ghost'" (click)="handleCancel()">取消</button>
+    <button nz-button [nzType]="'primary'" (click)="handleOk()" [disabled]="!updateShopForm.form.valid">确定</button>
+  </div>
+</form>

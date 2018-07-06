@@ -1,0 +1,24 @@
+<form nz-form #bindRolesForm="ngForm">
+  <!--<nz-form-item>
+    <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="pwd">选择角色组</nz-form-label>
+    <nz-form-control [nzSm]="10" [nzXs]="24">
+      <nz-select style="width: 100%" [(ngModel)]="tagRoleGroupValue" nzMode="tags" name="group"
+                 nzPlaceHolder="选择角色组">
+        <nz-option *ngFor="let option of roleGroupList" [nzLabel]="option.roleGroupName" [nzValue]="option.roleGroupCode"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="pwd">选择角色</nz-form-label>
+    <nz-form-control [nzSm]="10" [nzXs]="24">
+      <nz-select style="width: 100%" [(ngModel)]="tagRoleValue" nzMode="tags" name="role"
+                 nzPlaceHolder="选择角色">
+        <nz-option *ngFor="let option of roleList" [nzLabel]="option.roleName" [nzValue]="option.roleCode"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="customize-footer text-right myTop">
+    <button nz-button [nzType]="'ghost'" (click)="handleCancel()">取消</button>
+    <button nz-button class="btn-thc" [nzType]="'primary'" (click)="bindRoles()" [disabled]="!bindRolesForm.valid || disabledBtn">确定</button>
+  </div>
+</form>

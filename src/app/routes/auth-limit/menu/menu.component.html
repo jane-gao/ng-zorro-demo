@@ -1,0 +1,73 @@
+<div class="page-title">
+  <h3 class="fl">菜单列表</h3>
+  <button class="fr m btn-thc" nz-button
+          (click)="showAddMenuTemplate()">
+    <i class="anticon anticon-plus"></i><span>新增菜单</span>
+  </button>
+</div>
+<div class="font15 mt mb pl">
+  <i class="anticon anticon-home font18 color-green"></i>
+  <span class="cursor" (click)="queryChildMenuList()">菜单权限</span>
+  <ng-container *ngFor="let menuTit of childMenuTitList">
+    <i class="anticon anticon-arrow-right"></i>
+    <font class="cursor-p" (click)="queryChildMenuList(menuTit.code,menuTit.name,true)">{{menuTit.name}}</font>
+  </ng-container>
+  <button nz-button *ngIf="childMenuTitList.length>0" (click)="goBackMenu()" class="btn" nzType="default"
+          nzSize="small">
+    <i class="anticon anticon-rollback"></i>上一级
+  </button>
+</div>
+<nz-table #nzTable
+          [nzData]="menuList.voList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false"
+          [nzPageSize]="menuList.pageSize"
+          [nzTotal]="menuList.totalRow"
+          [nzPageIndex]="menuList.curPage"
+          (nzPageIndexChange)="queryMenuList($event)">
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center w5"><span>序号</span></th>
+    <th nz-th class="text-center w10"><span>菜单名称</span></th>
+    <th nz-th class="text-center w20"><span>菜单URL</span></th>
+    <th nz-th class="text-center w10"><span>菜单图标</span></th>
+    <th nz-th class="text-center w10"><span>级别</span></th>
+    <th nz-th class="text-center w10"><span>备注</span></th>
+    <th nz-th class="text-center w10"><span>菜单顺序</span></th>
+    <th nz-th class="text-center w10"><span>是否启用</span></th>
+    <th nz-th class="text-center w15"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-center">{{data.menuName}}</td>
+      <td nz-td class="text-center">{{data.menuUrl}}</td>
+      <td nz-td class="text-center"><i class="anticon anticon-{{data.menuIcon}} font18"></i></td>
+      <td nz-td class="text-center">{{data.level}}</td>
+      <td nz-td class="text-center">{{data.remarks}}</td>
+      <td nz-td class="text-center">{{data.ord}}</td>
+      <td nz-td class="text-center">
+        <nz-switch [name]="'isUse'+i" class="thc" (ngModelChange)="yesOrNo($event,data.menuCode)"
+                   [ngModel]="data.isUse===yesOrNoState.yes">
+          <span checked>是</span>
+          <span unchecked>否</span>
+        </nz-switch>
+      </td>
+      <td nz-td class="text-center">
+        <button nz-button title="修改" class="btn-blue" (click)="showUpMenuTemplate(data.menuName,data.menuCode)">
+          <i class="anticon anticon-edit"></i>
+        </button>
+        <button nz-button title="添加子菜单" class="btn-green" (click)="showAddSubMenuTemplate(data.menuName,data.menuCode)">
+          <i class="anticon anticon-plus"></i>
+        </button>
+        <button nz-button title="查看子菜单" class="btn-warning" *ngIf="data.hasSon === yesOrNoState.yes"
+                (click)="queryChildMenuList(data.menuCode,data.menuName,false)">
+          <i class="anticon anticon-arrow-down"></i>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

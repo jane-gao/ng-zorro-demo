@@ -1,0 +1,107 @@
+.login-logo {
+  height: 76px;
+}
+
+.login-logo img {
+  margin: 17px 24px 17px 0;
+}
+
+.login-layout .login-header {
+  background: #ececec;
+  height: 76px;
+}
+
+.login-layout .login-center {
+  height: 558px;
+  padding: 0;
+  background: #fff;
+}
+
+.login-layout .login-footer {
+  text-align: center;
+  padding-top: 60px;
+}
+
+.login-layout .login-center .login-center-banner {
+  width: 100%;
+  height: 558px;
+}
+
+.login-layout .login-center .login-center-banner img {
+  width: 100%;
+  height: 100%;
+}
+
+.login-form-button {
+  height: 44px;
+  width: 80%;
+  margin-left: 9%;
+  color: white;
+}
+
+.ant-btn-primary:hover {
+  color: white;
+}
+
+.ant-btn-primary:focus {
+  color: white;
+}
+
+.login-form {
+  width: 22%;
+  min-width: 360px;
+  height: 460px;
+  background: #ffffff;
+  position: absolute;
+  top: 125px;
+  right: 20%;
+}
+
+.login-form .login-form-information {
+  width: 80%;
+  height: 44px;
+  margin-left: 9%;
+}
+
+.headings h1 {
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+  color: #1BBC9B;
+  margin-bottom: 10px;
+}
+
+.login-form .passed ul li {
+  display: inline;
+  padding: 0 15px;
+}
+
+.login-form .passed ul li:focus {
+  outline: none;
+}
+
+.login-form .passed ul li:hover {
+  color: #1BBC9B;
+  cursor: pointer;
+}
+
+.login-form .ant-btn-primary {
+  background-color: #1BBC9B;
+  border-color: #1BBC9B;
+}
+
+.login-form .ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: #1BBC9B;
+  border-color: #1BBC9B;
+}
+
+.login-form input {
+  height: 40px;
+  font-size: 14px;
+}
+
+.login-form .ant-form-item-with-help {
+  margin-bottom: 24px;
+}
+
+

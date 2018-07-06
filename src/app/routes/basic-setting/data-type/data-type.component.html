@@ -1,0 +1,107 @@
+<div nz-row>
+  <!--数据字典类型 end-->
+  <div nz-col [nzSpan]="6" class="pr">
+    <div class="mb page-title">
+      <h3 class="fl">类型管理</h3>
+      <button class="fr m btn-thc" nz-button
+              (click)="showModalForTemplate('add',typeTitle,typeContent,typeFooter)">
+        <i class="anticon anticon-plus"></i><span>新增类型</span>
+      </button>
+    </div>
+    <ng-container *ngIf="dictionaryType.voList.length > 0">
+      <ul class="data-list pr">
+        <li class="data-item none mb-20" *ngFor="let data of dictionaryType.voList;let i=index">
+          <nz-card class="w100" [ngClass]="{'checked': curType.code === data.code}"
+                   [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+            <nz-card-meta [nzTitle]="data.name" [nzDescription]="data.description"></nz-card-meta>
+          </nz-card>
+          <ng-template #actionSetting>
+            <nz-switch class="thc" [(ngModel)]="data.enable === enumState.yes"
+                       [ngModelOptions]="{standalone: true}" [name]="'enable'+i"
+                       (ngModelChange)="changeIsEnable(data.code, $event)">
+              <span checked>是</span>
+              <span unchecked>否</span>
+            </nz-switch>
+          </ng-template>
+          <ng-template #actionEdit>
+            <i class="anticon anticon-edit" title="修改"
+               (click)="showModalForTemplate('up',typeTitle,typeContent,typeFooter,data.code)"></i>
+          </ng-template>
+          <ng-template #actionEllipsis>
+            <span title="查看" (click)="setCurType(data)">查看</span>
+            <!--<i class="anticon anticon-ellipsis"></i>-->
+          </ng-template>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="dictionaryType.voList.length == 0">
+      <div class="ant-table-placeholder"><span class="ng-star-inserted">暂无数据</span></div>
+    </ng-container>
+  </div>
+  <!--数据字典类型 end-->
+
+  <div nz-col [nzSpan]="1" class="text-center">
+    <i class="anticon anticon-caret-right mt-slg color-red"></i>
+  </div>
+
+  <!--数据字典信息 start-->
+  <div nz-col [nzSpan]="17" class="pl">
+    <app-data-value [curType]="curType"></app-data-value>
+  </div>
+  <!--数据字典信息 end-->
+</div>
+
+<!--弹窗—添加/修改类型 start-->
+<form nz-form #editTypeForm="ngForm">
+  <ng-template #typeTitle>
+    <span>{{typeEditTitle}}</span>
+  </ng-template>
+  <ng-template #typeContent>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngName)" nzHasFeedback>
+        <input [(ngModel)]="validateForm.name" name="name" id="name" #ngName="ngModel" required type="text" nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngName) == valitateState.empty">请输入类型名称！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>备注</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngRemark)" nzHasFeedback>
+        <input name="remark" [(ngModel)]="validateForm.remark" #ngRemark="ngModel" type="text" id="remark" required
+               nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngRemark) == valitateState.empty">请输入类型备注！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code" nzRequired>编码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngCode)" nzHasFeedback>
+        <input name="code" [(ngModel)]="validateForm.code" #ngCode="ngModel" type="text" id="code" required
+               nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngCode) == valitateState.empty">请输入类型编码！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="isAddType">
+      <nz-form-label [nzSm]="6" [nzXs]="24">是否唯一</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch name="isUniqueVal" class="thc" [(ngModel)]="validateForm.isUniqueVal">
+          <span checked>是</span>
+          <span unchecked>否</span>
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-template>
+  <ng-template #typeFooter>
+    <div>
+      <button nz-button class="btn" [nzType]="'ghost'" (click)="handleCancel()"> 取消
+      </button>
+      <button nz-button class="btn" [nzType]="'primary'" (click)="handleOk()"
+              [nzLoading]="isConfirmLoading" [disabled]="!editTypeForm.valid">
+        确定
+      </button>
+    </div>
+  </ng-template>
+</form>
+<!--弹窗—添加/修改类型 end-->
+
+
