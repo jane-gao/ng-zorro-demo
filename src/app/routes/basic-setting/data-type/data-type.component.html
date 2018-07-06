@@ -16,7 +16,7 @@
             <nz-card-meta [nzTitle]="data.name" [nzDescription]="data.description"></nz-card-meta>
           </nz-card>
           <ng-template #actionSetting>
-            <nz-switch class="thc" [(ngModel)]="data.enable === enumState.yes"
+            <nz-switch class="thc" [ngModel]="data.enable === enumState.yes"
                        [ngModelOptions]="{standalone: true}" [name]="'enable'+i"
                        (ngModelChange)="changeIsEnable(data.code, $event)">
               <span checked>是</span>

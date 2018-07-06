@@ -39,7 +39,7 @@ export class DataTypeComponent implements OnInit {
   setCurType(data) {
     this.curType = {
       name: data.name,
-      code: data.id
+      code: data.code
     };
   }
 

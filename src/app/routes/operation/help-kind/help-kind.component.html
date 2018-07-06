@@ -21,7 +21,7 @@
             <nz-card-meta [nzTitle]="data.kindName" [nzDescription]="data.description"></nz-card-meta>
           </nz-card>
           <ng-template #actionSetting>
-            <nz-switch class="thc" [(ngModel)]="data.state === enumState.showState.show"
+            <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show"
                        [ngModelOptions]="{standalone: true}"
                        (ngModelChange)="changeIsEnable(data.id, $event)">
               <span checked>是</span>
@@ -43,6 +43,17 @@
       <div class="ant-table-placeholder"><span class="ng-star-inserted">暂无数据</span></div>
     </ng-container>
   </div>
+
+  <div nz-col [nzSpan]="1" class="text-center">
+    <i class="anticon anticon-caret-right mt-slg color-red"></i>
+  </div>
+
+
+  <!--数据字典信息 start-->
+  <div nz-col [nzSpan]="17" class="pl">
+    <app-help-answer [curKind]="curKind"></app-help-answer>
+  </div>
+  <!--数据字典信息 end-->
 </div>
 
 <!--弹窗—添加/修改类型 start-->

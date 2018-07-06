@@ -115,6 +115,7 @@ export class BasicSettingService {
       success: (res) => {
         if (res.success) {
           defer.resolve(true);
+          me._notification.success(`操作成功`, res.info)
         } else {
           defer.resolve(false);
           me._notification.error(`错误提示`, res.info)

@@ -5,11 +5,15 @@
     <i class="anticon anticon-plus"></i><span>新增键值</span>
   </button>
 </div>
-<nz-table #nzTable [nzScroll]="{y:620}"
+<nz-table #nzTable [nzScroll]="{y:560}"
           [nzData]="dictionaryValue.voList"
           [nzLoading]="_loading"
           [nzShowTotal]="true"
-          [nzFrontPagination]="false">
+          [nzFrontPagination]="false"
+          [nzPageSize]="dictionaryValue.pageSize"
+          [nzTotal]="dictionaryValue.totalRow"
+          [nzPageIndex]="dictionaryValue.curPage"
+          (nzPageIndexChange)="queryDictionaryValue($event)">
   <ng-template #nzFixedHeader>
     <thead nz-thead>
     <tr>

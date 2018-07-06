@@ -36,7 +36,7 @@ export class HelpKindComponent implements OnInit {
 
   setCurType(data) {
     this.curKind = {
-      name: data.name,
+      name: data.kindName,
       id: data.id
     };
   }
@@ -54,7 +54,7 @@ export class HelpKindComponent implements OnInit {
         me._loading = false; //解除锁屏
         me.helpKindList = res;
         me.curKind = {
-          name: me.helpKindList.voList[0].name,
+          name: me.helpKindList.voList[0].kindName,
           id: me.helpKindList.voList[0].id
         };
       } //赋值

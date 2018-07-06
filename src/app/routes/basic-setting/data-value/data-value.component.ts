@@ -4,6 +4,7 @@ import {BasicSettingService} from "../basic-setting.service";
 import {NzModalService} from "ng-zorro-antd";
 import {Util} from "../../../public/util/util";
 import {Setting} from "../../../public/setting/setting";
+import {isNullOrUndefined} from "util";
 declare var $: any;
 
 @Component({
@@ -38,12 +39,13 @@ export class DataValueComponent implements OnInit,OnChanges {
   ngOnInit() {
   }
 
-  queryDictionaryValue() {
+  queryDictionaryValue(curPage?:number) {
     let me = this;
     me._loading = true; //锁屏
+    if (!isNullOrUndefined(curPage)) me.dictionaryValue.curPage = curPage;//当有页码时，查询该页数据
     me.dictionaryValue.params = { //查询参数
       curPage: me.dictionaryValue.curPage, //目标页码
-      pageSize: me.dictionaryValue.pageSize, //每页条数
+      pageSize: 8, //每页条数
       code: me.curType.code
     }
     $.when(BasicSettingService.getList(me.dataType, me.dictionaryValue.params)).done(res => {
