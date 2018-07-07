@@ -67,7 +67,9 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
       id: id,
       state: enable ? Setting.ENUMSTATE.showState.show : Setting.ENUMSTATE.showState.hide
     };
-    me.operationService.updateHelpQuestionState(data);
+    $.when(me.operationService.updateHelpQuestionState(data)).always(res => {
+      if (!res) me.getHelpAnswerList(); //不成功刷新列表，可以重置switch
+    })
   }
 
   /**
@@ -121,7 +123,7 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
     me.validateForm.id = me.curKind.id;
     let formVal = Object.assign({}, me.validateForm);
     if (me.isAddVal) {
-      $.when(me.operationService.addHelpQuestions(formVal)).then(success => {
+      $.when(me.operationService.addHelpQuestions(formVal)).always(success => {
         if (success) {
           me.handleCancel();
           me.getHelpAnswerList()
@@ -129,7 +131,7 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
         me.isConfirmLoading = false;
       })
     } else {
-      $.when(me.operationService.updateHelpQuestion(formVal)).then(success => {
+      $.when(me.operationService.updateHelpQuestion(formVal)).always(success => {
         if (success) {
           me.handleCancel();
           me.getHelpAnswerList()

@@ -6,6 +6,8 @@ import {HelpAnswerComponent} from "./help-answer/help-answer.component";
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import {OperationService} from "./operation.service";
+import {BrandAddComponent} from './brand-add/brand-add.component';
+import {BrandUpComponent} from './brand-up/brand-up.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'help-kind'},
@@ -19,7 +21,9 @@ const routes: Routes = [
     SharedModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [KindsComponent, BrandsComponent, HelpKindComponent, HelpAnswerComponent],
-  providers: [OperationService]
+  declarations: [KindsComponent, BrandsComponent, HelpKindComponent, HelpAnswerComponent, BrandAddComponent, BrandUpComponent],
+  providers: [OperationService],
+  entryComponents: [BrandAddComponent, BrandUpComponent]
 })
-export class OperationModule { }
+export class OperationModule {
+}

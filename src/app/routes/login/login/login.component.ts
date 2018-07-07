@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     //判断是否已经登录，已经登录，引导进入首页
     let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
-    if (loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.store.home]); //路由跳转（首页）
+    if (loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.basic.home]); //路由跳转（首页）
   }
 
   /**

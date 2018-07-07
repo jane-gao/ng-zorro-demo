@@ -71,25 +71,18 @@ export class HomeComponent implements OnInit {
   /*常用功能*/
   private setCommonFns() {
     const routerLinks = SettingUrl.ROUTERLINK;
-    console.log("█ Setting.MENUS ►►►", Setting.MENUS);
     this.commonFunctions = [
       {
-        icon: "anticon anticon-user color-pink",
-        info: "查看用户",
-        url: routerLinks.user.list,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.user.list)
+        icon: "anticon anticon-usergroup-add color-orange",
+        info: "管理权限",
+        url: routerLinks.staff.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.staff.list)
       },
       {
-        icon: "iconfont icon-shenhe color-green",
-        info: "认证审核",
-        url: routerLinks.user.auth,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.user.auth)
-      },
-      {
-        icon: "anticon anticon-notification color-blue",
-        info: "发布公告",
-        url: routerLinks.announce.list,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.announce.list)
+        icon: "anticon anticon-usergroup-add color-orange",
+        info: "管理权限",
+        url: routerLinks.staff.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.staff.list)
       },
       {
         icon: "anticon anticon-usergroup-add color-orange",

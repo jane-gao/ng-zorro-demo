@@ -49,9 +49,9 @@ export class HelpKindComponent implements OnInit {
       curPage: me.helpKindList.curPage, //目标页码
       pageSize: me.helpKindList.pageSize, //每页条数
     }
-    $.when(me.operationService.getHelpKindList(me.helpKindList.params)).then(res => {
+    $.when(me.operationService.getHelpKindList(me.helpKindList.params)).always(res => {
+      me._loading = false; //解除锁屏
       if (res) {
-        me._loading = false; //解除锁屏
         me.helpKindList = res;
         me.curKind = {
           name: me.helpKindList.voList[0].kindName,
@@ -71,7 +71,7 @@ export class HelpKindComponent implements OnInit {
       id: id,
       state: enable ? Setting.ENUMSTATE.showState.show : Setting.ENUMSTATE.showState.hide
     };
-    $.when(me.operationService.updateHelpKindState(data)).done(res => {
+    $.when(me.operationService.updateHelpKindState(data)).always(res => {
       if (!res) me.queryHelpKindList()
     })
   }
@@ -126,7 +126,7 @@ export class HelpKindComponent implements OnInit {
     let me = this;
     me.isConfirmLoading = true;
     if (me.isAddKind) {
-      $.when(me.operationService.addHelpKind(me.validateForm)).then(success => {
+      $.when(me.operationService.addHelpKind(me.validateForm)).always(success => {
         if (success) {
           me.handleCancel();
           me.queryHelpKindList()
@@ -134,7 +134,7 @@ export class HelpKindComponent implements OnInit {
         me.isConfirmLoading = false;
       })
     } else {
-      $.when(me.operationService.updateHelpKind(me.validateForm)).then(success => {
+      $.when(me.operationService.updateHelpKind(me.validateForm)).always(success => {
         if (success) {
           me.handleCancel();
           me.queryHelpKindList()

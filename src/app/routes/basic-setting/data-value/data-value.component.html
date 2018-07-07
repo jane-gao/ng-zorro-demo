@@ -35,10 +35,9 @@
       <td nz-td class="text-center w7">{{data.sort}}</td>
       <td nz-td class="text-center w20">{{data.remark}}</td>
       <td nz-td class="text-center w15">
-        <nz-switch class="thc" [ngModel]="data.enable === enumState.yes" [ngModelOptions]="{standalone: true}"
+        <nz-switch class="thc" [ngModel]="data.enable === enumState.yes"
+                   nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}"
                    (ngModelChange)="changeIsEnable(data.code, $event)">
-          <span checked>是</span>
-          <span unchecked>否</span>
         </nz-switch>
       </td>
       <td nz-td class="text-center w10">{{data.createTime | date:'yyyy-MM-dd'}}</td>

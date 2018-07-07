@@ -103,7 +103,7 @@ export class StaffAddComponent implements OnInit {
       return item.status == 'done' && item.uid != -1;//新上传的图片
     })
     if (uploadedFile.length > 0) me.validateForm.uuid = me.uuid;
-    $.when(me.authLimitService.upStaff(me.validateForm)).then(res => {
+    $.when(me.authLimitService.upStaff(me.validateForm)).always(res => {
       if (res) {
         me.location.back();
         me.ifRefreshParent = true;

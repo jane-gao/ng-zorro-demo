@@ -207,10 +207,10 @@ export class AuthLimitService {
       success: (res) => {
         if (res.success) {
           defer.resolve(true);
-          me._notification.success('操作成功', res.info)
+          me._notification.success('操作成功', res.info);
         } else {
           defer.reject(false);
-          me._notification.error(`错误提示`, res.info)
+          me._notification.error(`错误提示`, res.info);
         }
       },
       error: (res) => {

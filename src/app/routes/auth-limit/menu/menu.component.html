@@ -50,9 +50,8 @@
       <td nz-td class="text-center">{{data.ord}}</td>
       <td nz-td class="text-center">
         <nz-switch [name]="'isUse'+i" class="thc" (ngModelChange)="yesOrNo($event,data.menuCode)"
+                   nzCheckedChildren="是" nzUnCheckedChildren="否"
                    [ngModel]="data.isUse===yesOrNoState.yes">
-          <span checked>是</span>
-          <span unchecked>否</span>
         </nz-switch>
       </td>
       <td nz-td class="text-center">

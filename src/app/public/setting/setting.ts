@@ -63,6 +63,10 @@ export class Setting {
       show: 'SHOW',
       hide: 'HIDE',
       del: 'DEL'
+    },
+    showType: {
+      img: 'IMG',
+      text: 'TXT'
     }
   };
 

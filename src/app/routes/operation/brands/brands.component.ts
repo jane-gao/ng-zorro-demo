@@ -5,6 +5,8 @@ import {Util} from "../../../public/util/util";
 import {OperationService} from "../operation.service";
 import {NzModalService} from "ng-zorro-antd";
 import {isNullOrUndefined} from "util";
+import {BrandAddComponent} from "../brand-add/brand-add.component";
+import {BrandUpComponent} from "../brand-up/brand-up.component";
 declare var $: any;
 
 @Component({
@@ -34,6 +36,7 @@ export class BrandsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getBrandsList()
   }
 
   getBrandsList(curPage?: number) {
@@ -52,17 +55,71 @@ export class BrandsComponent implements OnInit {
     })
   }
 
-  changeIsEnable(id, event) {
-
+  addBrand() {
+    let me = this;
+    const modal = this.modalService.create({
+      nzTitle: '添加品牌',
+      nzContent: BrandAddComponent,
+      nzWidth: '720',
+      nzFooter: null
+    });
+    modal.afterClose.subscribe((result) => {
+      if (result) me.getBrandsList();
+    });
   }
 
-  getKindList() {}
+  upBrand(id) {
+    let me = this;
+    const modal = this.modalService.create({
+      nzTitle: '修改品牌',
+      nzContent: BrandUpComponent,
+      nzComponentParams: {id: id},
+      nzWidth: '720',
+      nzFooter: null
+    });
+    modal.afterClose.subscribe((result) => {
+      if (result) me.getBrandsList();
+    });
+  }
+
+  /**
+   * 修改是否推荐
+   * @param id
+   * @param event
+   */
+  changeIsRecommend(id, state) {
+    let me = this, data = {
+      id: id,
+      brandRecommend: state ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
+    };
+    $.when(me.operationService.updateRecommend(data)).always(res => {
+      if (!res) me.getBrandsList(); //不成功刷新列表，可以重置switch
+    })
+  }
+
+  /**
+   * 修改状态
+   * @param id
+   * @param event
+   */
+  changeIsEnable(id, state) {
+    let me = this, data = {
+      id: id,
+      state: state ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
+    };
+    $.when(me.operationService.updateBrandState(data)).always(res => {
+      if (!res) me.getBrandsList(); //不成功刷新列表，可以重置switch
+    })
+  }
+
+  getKindList() {
+  }
 
   delBrand(id, event) {
     let me = this;
-    /*$.when(me.operationService.deleteHelpQuestions(id)).then(success => {
-      if (success) me.getBrandsList();
-    })*/
+    $.when(me.operationService.deleteBrand(id)).then(success => {
+     if (success) me.getBrandsList();
+     })
   }
 
   showModalForTemplate(type, titleTpl, contentTpl, footerTpl, id?) {
@@ -102,7 +159,7 @@ export class BrandsComponent implements OnInit {
     me.isConfirmLoading = true;
     let formVal = Object.assign({}, me.validateForm);
     if (me.isAddVal) {
-      $.when(me.operationService.addHelpQuestions(formVal)).then(success => {
+      $.when(me.operationService.addHelpQuestions(formVal)).always(success => {
         if (success) {
           me.handleCancel();
           me.getBrandsList()
@@ -110,7 +167,7 @@ export class BrandsComponent implements OnInit {
         me.isConfirmLoading = false;
       })
     } else {
-      $.when(me.operationService.updateHelpQuestion(formVal)).then(success => {
+      $.when(me.operationService.updateHelpQuestion(formVal)).always(success => {
         if (success) {
           me.handleCancel();
           me.getBrandsList()

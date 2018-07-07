@@ -120,7 +120,7 @@ export class DataValueComponent implements OnInit,OnChanges {
     if(formVal.isUniqueVal) formVal.isUniqueVal = Setting.ENUMSTATE.yes;
     else formVal.isUniqueVal = Setting.ENUMSTATE.no;
     if (me.isAddVal) {
-      $.when(me.basicSettingService.addData(formVal, me.dataType)).then(success => {
+      $.when(me.basicSettingService.addData(formVal, me.dataType)).always(success => {
         if (success) {
           me.handleCancel();
           me.queryDictionaryValue()
@@ -128,7 +128,7 @@ export class DataValueComponent implements OnInit,OnChanges {
         me.isConfirmLoading = false;
       })
     }else{
-      $.when(me.basicSettingService.upData(formVal, me.dataType)).then(success => {
+      $.when(me.basicSettingService.upData(formVal, me.dataType)).always(success => {
         if (success) {
           me.handleCancel();
           me.queryDictionaryValue()

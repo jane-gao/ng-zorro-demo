@@ -39,9 +39,8 @@
       </td>
       <td nz-td>
         <nz-switch [name]="'isForever'+i" class="thc" (ngModelChange)="yesOrNo($event,role.roleCode)"
+                   nzCheckedChildren="是" nzUnCheckedChildren="否"
                    [ngModelOptions]="{standalone: true}" [ngModel]="role.isUse===yesOrNoState.yes">
-          <span checked>是</span>
-          <span unchecked>否</span>
         </nz-switch>
       </td>
       <td nz-td>

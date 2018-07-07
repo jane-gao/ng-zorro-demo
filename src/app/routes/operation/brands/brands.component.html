@@ -1,6 +1,6 @@
 <div class="page-title">
   <h3 class="fl">品牌管理</h3>
-  <button class="fr m btn-thc" nz-button>
+  <button class="fr m btn-thc" nz-button (click)="addBrand()">
     <i class="anticon anticon-plus"></i><span>新增品牌</span>
   </button>
 </div>
@@ -32,22 +32,19 @@
     </div>
   </div>
   <div class="inline-block">
-    <button nz-button class="ml-20 mr" title="搜索" type="submit">
+    <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
       <i class="anticon anticon-search"></i><span>搜索</span>
     </button>
-    <button nz-button [nzType]="'primary'" class="mr" title="重置" type="reset">
+    <button nz-button class="mr" title="重置" type="reset">
       <i class="anticon anticon-sync"></i><span>重置</span>
     </button>
   </div>
 </form>
 <!--搜索 end-->
 
-<nz-breadcrumb>
-</nz-breadcrumb>
 <nz-table #nzTable
           [nzData]="brandList.voList"
           [nzLoading]="_loading"
-          [nzShowTotal]="true"
           [nzFrontPagination]="false"
           [nzPageSize]="brandList.pageSize"
           [nzTotal]="brandList.totalRow"
@@ -84,23 +81,21 @@
       </td>
       <td nz-td class="text-center">
         <nz-switch class="thc" [ngModel]="data.brandRecommend === enumState.yes" [ngModelOptions]="{standalone: true}"
-                   (ngModelChange)="changeIsEnable(data.id, $event)">
-          <span checked>是</span>
-          <span unchecked>否</span>
+                   nzCheckedChildren="是" nzUnCheckedChildren="否"
+                   (ngModelChange)="changeIsRecommend(data.id, $event)">
         </nz-switch>
       </td>
-      <!--<td nz-td class="text-center">{{data.showType | stateName: enums.brandShowType}}</td>-->
+      <td nz-td class="text-center">{{data.showType}}</td>
       <td nz-td class="text-center">{{data.brandSort}}</td>
       <td nz-td class="text-center">
         <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show" [ngModelOptions]="{standalone: true}"
+                   nzCheckedChildren="是" nzUnCheckedChildren="否"
                    (ngModelChange)="changeIsEnable(data.id, $event)">
-          <span checked>是</span>
-          <span unchecked>否</span>
         </nz-switch>
       </td>
       <td nz-td class="text-center w10">
         <button nz-button title="修改" class="btn-blue"
-                (click)="showModalForTemplate('up',valTitle,valContent,valFooter,data.id)">
+                (click)="upBrand(data.id)">
           <i class="anticon anticon-edit"></i>
         </button>
         <button nz-button title="删除" class="btn-danger" (click)="delBrand(data.id)">
@@ -111,37 +106,3 @@
   </ng-template>
   </tbody>
 </nz-table>
-
-<!--弹窗—添加/修改类型 start-->
-<form nz-form #editValForm="ngForm">
-  <ng-template #valTitle>
-    <span>{{valEditTitle}}</span>
-  </ng-template>
-  <ng-template #valContent>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="info" nzRequired>名称</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngInfo)" nzHasFeedback>
-        <input [(ngModel)]="validateForm.info" name="info" id="info" #ngInfo="ngModel" type="text" required nz-input>
-        <nz-form-explain *ngIf="ngValidateErrorMsg(ngInfo) == valitateState.empty">请输入字典名称！</nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>备注</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngRemark)" nzHasFeedback>
-        <input [(ngModel)]="validateForm.remark" name="remark" id="remark" #ngRemark="ngModel" type="text" required
-               nz-input>
-        <nz-form-explain *ngIf="ngValidateErrorMsg(ngRemark) == valitateState.empty">请输入字典备注！</nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-  </ng-template>
-  <ng-template #valFooter>
-    <div>
-      <button nz-button class="btn" [nzType]="'ghost'" (click)="handleCancel()"> 取消
-      </button>
-      <button nz-button class="btn" [nzType]="'primary'" (click)="handleOk()"
-              [nzLoading]="isConfirmLoading" [disabled]="!editValForm.valid">确定
-      </button>
-    </div>
-  </ng-template>
-</form>
-<!--弹窗—添加/修改类型 end-->

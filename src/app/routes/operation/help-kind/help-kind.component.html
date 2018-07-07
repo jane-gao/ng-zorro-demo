@@ -17,9 +17,8 @@
           <ng-template #actionSetting>
             <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show"
                        [ngModelOptions]="{standalone: true}"
+                       nzCheckedChildren="是" nzUnCheckedChildren="否"
                        (ngModelChange)="changeIsEnable(data.id, $event)">
-              <span checked>是</span>
-              <span unchecked>否</span>
             </nz-switch>
           </ng-template>
           <ng-template #actionEdit>

@@ -61,9 +61,7 @@ export class BindRolesComponent implements OnInit {
       staff.roleGroupCode = '';
       staff.roleCode = me.tagRoleValue.join(',');
       $.when(me.authLimitService.addRolesRelation(staff)).then(data => {
-        if (data) {
-          me.modal.destroy();
-        }
+        me.modal.destroy();
       })
     }
   }
