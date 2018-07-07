@@ -15,10 +15,10 @@ declare var $: any;
 export class DataTypeComponent implements OnInit {
   public isConfirmLoading: boolean = false;         //是否加载中
   public dictionaryType: Page = new Page();        //糖果变动记录
-  validateForm: any = {};                   //表单
-  ngValidateStatus = Util.ngValidateStatus;//表单项状态
-  ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
-  valitateState: any = Setting.valitateState;//表单验证状态
+  public validateForm: any = {};                   //表单
+  public ngValidateStatus = Util.ngValidateStatus;//表单项状态
+  public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
+  public valitateState: any = Setting.valitateState;//表单验证状态
   public _loading: boolean = false;            //是否加载中
   public typeEditTitle: string = '添加类型';
   public isAddType: boolean = true;

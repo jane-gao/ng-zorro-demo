@@ -43,23 +43,21 @@
          (click)="isCollapsed=!isCollapsed"></i>
       <ul class="fr mr">
         <li><i class="anticon anticon-home" [routerLink]="home" title="去首页"></i></li>
-        <nz-dropdown [nzTrigger]="'click'">
-          <li nz-dropdown>
-            <nz-badge [nzCount]="msgNum">
-              <ng-template #content>
-                <i class="anticon anticon-bell" title="消息通知"></i>
-              </ng-template>
+        <li>
+          <nz-dropdown [nzTrigger]="'click'">
+            <nz-badge [nzCount]="msgNum" nz-dropdown>
+              <i class="anticon anticon-bell" title="消息通知"></i>
             </nz-badge>
-          </li>
-          <ul nz-menu>
-            <ng-container *ngFor="let news of msg">
-              <li nz-menu-item *ngIf="news.num > 0 && news.isShow" [routerLink]="news.url">
-                <i class="{{news.icon}} mr-5"></i> {{news.info}}
-                （<span class="main-color">{{news.num}}</span>）
-              </li>
-            </ng-container>
-          </ul>
-        </nz-dropdown>
+            <ul nz-menu>
+              <ng-container *ngFor="let news of msg">
+                <li nz-menu-item *ngIf="news.num > 0 && news.isShow" [routerLink]="news.url">
+                  <i class="{{news.icon}} mr-5"></i> {{news.info}}
+                  （<span class="main-color">{{news.num}}</span>）
+                </li>
+              </ng-container>
+            </ul>
+          </nz-dropdown>
+        </li>
         <li (click)="logout()"><i class="anticon anticon-logout" title="退出登录"></i></li>
       </ul>
     </nz-header>

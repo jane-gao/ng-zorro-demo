@@ -1,5 +1,6 @@
 const sz = 'http://192.168.10.112:';  //尚泽
 const zyg = 'http://192.168.10.114:'; //张阳光
+const wp = 'http://192.168.10.182:';  //万鹏
 const csj = 'http://192.168.10.221:';  //测试机
 
 /**
@@ -9,25 +10,15 @@ const csj = 'http://192.168.10.221:';  //测试机
 const PROXY_CONFIG = [
   {
     context: [
+      "/upload", //上传
+      "/resource",    //枚举
       "/sms",    //验证码
       "/login", //登录
-      "/cust", //用户
-      "/announce", //公告
-      "/datadict", //数据字典
-      "/staff", //管理员管理
-      "/role", //角色管理
-      "/limitMenu", //菜单管理
+      "/admin", //数据字典
       "/helpKind", //帮助分类
       "/helpQuestions", //帮助问题
     ],
-    target: zyg + "8084",   //拦截 context配置路径，经过此地址
-    secure: false
-  },
-  {
-    context: [
-      "/upload" //管理员管理
-    ],
-    target: zyg + "8082",   //拦截 context配置路径，经过此地址
+    target: wp + "8899",   //拦截 context配置路径，经过此地址
     secure: false
   }
 ];

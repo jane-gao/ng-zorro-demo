@@ -64,10 +64,12 @@ export class BasicSettingService {
         if (res.success) {
           defer.resolve(true);
         } else {
+          defer.resolve(false);
           me._notification.error(`错误提示`, res.info)
         }
       },
       error: (res) => {
+        defer.resolve(false);
         me._notification.error(`错误提示`, '失败，请稍后重试')
       }
     });

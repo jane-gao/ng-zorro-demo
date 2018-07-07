@@ -1,9 +1,3 @@
-<!--<div class="page-title">
-  <h3 class="fl">帮助分类</h3>
-  <button class="fr m btn-thc" nz-button>
-    <i class="anticon anticon-plus"></i><span>添加分类</span>
-  </button>
-</div>-->
 <div nz-row>
   <div nz-col [nzSpan]="6" class="pr">
     <div class="mb page-title">
@@ -59,40 +53,31 @@
 <!--弹窗—添加/修改类型 start-->
 <form nz-form #editTypeForm="ngForm">
   <ng-template #typeTitle>
-    <span>{{typeEditTitle}}</span>
+    <span>{{helpKindEditTitle}}</span>
   </ng-template>
   <ng-template #typeContent>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>名称</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngName)" nzHasFeedback>
-        <input [(ngModel)]="validateForm.name" name="name" id="name" #ngName="ngModel" required type="text" nz-input>
-        <nz-form-explain *ngIf="ngValidateErrorMsg(ngName) == valitateState.empty">请输入类型名称！</nz-form-explain>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="kindName" nzRequired>名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngKindName)" nzHasFeedback>
+        <input [(ngModel)]="validateForm.kindName" name="kindName" id="kindName" #ngKindName="ngModel" required type="text" nz-input>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngKindName) == valitateState.empty">请输入类型名称！</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>备注</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngRemark)" nzHasFeedback>
-        <input name="remark" [(ngModel)]="validateForm.remark" #ngRemark="ngModel" type="text" id="remark" required
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">描述</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngDescription)" nzHasFeedback>
+        <input name="description" [(ngModel)]="validateForm.description" #ngDescription="ngModel" type="text" id="description"
                nz-input>
-        <nz-form-explain *ngIf="ngValidateErrorMsg(ngRemark) == valitateState.empty">请输入类型备注！</nz-form-explain>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngDescription) == valitateState.empty">请描述这个分类</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code" nzRequired>编码</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngCode)" nzHasFeedback>
-        <input name="code" [(ngModel)]="validateForm.code" #ngCode="ngModel" type="text" id="code" required
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sort" nzRequired>排序</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngSort)" nzHasFeedback>
+        <input name="sort" [(ngModel)]="validateForm.sort" #ngSort="ngModel" type="number" id="sort" required
                nz-input>
-        <nz-form-explain *ngIf="ngValidateErrorMsg(ngCode) == valitateState.empty">请输入类型编码！</nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24">是否唯一</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-switch name="isUniqueVal" class="thc" [(ngModel)]="validateForm.isUniqueVal">
-          <span checked>是</span>
-          <span unchecked>否</span>
-        </nz-switch>
+        <nz-form-explain *ngIf="ngValidateErrorMsg(ngSort) == valitateState.empty">请输入数字</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </ng-template>

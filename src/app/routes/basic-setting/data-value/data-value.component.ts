@@ -17,10 +17,10 @@ export class DataValueComponent implements OnInit,OnChanges {
   public _loading: boolean = false;                 //是否加载中
   public isConfirmLoading: boolean = false;            //是否加载中
   public valEditTitle: string = '添加键值';
-  validateForm: any = {};                   //表单
-  ngValidateStatus = Util.ngValidateStatus;//表单项状态
-  ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
-  valitateState: any = Setting.valitateState;//表单验证状态
+  public validateForm: any = {};                   //表单
+  public ngValidateStatus = Util.ngValidateStatus;//表单项状态
+  public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
+  public valitateState: any = Setting.valitateState;//表单验证状态
   public isAddVal: boolean = false;            //是否添加键值
   public dataType: string = 'val';
   public enumState: any = Setting.ENUMSTATE;
@@ -32,7 +32,7 @@ export class DataValueComponent implements OnInit,OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['curType']) {
-      if(this.curType.code) this.queryDictionaryValue();
+      if(this.curType.code) this.queryDictionaryValue(1);
     }
   }
 
@@ -45,7 +45,7 @@ export class DataValueComponent implements OnInit,OnChanges {
     if (!isNullOrUndefined(curPage)) me.dictionaryValue.curPage = curPage;//当有页码时，查询该页数据
     me.dictionaryValue.params = { //查询参数
       curPage: me.dictionaryValue.curPage, //目标页码
-      pageSize: 8, //每页条数
+      pageSize: me.dictionaryValue.pageSize, //每页条数
       code: me.curType.code
     }
     $.when(BasicSettingService.getList(me.dataType, me.dictionaryValue.params)).done(res => {
@@ -120,7 +120,7 @@ export class DataValueComponent implements OnInit,OnChanges {
     if(formVal.isUniqueVal) formVal.isUniqueVal = Setting.ENUMSTATE.yes;
     else formVal.isUniqueVal = Setting.ENUMSTATE.no;
     if (me.isAddVal) {
-      $.when(me.basicSettingService.addData(formVal, me.dataType)).done(success => {
+      $.when(me.basicSettingService.addData(formVal, me.dataType)).then(success => {
         if (success) {
           me.handleCancel();
           me.queryDictionaryValue()
@@ -128,7 +128,7 @@ export class DataValueComponent implements OnInit,OnChanges {
         me.isConfirmLoading = false;
       })
     }else{
-      $.when(me.basicSettingService.upData(formVal, me.dataType)).done(success => {
+      $.when(me.basicSettingService.upData(formVal, me.dataType)).then(success => {
         if (success) {
           me.handleCancel();
           me.queryDictionaryValue()

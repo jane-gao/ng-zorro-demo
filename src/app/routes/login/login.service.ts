@@ -18,14 +18,14 @@ export class LoginService {
    * @param requestDate
    * @param callback
    */
-  login(requestDate: any, param?: any) {
+  login(requestDate: any, callback) {
     const me = this;
     AjaxService.post({
-      url: SettingUrl.URL.login.storeLogin,
+      url: SettingUrl.URL.login.login,
       data: requestDate,
       success: (res) => {
         if (res.success) {
-          //me._notification.success('成功', res.info);
+          callback()
         } else {
           me._notification.error(`失败`, res.info);
         }

@@ -2,12 +2,11 @@ import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {Setting} from "../../public/setting/setting";
 import {Router} from "@angular/router";
 import {SettingUrl} from "../../public/setting/setting_url";
-import {HomeService} from "../../routes/home/home.service";
 import {AjaxService} from "../../public/service/ajax.service";
-import {Util} from "../../public/util/util";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
+import {CookieService} from "angular2-cookie/core";
 
 @Component({
   selector: 'app-main',
@@ -23,38 +22,11 @@ export class MainComponent implements OnInit {
   public msgNum: number = 0; //消息通知总条数
   public home: string = SettingUrl.ROUTERLINK.basic.home; //首页路由
 
-  constructor(public router: Router) {
-    const users = {
-      menuName: '用户管理',
-      menuIcon: 'usergroup-add',
-      menuUrl: '/main/user',
-      subMenuList: [
-        {
-          menuName: '所有用户',
-          menuUrl: '/main/user/all'
-        },
-        {
-          menuName: '待审核用户',
-          menuUrl: '/main/user/auth'
-        }
-      ]
-    };
-    const candy = {
-      menuName: '糖果系统',
-      menuIcon: 'bell',
-      menuUrl: '/main/candy'
-    };
-
+  constructor(public router: Router, public cookieService: CookieService) {
     const finance = {
       menuName: '财务管理',
       menuIcon: 'pay-circle-o',
       menuUrl: '/main/finance'
-    };
-
-    const ad = {
-      menuName: '公告/通知',
-      menuIcon: 'bell',
-      menuUrl: '/main/announce'
     };
 
     const set = {
@@ -108,13 +80,16 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [users, ad, set, authLimit, operation]
+    Setting.MENUS = [set, authLimit, operation]
   }
 
   ngOnInit() {
     const _this = this;
     _this.menus = Setting.MENUS; //菜单信息
     //设置消息通知
+    //判断是否已经登录，已经登录，引导进入首页
+    let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
+    if (!loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.pass.login]); //路由登录
   }
 
   /**

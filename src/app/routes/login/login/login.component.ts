@@ -17,29 +17,15 @@ export class LoginComponent implements OnInit {
   app = Setting.APP; //平台基本信息
 
   constructor(public fb: FormBuilder, public loginService: LoginService, public router: Router, public cookieService: CookieService) {
+    this.validateForm = this.fb.group({
+      loginCode: [null, [Validators.required]],
+      pwd: [null, [Validators.required]],
+    });
   }
 
   ngOnInit() {
-    let me = this;
-    /**
-     *广告banner定时器
-     */
-    setTimeout(_ => {
-      me.array = ['../../../assets/img/bak/1.png', '../../../assets/img/bak/2.png'];
-    }, 5000);
-
-    /**
-     * 用于登录时的表单验证
-     * @type {FormGroup}
-     */
-    me.validateForm = this.fb.group({
-      account: [null, [Validators.required]],
-      pwd: [null, [Validators.required]],
-      remember: [true],
-    });
-
     //判断是否已经登录，已经登录，引导进入首页
-    let loginCookie = this.cookieService.get(Setting.cookie.szhLinfoStore);
+    let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
     if (loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.store.home]); //路由跳转（首页）
   }
 
@@ -49,14 +35,16 @@ export class LoginComponent implements OnInit {
    * @param value
    */
 
-  login = ($event, value) => {
+  login = ($event) => {
     $event.preventDefault();
-    /*for (const key in this.validateForm.controls) {
-      this.validateForm.controls[key].markAsDirty();
-    }*/
-    let formValue = value;
-    this.router.navigate([SettingUrl.ROUTERLINK.basic.home])
-    // this.loginService.login(formValue);
+    let me = this;
+    for (const key in me.validateForm.controls) {
+      me.validateForm.controls[key].markAsDirty();
+    }
+    let callback = function () {
+      me.router.navigate([SettingUrl.ROUTERLINK.basic.home])
+    }
+    me.loginService.login(me.validateForm.value, callback);
   };
 
   /**

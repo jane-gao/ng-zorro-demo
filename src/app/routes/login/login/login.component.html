@@ -25,17 +25,17 @@
 </nz-layout>
 
 <!--登录验证表单start-->
-<form nz-form [formGroup]="validateForm" class="login-form">
+<form nz-form [formGroup]="validateForm" class="login-form" (submit)="login($event)">
   <!--表单头部start-->
   <div class="headings"><h1>账号登录</h1></div>
   <!--表单头部end-->
   <!--表单用户名input框start-->
   <nz-form-item class="login-form-information">
-    <nz-form-control [nzValidateStatus]="validateForm.controls['account']" nzHasFeedback>
+    <nz-form-control [nzValidateStatus]="validateForm.controls['loginCode']" nzHasFeedback>
       <nz-input-group nzPrefixIcon="anticon anticon-user font18" >
-        <input nz-input name="account" type="text" placeholder="请填写用户名" nzSize="large">
+        <input nz-input formControlName="loginCode" type="text" placeholder="请填写登录账户" nzSize="large">
       </nz-input-group>
-      <nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('required')">请填写用户名</nz-form-explain>
+      <nz-form-explain *ngIf="getFormControl('loginCode').dirty&&getFormControl('loginCode').hasError('required')">请填写用户名</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <!--表单用户名input框end-->
@@ -43,7 +43,7 @@
   <nz-form-item class="login-form-information">
     <nz-form-control [nzValidateStatus]="validateForm.controls['pwd']" nzHasFeedback>
       <nz-input-group nzPrefixIcon="anticon anticon-lock font18">
-        <input nz-input name="pwd" type="password" placeholder="密码" nzSize="large">
+        <input nz-input formControlName="pwd" type="password" placeholder="密码" nzSize="large">
       </nz-input-group>
       <nz-form-explain *ngIf="getFormControl('pwd').dirty&&getFormControl('pwd').hasError('required')">请填写密码</nz-form-explain>
     </nz-form-control>
@@ -53,9 +53,7 @@
   <!--表单底部start-->
   <nz-form-item>
     <nz-form-control>
-      <button nz-button class="login-form-button" [nzType]="'primary'"
-              (click)="login($event,validateForm.value)">登录
-      </button>
+      <button nz-button class="login-form-button" [nzType]="'primary'">登录</button>
       <div class="passed">
         <!--<ul class="fr mr-20 mt-5">
           <li [routerLink]="registerUrl" class="br">注册</li>

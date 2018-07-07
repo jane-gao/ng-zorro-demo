@@ -90,6 +90,12 @@
         </nz-switch>
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item *ngIf="!isAddType">
+      <nz-form-label [nzSm]="6" [nzXs]="24">是否唯一</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <span>{{validateForm.isUniqueVal == enumState.yes? '是':'否'}}</span>
+      </nz-form-control>
+    </nz-form-item>
   </ng-template>
   <ng-template #typeFooter>
     <div>

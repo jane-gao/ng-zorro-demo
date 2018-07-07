@@ -37,6 +37,7 @@ export class Setting {
   //定义枚举
   public static ENUM: any = {
     yesOrNo: 1001,  // 是否
+    brandShowType: 1024,  // 品牌展示类型
   };
 
   //定义枚举状态名
@@ -77,10 +78,7 @@ export class Setting {
 
   //存入cookie信息的键名
   public static cookie: any = {
-    storeInfo: "store-info-cookie",//店铺键名
-    enterpriseInfo: "enterprise-info-cookie",//企业键名
-    szhLinfoStore: "IJING_LINFO_STORE", //是否已经登录，若cookie中取不出此键名对应的信息，说明未登录，反之说明已登录
-    menusInfo: "store-menus"//菜单信息
+    loginCookie: "RBAC_LINFO", //是否已经登录，若cookie中取不出此键名对应的信息，说明未登录，反之说明已登录
   }
 
 }

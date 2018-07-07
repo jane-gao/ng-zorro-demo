@@ -16,11 +16,11 @@ export class HelpKindComponent implements OnInit {
   public helpKindList: Page = new Page();        //列表
   public _loading: boolean = false;              //是否加载中
   public isConfirmLoading: boolean = false;     //是否加载中
-  public typeEditTitle: string = '添加分类';     //弹窗标题
-  validateForm: any = {};                   //表单
-  ngValidateStatus = Util.ngValidateStatus;//表单项状态
-  ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
-  valitateState: any = Setting.valitateState;//表单验证状态
+  public helpKindEditTitle: string = '添加分类';     //弹窗标题
+  public validateForm: any = {};                   //表单
+  public ngValidateStatus = Util.ngValidateStatus;//表单项状态
+  public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
+  public valitateState: any = Setting.valitateState;//表单验证状态
   public isAddKind: boolean = false;     //是否添加分类
   public currentModal: any;     //弹窗
   public curKind: any = {};
@@ -72,7 +72,18 @@ export class HelpKindComponent implements OnInit {
       state: enable ? Setting.ENUMSTATE.showState.show : Setting.ENUMSTATE.showState.hide
     };
     $.when(me.operationService.updateHelpKindState(data)).done(res => {
-      if(!res) me.queryHelpKindList()
+      if (!res) me.queryHelpKindList()
+    })
+  }
+
+  /**
+   * 获取某个分类信息
+   * @param id
+   */
+  getCurKindInfo(id){
+    let me = this;
+    $.when(me.operationService.getHelpKindById(id)).done(res => {
+      if (res) me.validateForm = res;
     })
   }
 
@@ -83,13 +94,14 @@ export class HelpKindComponent implements OnInit {
    * @param contentTpl  弹窗内容
    * @param footerTpl   弹窗底部
    */
-  showModalForTemplate(type, titleTpl, contentTpl, footerTpl, code?) {
+  showModalForTemplate(type, titleTpl, contentTpl, footerTpl, id?) {
     let me = this;
     me.validateForm = {};
+    if(id) me.validateForm.id = id;
     me.isAddKind = type === 'add' ? true : false;
     if (type === 'up') {
-      me.typeEditTitle = '修改类型';
-      // me.getCurKeyInfo(code)
+      me.helpKindEditTitle = '修改分类';
+      me.getCurKindInfo(id);
     }
     me.currentModal = me.modalService.create({
       nzTitle: titleTpl,
@@ -113,25 +125,22 @@ export class HelpKindComponent implements OnInit {
   handleOk() {
     let me = this;
     me.isConfirmLoading = true;
-    let formVal = Object.assign({}, me.validateForm);
-    if (formVal.isUniqueVal) formVal.isUniqueVal = Setting.ENUMSTATE.yes;
-    else formVal.isUniqueVal = Setting.ENUMSTATE.no;
     if (me.isAddKind) {
-      /*$.when(me.operationService.addData(formVal, me.dataType)).done(success => {
-       if (success) {
-       me.handleCancel();
-       me.queryDictionaryType()
-       }
-       me.isConfirmLoading = false;
-       })*/
+      $.when(me.operationService.addHelpKind(me.validateForm)).then(success => {
+        if (success) {
+          me.handleCancel();
+          me.queryHelpKindList()
+        }
+        me.isConfirmLoading = false;
+      })
     } else {
-      /*$.when(me.operationService.upData(formVal, me.dataType)).done(success => {
-       if (success) {
-       me.handleCancel();
-       me.queryDictionaryType()
-       }
-       me.isConfirmLoading = false;
-       })*/
+      $.when(me.operationService.updateHelpKind(me.validateForm)).then(success => {
+        if (success) {
+          me.handleCancel();
+          me.queryHelpKindList()
+        }
+        me.isConfirmLoading = false;
+      })
     }
   }
 

@@ -5,6 +5,30 @@
     <i class="anticon anticon-plus"></i><span>新增问题</span>
   </button>
 </div>
+
+<!--搜索 start-->
+<form nz-form class="bg-white mt-15 mb-15">
+  <div class="search-group">
+    <span class="search-title">问题：</span>
+    <div class="search-main">
+      <input nz-input name="question"
+             [(ngModel)]="query.question"
+             placeholder="问题"
+             (change)="getHelpAnswerList(1)">
+    </div>
+  </div>
+  <div class="inline-block">
+    <button nz-button class="ml-20 mr" title="搜索" (click)="getHelpAnswerList(1)">
+      <i class="anticon anticon-search"></i><span>搜索</span>
+    </button>
+    <button nz-button [nzType]="'primary'" class="mr" title="重置"
+            (click)="query = {}">
+      <i class="anticon anticon-sync"></i><span>重置</span>
+    </button>
+  </div>
+</form>
+<!--搜索 end-->
+
 <nz-table #nzTable
           [nzData]="helpAnswerList.voList"
           [nzLoading]="_loading"
@@ -14,40 +38,37 @@
           [nzTotal]="helpAnswerList.totalRow"
           [nzPageIndex]="helpAnswerList.curPage"
           (nzPageIndexChange)="getHelpAnswerList($event)">
-  <ng-template #nzFixedHeader>
-    <thead nz-thead>
-    <tr>
-      <th nz-th class="text-center w8"><span>序号</span></th>
-      <th nz-th class="text-center w15"><span>类型编码</span></th>
-      <th nz-th class="text-center w15"><span>字典信息</span></th>
-      <th nz-th class="text-center w7"><span>排序</span></th>
-      <th nz-th class="text-center w20"><span>备注</span></th>
-      <th nz-th class="text-center w15"><span>是否启用</span></th>
-      <th nz-th class="text-center w10"><span>创建时间</span></th>
-      <th nz-th class="text-center w10"><span>操作</span></th>
-    </tr>
-    </thead>
-  </ng-template>
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center" nzWidth="10%"><span>序号</span></th>
+    <th nz-th class="text-left" nzWidth="35%"><span>问题</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>状态</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>排序</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>创建时间</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>操作</span></th>
+  </tr>
+  </thead>
   <tbody nz-tbody>
   <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
     <tr nz-tbody-tr>
-      <td nz-td class="text-center w8">{{i+1}}</td>
-      <td nz-td class="text-center w15">{{data.typeCode}}</td>
-      <td nz-td class="text-center w15">{{data.info}}</td>
-      <td nz-td class="text-center w7">{{data.sort}}</td>
-      <td nz-td class="text-center w20">{{data.remark}}</td>
-      <td nz-td class="text-center w15">
-        <nz-switch class="thc" [ngModel]="data.enable === enumState.yes" [ngModelOptions]="{standalone: true}"
-                   (ngModelChange)="changeIsEnable(data.code, $event)">
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-left">{{data.question}}</td>
+      <td nz-td class="text-center">
+        <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show" [ngModelOptions]="{standalone: true}"
+                   (ngModelChange)="changeIsEnable(data.id, $event)">
           <span checked>是</span>
           <span unchecked>否</span>
         </nz-switch>
       </td>
+      <td nz-td class="text-center">{{data.sort}}</td>
       <td nz-td class="text-center w10">{{data.createTime | date:'yyyy-MM-dd'}}</td>
       <td nz-td class="text-center w10">
         <button nz-button title="修改" class="btn-blue"
                 (click)="showModalForTemplate('up',valTitle,valContent,valFooter,data.id)">
           <i class="anticon anticon-edit"></i>
+        </button>
+        <button nz-button title="删除" class="btn-danger" (click)="delQuestion(data.id)">
+          <i class="iconfont icon-shanchu"></i>
         </button>
       </td>
     </tr>
@@ -71,7 +92,8 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>备注</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngRemark)" nzHasFeedback>
-        <input [(ngModel)]="validateForm.remark" name="remark" id="remark" #ngRemark="ngModel" type="text" required nz-input>
+        <input [(ngModel)]="validateForm.remark" name="remark" id="remark" #ngRemark="ngModel" type="text" required
+               nz-input>
         <nz-form-explain *ngIf="ngValidateErrorMsg(ngRemark) == valitateState.empty">请输入字典备注！</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
