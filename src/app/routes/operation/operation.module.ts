@@ -8,6 +8,8 @@ import {SharedModule} from "../../shared/shared.module";
 import {OperationService} from "./operation.service";
 import {BrandAddComponent} from './brand-add/brand-add.component';
 import {BrandUpComponent} from './brand-up/brand-up.component';
+import { KindAddComponent } from './kind-add/kind-add.component';
+import { KindUpComponent } from './kind-up/kind-up.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'help-kind'},
@@ -21,9 +23,9 @@ const routes: Routes = [
     SharedModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [KindsComponent, BrandsComponent, HelpKindComponent, HelpAnswerComponent, BrandAddComponent, BrandUpComponent],
+  declarations: [KindsComponent, BrandsComponent, HelpKindComponent, HelpAnswerComponent, BrandAddComponent, BrandUpComponent, KindAddComponent, KindUpComponent],
   providers: [OperationService],
-  entryComponents: [BrandAddComponent, BrandUpComponent]
+  entryComponents: [BrandAddComponent, BrandUpComponent, KindAddComponent, KindUpComponent]
 })
 export class OperationModule {
 }

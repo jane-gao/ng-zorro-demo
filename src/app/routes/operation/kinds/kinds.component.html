@@ -1,3 +1,90 @@
-<p>
-  kinds works!
-</p>
+<div class="page-title">
+  <h3 class="fl">分类管理</h3>
+  <button class="fr m btn-thc" nz-button (click)="addKind()">
+    <i class="anticon anticon-plus"></i><span>新增分类</span>
+  </button>
+</div>
+
+<div class="font15 mt mb pl">
+  <i class="anticon anticon-home font18 color-green"></i>
+  <span class="cursor" (click)="queryChildKindList()">商品分类</span>
+  <ng-container *ngFor="let menuTit of childKindList">
+    <i class="anticon anticon-arrow-right"></i>
+    <span class="cursor-p" (click)="queryChildKindList(menuTit.id,menuTit.name,true)">{{menuTit.name}}</span>
+  </ng-container>
+  <button nz-button *ngIf="childKindList.length>0" (click)="goBackMenu()" class="btn" nzType="default" nzSize="small">
+    <i class="anticon anticon-rollback"></i>上一级
+  </button>
+</div>
+
+
+<nz-table #nzTable
+          [nzData]="kindList.voList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false"
+          [nzPageSize]="kindList.pageSize"
+          [nzTotal]="kindList.totalRow"
+          [nzPageIndex]="kindList.curPage"
+          (nzPageIndexChange)="queryGoodsKindPageByParentId($event)">
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center" nzWidth="5%" nzShowExpand><span>序号</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>分类名称</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>分类图标</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>上级分类</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>排序</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>关键字</span></th>
+    <th nz-th class="text-center"><span>描述</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>税率</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>管理</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nzShowExpand [(nzExpand)]="data.expand"></td>
+      <td nz-td class="text-center">{{data.kindName}}</td>
+      <td nz-td class="text-center">
+        <nz-popover [nzTrigger]="'click'">
+          <img [src]="data.kindIcon | imgSize :'50'" width="50" appImgErr title="点击查看大图" nz-popover>
+          <ng-template #nzTemplate>
+            <img [src]="data.kindIcon | imgSize :'200'" appImgErr>
+          </ng-template>
+        </nz-popover>
+      </td>
+      <td nz-td class="text-center">{{data.parentKindName || '无上级'}}</td>
+      <td nz-td class="text-center">{{data.sort}}</td>
+      <td nz-td class="text-center">{{data.keywords}}</td>
+      <td nz-td class="text-center">{{data.description || '未填写'}}</td>
+      <td nz-td class="text-center">
+        <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show" [ngModelOptions]="{standalone: true}"
+                   nzCheckedChildren="是" nzUnCheckedChildren="否"
+                   (ngModelChange)="changeIsEnable(data.id, $event)">
+        </nz-switch>
+      </td>
+      <td nz-td class="text-center">
+        {{data.taxRate/100}}%
+      </td>
+      <td nz-td class="text-center w10">
+        <button nz-button title="修改" class="btn-blue" (click)="upBrand(data.id)">
+          <i class="anticon anticon-edit"></i>
+        </button>
+        <button nz-button title="添加下级分类" class="btn-green" (click)="addKind(data.id,data.kindName,data.level)">
+          <i class="anticon anticon-plus"></i>
+        </button>
+        <button nz-button title="删除" class="btn-danger" (click)="delKind(data.id)">
+          <i class="iconfont icon-shanchu"></i>
+        </button>
+        <button nz-button title="查看子菜单" class="btn-warning" *ngIf="data.hasSon === enumState.yes"
+                (click)="queryChildKindList(data.id,data.kindName,false)">
+          <i class="anticon anticon-arrow-down"></i>
+        </button>
+      </td>
+    </tr>
+    <tr [nzExpand]="data.expand">
+      <td [attr.colspan]="10">{{data.description}}</td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

@@ -19,6 +19,7 @@ export class BrandUpComponent implements OnInit {
   public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
   public valitateState: any = Setting.valitateState;//表单验证状态
   public isConfirmLoading: boolean = false;            //是否加载中
+  public enumState: any = Setting.ENUMSTATE;
   public fileList: Array<any> = [];
   public previewVisible = false;
   public previewImage = '';
@@ -36,14 +37,15 @@ export class BrandUpComponent implements OnInit {
   /**
    * 添加品牌
    */
-  addBrand() {
+  upBrand() {
     let me = this, uploadedFile: Array<any> = [];
     uploadedFile = me.fileList.filter(item => {
       return item.status == 'done';
     });
     if (uploadedFile.length > 0) me.validateForm.brandImageuuid = me.uuid;
+    me.validateForm.brandRecommend = me.validateForm.brandRecommend? me.enumState.yes : me.enumState.no;
     me.isConfirmLoading = true;
-    $.when(me.operationService.addBrand(me.validateForm)).always(success => {
+    $.when(me.operationService.updateBrand(me.validateForm)).always(success => {
       me.isConfirmLoading = false;
       if (success) me.modal.destroy(true);
     })
@@ -57,6 +59,7 @@ export class BrandUpComponent implements OnInit {
     $.when(me.operationService.getBrandById(me.id)).then(data => {
       if (data) {
         me.validateForm = data;
+        me.validateForm.brandRecommend = me.validateForm.brandRecommend == me.enumState.yes ? true : false;
         if (data.brandPic) {
           me.fileList = [{
             uid: -1,

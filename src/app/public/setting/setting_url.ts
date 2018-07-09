@@ -90,7 +90,14 @@ export class SettingUrl {
       queryAll: '/admin/goodsBrand/queryAll',//查询所有品牌
     },
     kind:{
-
+      addGoodsKind: '/admin/goodsKind/addGoodsKind',//增加商品分类
+      addRelateBrandAndKind: '/admin/goodsKind/addRelateBrandAndKind',//添加品牌与分类关系
+      deleteGoodsKind: '/admin/goodsKind/deleteGoodsKind',//删除商品分类
+      queryBrandByKindId: '/admin/goodsKind/queryBrandByKindId',//根据分类id查询分类关联的所有品牌
+      queryGoodsByParentId: '/admin/goodsKind/queryGoodsByParentId',//按分类父ID查询商品分类信息
+      queryGoodsKindPageByParentId: '/admin/goodsKind/queryGoodsKindPageByParentId',//按分类父ID分页查询商品分类信息
+      updateGoodsKind: '/admin/goodsKind/updateGoodsKind',//修改商品分类
+      updateStateById: '/admin/goodsKind/updateStateById',//控制显示隐藏
     }
   }
   ;

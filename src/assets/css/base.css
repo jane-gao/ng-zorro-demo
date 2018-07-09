@@ -184,7 +184,7 @@ html, body {
 .page-title {
   height: 50px;
   line-height: 50px;
-  border-bottom: 1px solid #e1e1e1;
+  /*border-bottom: 1px solid #e1e1e1;*/
 }
 
 .page-msg {

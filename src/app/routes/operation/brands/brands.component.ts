@@ -22,14 +22,10 @@ export class BrandsComponent implements OnInit {
   public ngValidateStatus = Util.ngValidateStatus;//表单项状态
   public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
   public valitateState: any = Setting.valitateState;//表单验证状态
-  public enums: any = Setting.ENUM;
   public enumState: any = Setting.ENUMSTATE;
   public query: any = {};//搜索条件
   public isAddVal: boolean = false;            //是否添加键值
   public currentModal: any;
-  public valEditTitle: string = '添加键值';
-  public curBrand: any = {};
-  public kindList: Array<any> = [];// 分类列表
 
   constructor(private operationService: OperationService,
               private modalService: NzModalService) {
@@ -112,69 +108,10 @@ export class BrandsComponent implements OnInit {
     })
   }
 
-  getKindList() {
-  }
-
-  delBrand(id, event) {
+  delBrand(id) {
     let me = this;
     $.when(me.operationService.deleteBrand(id)).then(success => {
      if (success) me.getBrandsList();
      })
   }
-
-  showModalForTemplate(type, titleTpl, contentTpl, footerTpl, id?) {
-    let me = this;
-    me.validateForm = {};
-    if (id) me.validateForm.id = id;
-    me.isAddVal = type === 'add' ? true : false;
-    if (type === 'up') {
-      me.valEditTitle = '修改类型';
-      me.getCurBrandInfo(id);
-    }
-    me.currentModal = me.modalService.create({
-      nzTitle: titleTpl,
-      nzContent: contentTpl,
-      nzFooter: footerTpl,
-      nzMaskClosable: false,
-      nzOnCancel: () => {
-        me.isConfirmLoading = false;//点击确认按钮加载小圈
-      }
-    });
-  }
-
-  getCurBrandInfo(id) {
-
-  }
-
-  /**
-   * 关闭弹窗
-   * @param e
-   */
-  handleCancel() {
-    this.currentModal.destroy('onCancel');//关闭弹窗
-  }
-
-  handleOk() {
-    let me = this;
-    me.isConfirmLoading = true;
-    let formVal = Object.assign({}, me.validateForm);
-    if (me.isAddVal) {
-      $.when(me.operationService.addHelpQuestions(formVal)).always(success => {
-        if (success) {
-          me.handleCancel();
-          me.getBrandsList()
-        }
-        me.isConfirmLoading = false;
-      })
-    } else {
-      $.when(me.operationService.updateHelpQuestion(formVal)).always(success => {
-        if (success) {
-          me.handleCancel();
-          me.getBrandsList()
-        }
-        me.isConfirmLoading = false;
-      })
-    }
-  }
-
 }

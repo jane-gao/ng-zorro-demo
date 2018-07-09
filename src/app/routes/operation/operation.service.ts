@@ -66,15 +66,43 @@ export class OperationService {
   }
 
   /**
-   * 根据id获取品牌（含相关分类）
-   * @param id
+   * 修改品牌
+   * @param params
    * @returns {any<T>}
    */
-  getBrandById(id) {
+  updateBrand(params) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.put({
+      url: SettingUrl.URL.brand.updateBrand,
+      data: params,
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 根据id获取品牌（含相关分类）
+   * @param id，type = 'BRAND' | 'BRANDKIND'
+   * @returns {any<T>}
+   */
+  getBrandById(id, type = 'BRAND') {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.get({
       url: SettingUrl.URL.brand.loadBrandById,
-      data: {id: id, type: 'BRANDKIND'},
+      data: {id: id, type: type},
       success: (res) => {
         let info = res.info;
         if (res.success) {
@@ -155,7 +183,7 @@ export class OperationService {
    */
   deleteBrand(id) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
-    AjaxService.put({
+    AjaxService.del({
       url: SettingUrl.URL.brand.deleteBrand,
       data: {id: id},
       success: (res) => {
@@ -177,14 +205,14 @@ export class OperationService {
   }
 
   /**
-   * 获取所有分类
+   * 按分类父ID分页查询商品分类信息
    * @param data
    * @returns {any<T>}
    */
-  getKindList(data) {
+  queryGoodsKindPageByParentId(data) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.get({
-      url: SettingUrl.URL.brand.getBrandPages,
+      url: SettingUrl.URL.kind.queryGoodsKindPageByParentId,
       data: data,
       success: (res) => {
         let info = res.info;
@@ -202,6 +230,173 @@ export class OperationService {
     });
     return defer.promise(); //返回异步请求休息
   }
+
+  /**
+   * 增加商品分类
+   * @param params
+   * @returns {any<T>}
+   */
+  addGoodsKind(params) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.post({
+      url: SettingUrl.URL.kind.addGoodsKind,
+      data: params,
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 根据分类id查询分类关联的所有品牌
+   * @param id
+   * @returns {any<T>}
+   */
+  queryBrandByKindId(id) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.kind.queryBrandByKindId,
+      data: {id: id},
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 按分类父ID查询商品分类信息
+   * @param id
+   * @returns {any<T>}
+   */
+  queryGoodsByParentId(id) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.kind.queryGoodsByParentId,
+      data: {id: id},
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 修改商品分类
+   * @param params
+   * @returns {any<T>}
+   */
+  updateGoodsKind(params) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.put({
+      url: SettingUrl.URL.kind.updateGoodsKind,
+      data: params,
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 控制分类显示隐藏
+   * @param id, state
+   * @returns {any<T>}
+   */
+  updateStateById(params) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.put({
+      url: SettingUrl.URL.kind.updateStateById,
+      data: params,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 删除商品分类
+   * @param id, state
+   * @returns {any<T>}
+   */
+  deleteGoodsKind(id) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.del({
+      url: SettingUrl.URL.kind.deleteGoodsKind,
+      data: {id: id},
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+
 
   /**
    * 查询所有帮助分类

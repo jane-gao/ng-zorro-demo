@@ -20,7 +20,6 @@ export class MenuComponent implements OnInit {
   public addSubMenuModal: any;
   public upMenuModal: any;
   public yesOrNoState: any = Setting.ENUMSTATE;
-  public flag = false;//用于添加页面元素按钮的显示和隐藏
   private childMenuCode; //菜单编码，查询子集用
   public childMenuTitList: Array<any> = []; //菜单级别面包屑
 
@@ -116,7 +115,6 @@ export class MenuComponent implements OnInit {
    */
   queryChildMenuList(childCode?, menuName?, isTit?: boolean) {
     let me = this, num = 0;
-    me.flag = !me.flag;//flag取反，当点击下级菜单按钮的时候添加页面元素按钮隐藏
     if (childCode) {
       me.childMenuCode = childCode;
       let item = {name: menuName, code: childCode};

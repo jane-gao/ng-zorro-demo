@@ -10,10 +10,9 @@
   <span class="cursor" (click)="queryChildMenuList()">菜单权限</span>
   <ng-container *ngFor="let menuTit of childMenuTitList">
     <i class="anticon anticon-arrow-right"></i>
-    <font class="cursor-p" (click)="queryChildMenuList(menuTit.code,menuTit.name,true)">{{menuTit.name}}</font>
+    <span class="cursor-p" (click)="queryChildMenuList(menuTit.code,menuTit.name,true)">{{menuTit.name}}</span>
   </ng-container>
-  <button nz-button *ngIf="childMenuTitList.length>0" (click)="goBackMenu()" class="btn" nzType="default"
-          nzSize="small">
+  <button nz-button *ngIf="childMenuTitList.length>0" (click)="goBackMenu()" class="btn" nzType="default" nzSize="small">
     <i class="anticon anticon-rollback"></i>上一级
   </button>
 </div>

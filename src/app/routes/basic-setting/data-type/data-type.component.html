@@ -18,7 +18,7 @@
           <ng-template #actionSetting>
             <nz-switch class="thc" [ngModel]="data.enable === enumState.yes"
                        [ngModelOptions]="{standalone: true}" [name]="'enable'+i"
-                       nzCheckedChildren="是" nzUnCheckedChildren="否"
+                       nzCheckedChildren="是" nzUnCheckedChildren="否" title="是否唯一"
                        (ngModelChange)="changeIsEnable(data.code, $event)">
             </nz-switch>
           </ng-template>
@@ -83,7 +83,7 @@
     <nz-form-item *ngIf="isAddType">
       <nz-form-label [nzSm]="6" [nzXs]="24">是否唯一</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-switch name="isUniqueVal" class="thc"
+        <nz-switch name="isUniqueVal" class="thc" title="是否唯一"
                    nzCheckedChildren="是" nzUnCheckedChildren="否"
                    [(ngModel)]="validateForm.isUniqueVal">
         </nz-switch>

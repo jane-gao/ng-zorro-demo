@@ -28,7 +28,7 @@
     <div class="search-main">
       <input nz-input name="brandName"
              [(ngModel)]="query.brandName"
-             placeholder="品牌">
+             placeholder="品牌中文名">
     </div>
   </div>
   <div class="inline-block">
@@ -98,7 +98,8 @@
                 (click)="upBrand(data.id)">
           <i class="anticon anticon-edit"></i>
         </button>
-        <button nz-button title="删除" class="btn-danger" (click)="delBrand(data.id)">
+        <button nz-popconfirm nz-button nzPlacement="top" title="删除" nzTitle="确定要删除该品牌吗？"
+                class="btn-danger" (nzOnConfirm)="delBrand(data.id)">
           <i class="iconfont icon-shanchu"></i>
         </button>
       </td>
