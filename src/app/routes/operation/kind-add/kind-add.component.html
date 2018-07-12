@@ -59,8 +59,7 @@
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="commisRate">分享佣金比例</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngCommisRate)" nzHasFeedback>
       <input [(ngModel)]="validateForm.commisRate" name="commisRate" id="commisRate" placeholder="分享佣金比例"
-             #ngCommisRate="ngModel" type="number" nz-input [pattern]="patterns.decimals"
-             nz-tooltip nzTitle="请填写0-1的小数" nzPlacement="bottom" nzTrigger="focus">
+             #ngCommisRate="ngModel" type="number" nz-input [pattern]="patterns.decimals">
       <nz-form-explain *ngIf="ngValidateErrorMsg(ngCommisRate) == valitateState.empty">请填写0-1的小数！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>

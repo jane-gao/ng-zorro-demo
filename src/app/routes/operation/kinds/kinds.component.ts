@@ -35,6 +35,11 @@ export class KindsComponent implements OnInit {
     this.queryGoodsKindPageByParentId()
   }
 
+  /**
+   * 查询分类
+   * @param curPage
+   * @param callback
+   */
   queryGoodsKindPageByParentId(curPage: number = 1, callback?) {
     let me = this;
     me._loading = true; //锁屏
@@ -51,6 +56,12 @@ export class KindsComponent implements OnInit {
     })
   }
 
+  /**
+   * 添加分类
+   * @param id
+   * @param kindName
+   * @param level
+   */
   addKind(id?, kindName?, level?) {
     let me = this;
     const modal = this.modalService.create({
@@ -64,14 +75,16 @@ export class KindsComponent implements OnInit {
       nzWidth: '720',
       nzFooter: null
     });
-    if (!id) {
-      modal.afterClose.subscribe((result) => {
-        if (result) me.queryGoodsKindPageByParentId();
-      });
-    }
+    modal.afterClose.subscribe((result) => {
+      if (result) me.queryGoodsKindPageByParentId();
+    });
   }
 
-  upBrand(id) {
+  /**
+   * 修改分类
+   * @param id
+   */
+  upKind(id) {
     let me = this;
     const modal = this.modalService.create({
       nzTitle: '修改分类',
@@ -83,6 +96,17 @@ export class KindsComponent implements OnInit {
     modal.afterClose.subscribe((result) => {
       if (result) me.queryGoodsKindPageByParentId();
     });
+  }
+
+  /**
+   * 删除分类
+   * @param id
+   */
+  delKind(id) {
+    let me = this;
+    $.when(me.operationService.deleteGoodsKind(id)).then(success => {
+      if (success) me.queryGoodsKindPageByParentId();
+    })
   }
 
   /**
@@ -153,13 +177,6 @@ export class KindsComponent implements OnInit {
     let num = this.childKindList.length;
     if (num - 2 < 0) this.queryChildKindList();
     else this.queryChildKindList(this.childKindList[num - 2].id, this.childKindList[num - 2].name, true);
-  }
-
-  delKind(id) {
-    let me = this;
-    $.when(me.operationService.deleteGoodsKind(id)).then(success => {
-      if (success) me.queryGoodsKindPageByParentId();
-    })
   }
 }
 

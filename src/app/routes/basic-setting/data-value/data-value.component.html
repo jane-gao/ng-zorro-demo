@@ -16,32 +16,32 @@
           (nzPageIndexChange)="queryDictionaryValue($event)">
   <thead nz-thead>
   <tr>
-    <th nz-th class="text-center w8"><span>序号</span></th>
-    <th nz-th class="text-center w15"><span>类型编码</span></th>
-    <th nz-th class="text-center w15"><span>字典信息</span></th>
-    <th nz-th class="text-center w7"><span>排序</span></th>
-    <th nz-th class="text-center w20"><span>备注</span></th>
-    <th nz-th class="text-center w15"><span>是否启用</span></th>
-    <th nz-th class="text-center w10"><span>创建时间</span></th>
-    <th nz-th class="text-center w10"><span>操作</span></th>
+    <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>类型编码</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>字典信息</span></th>
+    <th nz-th class="text-center" nzWidth="5%"><span>排序</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>备注</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>是否启用</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>创建时间</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>操作</span></th>
   </tr>
   </thead>
   <tbody nz-tbody>
   <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
     <tr nz-tbody-tr>
-      <td nz-td class="text-center w8">{{i+1}}</td>
-      <td nz-td class="text-center w15">{{data.typeCode}}</td>
-      <td nz-td class="text-center w15">{{data.info}}</td>
-      <td nz-td class="text-center w7">{{data.sort}}</td>
-      <td nz-td class="text-center w20">{{data.remark}}</td>
-      <td nz-td class="text-center w15">
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-center">{{data.typeCode}}</td>
+      <td nz-td class="text-center">{{data.info}}</td>
+      <td nz-td class="text-center">{{data.sort}}</td>
+      <td nz-td class="text-center">{{data.remark}}</td>
+      <td nz-td class="text-center">
         <nz-switch class="thc" [ngModel]="data.enable === enumState.yes"
                    nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}"
                    (ngModelChange)="changeIsEnable(data.code, $event)">
         </nz-switch>
       </td>
-      <td nz-td class="text-center w10">{{data.createTime | date:'yyyy-MM-dd'}}</td>
-      <td nz-td class="text-center w10">
+      <td nz-td class="text-center">{{data.createTime | date:'yyyy-MM-dd'}}</td>
+      <td nz-td class="text-center">
         <button nz-button title="修改" class="btn-blue"
                 (click)="showModalForTemplate('up',valTitle,valContent,valFooter,data.code)">
           <i class="anticon anticon-edit"></i>

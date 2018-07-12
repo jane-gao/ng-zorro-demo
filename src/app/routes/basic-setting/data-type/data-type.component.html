@@ -12,7 +12,7 @@
       <ul class="data-list pr">
         <li class="data-item none mb-20" *ngFor="let data of dictionaryType.voList;let i=index">
           <nz-card class="w100" [ngClass]="{'checked': curType.code === data.code}"
-                   [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+                   [nzActions]="[actionSetting,actionEdit,actionDel,actionEllipsis]">
             <nz-card-meta [nzTitle]="data.name" [nzDescription]="data.description"></nz-card-meta>
           </nz-card>
           <ng-template #actionSetting>
@@ -26,9 +26,13 @@
             <i class="anticon anticon-edit" title="修改"
                (click)="showModalForTemplate('up',typeTitle,typeContent,typeFooter,data.code)"></i>
           </ng-template>
+          <ng-template #actionDel>
+            <nz-popconfirm nzTitle="确定要删除该分类吗？" nzPlacement="top" (nzOnConfirm)="delKey(data.code)">
+              <i class="iconfont icon-shanchu color-red" title="删除" nz-popconfirm></i>
+            </nz-popconfirm>
+          </ng-template>
           <ng-template #actionEllipsis>
-            <span title="查看" (click)="setCurType(data)">查看</span>
-            <!--<i class="anticon anticon-ellipsis"></i>-->
+            <i class="anticon anticon-eye-o color-green" title="查看" (click)="setCurType(data)"></i>
           </ng-template>
         </li>
       </ul>

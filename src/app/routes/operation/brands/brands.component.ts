@@ -45,7 +45,7 @@ export class BrandsComponent implements OnInit {
       brandInitial: me.query.brandInitial, //首字母
       brandName: me.query.brandName, //品牌
     }
-    $.when(me.operationService.getBrandsList(me.brandList.params)).done(res => {
+    $.when(me.operationService.getBrandsList(me.brandList.params)).always(res => {
       me._loading = false; //解除锁屏
       if (res) me.brandList = res; //赋值
     })
@@ -101,7 +101,7 @@ export class BrandsComponent implements OnInit {
   changeIsEnable(id, state) {
     let me = this, data = {
       id: id,
-      state: state ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
+      state: state ? Setting.ENUMSTATE.showState.show : Setting.ENUMSTATE.showState.hide
     };
     $.when(me.operationService.updateBrandState(data)).always(res => {
       if (!res) me.getBrandsList(); //不成功刷新列表，可以重置switch
@@ -110,8 +110,13 @@ export class BrandsComponent implements OnInit {
 
   delBrand(id) {
     let me = this;
-    $.when(me.operationService.deleteBrand(id)).then(success => {
-     if (success) me.getBrandsList();
-     })
+    $.when(me.operationService.deleteBrand(id)).always(success => {
+      if (success) me.getBrandsList();
+    })
+  }
+
+  resetSearch(){
+    this.query = {};
+    this.getBrandsList(1);
   }
 }

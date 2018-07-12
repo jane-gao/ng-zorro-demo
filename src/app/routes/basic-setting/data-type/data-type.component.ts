@@ -36,6 +36,13 @@ export class DataTypeComponent implements OnInit {
     this.queryDictionaryType()
   }
 
+  delKey(code) {
+    let me = this;
+    $.when(me.basicSettingService.deleteDatadict({code: code}, 'type')).done(res => {
+      if (res) me.queryDictionaryType(1)
+    })
+  }
+
   setCurType(data) {
     this.curType = {
       name: data.name,
@@ -74,7 +81,7 @@ export class DataTypeComponent implements OnInit {
       enable: enable ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
     };
     $.when(me.basicSettingService.upEnable(data, me.isAddType)).done(res => {
-      if(!res) me.queryDictionaryType()
+      if (!res) me.queryDictionaryType()
     })
   }
 
@@ -85,7 +92,7 @@ export class DataTypeComponent implements OnInit {
    * @param contentTpl  弹窗内容
    * @param footerTpl   弹窗底部
    */
-  showModalForTemplate(type, titleTpl, contentTpl, footerTpl,code?) {
+  showModalForTemplate(type, titleTpl, contentTpl, footerTpl, code?) {
     let me = this;
     me.validateForm = {};
     me.isAddType = type === 'add' ? true : false;
@@ -108,9 +115,9 @@ export class DataTypeComponent implements OnInit {
    * getCurKeyInfo
    * @param code
    */
-  getCurKeyInfo(code){
+  getCurKeyInfo(code) {
     let me = this;
-    $.when(BasicSettingService.getDataByCode(me.dataType, {code:code})).done(res => {
+    $.when(BasicSettingService.getDataByCode(me.dataType, {code: code})).done(res => {
       if (res.success) me.validateForm = res.data; //赋值
     })
   }
@@ -126,8 +133,8 @@ export class DataTypeComponent implements OnInit {
   handleOk() {
     let me = this;
     me.isConfirmLoading = true;
-    let formVal = Object.assign({},me.validateForm);
-    if(formVal.isUniqueVal) formVal.isUniqueVal = Setting.ENUMSTATE.yes;
+    let formVal = Object.assign({}, me.validateForm);
+    if (formVal.isUniqueVal) formVal.isUniqueVal = Setting.ENUMSTATE.yes;
     else formVal.isUniqueVal = Setting.ENUMSTATE.no;
     if (me.isAddType) {
       $.when(me.basicSettingService.addData(formVal, me.dataType)).done(success => {
@@ -137,7 +144,7 @@ export class DataTypeComponent implements OnInit {
         }
         me.isConfirmLoading = false;
       })
-    }else{
+    } else {
       $.when(me.basicSettingService.upData(formVal, me.dataType)).done(success => {
         if (success) {
           me.handleCancel();

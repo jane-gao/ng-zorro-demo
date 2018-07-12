@@ -130,5 +130,33 @@ export class BasicSettingService {
     });
     return defer.promise(); //返回异步请求休息
   }
+  /**
+   * deleteDatadictType
+   * @param data({code, enable})
+   * @param type('type' | 'val')
+   */
+  deleteDatadict(data, type) {
+    const me = this;
+    var defer = $.Deferred(); //封装异步请求结果
+    let repUrl = type === 'type' ? SettingUrl.URL.datadict.deleteDatadictType : SettingUrl.URL.datadict.deleteDatadict;
+    AjaxService.del({
+      url: repUrl,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info)
+        } else {
+          defer.resolve(false);
+          me._notification.error(`错误提示`, res.info)
+        }
+      },
+      error: (res) => {
+        defer.resolve(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
 
 }

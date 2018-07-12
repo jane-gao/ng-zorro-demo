@@ -48,7 +48,7 @@ export class StaffComponent implements OnInit {
 
   resetSearch() {
     this.query = {}
-    this.queryStaffList()
+    this.queryStaffList(1)
   }
 
 

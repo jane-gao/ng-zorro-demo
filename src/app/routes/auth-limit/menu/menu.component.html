@@ -5,14 +5,14 @@
     <i class="anticon anticon-plus"></i><span>新增菜单</span>
   </button>
 </div>
-<div class="font15 mt mb pl">
+<div class="font15 mt mb pl ant-breadcrumb">
   <i class="anticon anticon-home font18 color-green"></i>
-  <span class="cursor" (click)="queryChildMenuList()">菜单权限</span>
+  <a class="cursor" (click)="queryChildMenuList()">菜单权限</a>
   <ng-container *ngFor="let menuTit of childMenuTitList">
-    <i class="anticon anticon-arrow-right"></i>
-    <span class="cursor-p" (click)="queryChildMenuList(menuTit.code,menuTit.name,true)">{{menuTit.name}}</span>
+    <i class="anticon anticon-right pl-5 pr-5"></i>
+    <a class="cursor" (click)="queryChildMenuList(menuTit.code,menuTit.name,true)">{{menuTit.name}}</a>
   </ng-container>
-  <button nz-button *ngIf="childMenuTitList.length>0" (click)="goBackMenu()" class="btn" nzType="default" nzSize="small">
+  <button nz-button *ngIf="childMenuTitList.length>0" (click)="goBackMenu()" class="btn ml" nzType="default" nzSize="small">
     <i class="anticon anticon-rollback"></i>上一级
   </button>
 </div>

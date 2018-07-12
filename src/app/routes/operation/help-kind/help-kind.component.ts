@@ -76,6 +76,13 @@ export class HelpKindComponent implements OnInit {
     })
   }
 
+  delKind(id){
+    let me = this;
+    $.when(me.operationService.deleteHelpKind(id)).always(res => {
+      if (res) me.queryHelpKindList()
+    })
+  }
+
   /**
    * 获取某个分类信息
    * @param id

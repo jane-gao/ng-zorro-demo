@@ -5,14 +5,15 @@
   </button>
 </div>
 
-<div class="font15 mt mb pl">
+<div class="font15 mt mb pl ant-breadcrumb">
   <i class="anticon anticon-home font18 color-green"></i>
-  <span class="cursor" (click)="queryChildKindList()">商品分类</span>
+  <a class="cursor" (click)="queryChildKindList()">商品分类</a>
   <ng-container *ngFor="let menuTit of childKindList">
-    <i class="anticon anticon-arrow-right"></i>
-    <span class="cursor-p" (click)="queryChildKindList(menuTit.id,menuTit.name,true)">{{menuTit.name}}</span>
+    <i class="anticon anticon-right pl-5 pr-5"></i>
+    <a class="cursor" (click)="queryChildKindList(menuTit.id,menuTit.name,true)">{{menuTit.name}}</a>
   </ng-container>
-  <button nz-button *ngIf="childKindList.length>0" (click)="goBackMenu()" class="btn" nzType="default" nzSize="small">
+  <button nz-button *ngIf="childKindList.length>0" (click)="goBackMenu()" class="btn ml" nzType="default"
+          nzSize="small">
     <i class="anticon anticon-rollback"></i>上一级
   </button>
 </div>
@@ -32,12 +33,12 @@
     <th nz-th class="text-center" nzWidth="10%"><span>分类名称</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>分类图标</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>上级分类</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>排序</span></th>
+    <th nz-th class="text-center" nzWidth="5%"><span>排序</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>关键字</span></th>
     <th nz-th class="text-center"><span>描述</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>税率</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>管理</span></th>
+    <th nz-th class="text-center" nzWidth="8%"><span>税率</span></th>
+    <th nz-th class="text-left" nzWidth="17%"><span>管理</span></th>
   </tr>
   </thead>
   <tbody nz-tbody>
@@ -66,24 +67,39 @@
       <td nz-td class="text-center">
         {{data.taxRate/100}}%
       </td>
-      <td nz-td class="text-center w10">
-        <button nz-button title="修改" class="btn-blue" (click)="upBrand(data.id)">
+      <td nz-td class="w10">
+        <button nz-button title="修改" class="btn-blue" (click)="upKind(data.id)">
           <i class="anticon anticon-edit"></i>
         </button>
         <button nz-button title="添加下级分类" class="btn-green" (click)="addKind(data.id,data.kindName,data.level)">
           <i class="anticon anticon-plus"></i>
         </button>
-        <button nz-button title="删除" class="btn-danger" (click)="delKind(data.id)">
-          <i class="iconfont icon-shanchu"></i>
-        </button>
-        <button nz-button title="查看子菜单" class="btn-warning" *ngIf="data.hasSon === enumState.yes"
+        <nz-popconfirm nzTitle="确定要删除该分类吗？" nzPlacement="top" (nzOnConfirm)="delKind(data.id)">
+          <button nz-popconfirm nz-button title="删除" class="btn-danger">
+            <i class="iconfont icon-shanchu"></i>
+          </button>
+        </nz-popconfirm>
+        <button nz-button title="查看子菜单" class="btn-purple" *ngIf="data.haveChildren"
                 (click)="queryChildKindList(data.id,data.kindName,false)">
           <i class="anticon anticon-arrow-down"></i>
         </button>
       </td>
     </tr>
     <tr [nzExpand]="data.expand">
-      <td [attr.colspan]="10">{{data.description}}</td>
+      <td [attr.colspan]="10">
+        <div *ngIf="data.level != 3">
+          该分类级别无法绑定品牌
+        </div>
+        <div *ngIf="data.level == 3">
+          绑定的品牌：
+          <ng-container *ngIf="data.goodsBrandList">
+            <span *ngFor="let item of data.goodsBrandList" class="mr">{{item.brandName}}</span>
+          </ng-container>
+          <ng-container *ngIf="!kind.goodsBrandList">
+            暂无品牌
+          </ng-container>
+        </div>
+      </td>
     </tr>
   </ng-template>
   </tbody>

@@ -15,10 +15,8 @@ const PROXY_CONFIG = [
       "/sms",    //验证码
       "/login", //登录
       "/admin", //数据字典
-      "/helpKind", //帮助分类
-      "/helpQuestions", //帮助问题
     ],
-    target: wp + "8899",   //拦截 context配置路径，经过此地址
+    target: sz + "8899",   //拦截 context配置路径，经过此地址
     secure: false
   }
 ];

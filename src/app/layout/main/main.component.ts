@@ -75,7 +75,7 @@ export class MainComponent implements OnInit {
           menuUrl: '/main/operation/brands'
         }, {
           menuName: '帮助中心',
-          menuUrl: '/main/operation/help-kind'
+          menuUrl: '/main/operation/help-center'
         }
       ]
     };

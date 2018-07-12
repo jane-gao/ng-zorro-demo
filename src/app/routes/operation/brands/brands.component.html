@@ -35,7 +35,7 @@
     <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
       <i class="anticon anticon-search"></i><span>搜索</span>
     </button>
-    <button nz-button class="mr" title="重置" type="reset">
+    <button nz-button class="mr" title="重置" type="reset" (click)="resetSearch()">
       <i class="anticon anticon-sync"></i><span>重置</span>
     </button>
   </div>
@@ -98,10 +98,11 @@
                 (click)="upBrand(data.id)">
           <i class="anticon anticon-edit"></i>
         </button>
-        <button nz-popconfirm nz-button nzPlacement="top" title="删除" nzTitle="确定要删除该品牌吗？"
-                class="btn-danger" (nzOnConfirm)="delBrand(data.id)">
-          <i class="iconfont icon-shanchu"></i>
-        </button>
+        <nz-popconfirm nzTitle="确定要删除该品牌吗？" nzPlacement="top" (nzOnConfirm)="delBrand(data.id)">
+          <button nz-popconfirm nz-button title="删除" class="btn-danger">
+            <i class="iconfont icon-shanchu"></i>
+          </button>
+        </nz-popconfirm>
       </td>
     </tr>
   </ng-template>

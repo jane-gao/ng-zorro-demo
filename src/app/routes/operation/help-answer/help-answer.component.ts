@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
 import {Page} from "../../../public/util/page";
-import {NzModalService} from "ng-zorro-antd";
 import {Util} from "../../../public/util/util";
 import {Setting} from "../../../public/setting/setting";
 import {OperationService} from "../operation.service";
 import {isNullOrUndefined} from "util";
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -16,20 +16,18 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
   public helpAnswerList: Page = new Page();        //列表
   public _loading: boolean = false;                 //是否加载中
   public isConfirmLoading: boolean = false;            //是否加载中
-  public valEditTitle: string = '添加键值';
   public validateForm: any = {};                   //表单
   public ngValidateStatus = Util.ngValidateStatus;//表单项状态
   public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
   public valitateState: any = Setting.valitateState;//表单验证状态
-  public isAddVal: boolean = false;            //是否添加键值
+  public showList: boolean = true;            //是否显示列表，添加问题时隐藏列表
   public enumState: any = Setting.ENUMSTATE;
+  public routerLinks: any = SettingUrl.ROUTERLINK;
   @Input('curKind') curKind: any = {};
-  public currentModal: any;
   public query: any = {};//搜索条件
 
 
-  constructor(private operationService: OperationService,
-              private modalService: NzModalService) {
+  constructor(private operationService: OperationService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -39,6 +37,11 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+  }
+
+  resetSearch() {
+    this.query = {};
+    this.getHelpAnswerList(1);
   }
 
   getHelpAnswerList(curPage?: number) {
@@ -73,32 +76,6 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
   }
 
   /**
-   * 点击添加类型，弹窗出现
-   * @param type  ('add' | 'up')
-   * @param titleTpl  弹窗标题
-   * @param contentTpl  弹窗内容
-   * @param footerTpl   弹窗底部
-   */
-  showModalForTemplate(type, titleTpl, contentTpl, footerTpl, id?) {
-    let me = this;
-    me.validateForm = {};
-    me.isAddVal = type === 'add' ? true : false;
-    if (type === 'up') {
-      me.valEditTitle = '修改类型';
-      me.getCurValInfo(id)
-    }
-    me.currentModal = me.modalService.create({
-      nzTitle: titleTpl,
-      nzContent: contentTpl,
-      nzFooter: footerTpl,
-      nzMaskClosable: false,
-      nzOnCancel: () => {
-        me.isConfirmLoading = false;//点击确认按钮加载小圈
-      }
-    });
-  }
-
-  /**
    * getCurValInfo
    * @param id
    */
@@ -109,37 +86,15 @@ export class HelpAnswerComponent implements OnInit, OnChanges {
     })
   }
 
-  /**
-   * 关闭弹窗
-   * @param e
-   */
-  handleCancel() {
-    this.currentModal.destroy('onCancel');//关闭弹窗
+  activate(event) {
+    this.showList = false;
   }
 
-  handleOk() {
-    let me = this;
-    me.isConfirmLoading = true;
-    me.validateForm.id = me.curKind.id;
-    let formVal = Object.assign({}, me.validateForm);
-    if (me.isAddVal) {
-      $.when(me.operationService.addHelpQuestions(formVal)).always(success => {
-        if (success) {
-          me.handleCancel();
-          me.getHelpAnswerList()
-        }
-        me.isConfirmLoading = false;
-      })
-    } else {
-      $.when(me.operationService.updateHelpQuestion(formVal)).always(success => {
-        if (success) {
-          me.handleCancel();
-          me.getHelpAnswerList()
-        }
-        me.isConfirmLoading = false;
-      })
-    }
+  onDeactivate(event) {
+    this.showList = true;
+    if (event.ifRefreshParent) this.getHelpAnswerList();//如果子页面有修改则返回时刷新列表
   }
+
 
   /**
    * 删除问题

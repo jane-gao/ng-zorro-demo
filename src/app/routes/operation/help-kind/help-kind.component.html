@@ -11,13 +11,13 @@
       <ul class="data-list pr">
         <li class="data-item none mb-20" *ngFor="let data of helpKindList.voList;let i=index">
           <nz-card class="w100" [ngClass]="{'checked': curKind.id === data.id}"
-                   [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+                   [nzActions]="[actionSetting,actionEdit,actionDel,actionEllipsis]">
             <nz-card-meta [nzTitle]="data.kindName" [nzDescription]="data.description"></nz-card-meta>
           </nz-card>
           <ng-template #actionSetting>
             <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show"
-                       [ngModelOptions]="{standalone: true}"
-                       nzCheckedChildren="是" nzUnCheckedChildren="否"
+                       [ngModelOptions]="{standalone: true}" title="是否显示"
+                       nzCheckedChildren="显示" nzUnCheckedChildren="隐藏"
                        (ngModelChange)="changeIsEnable(data.id, $event)">
             </nz-switch>
           </ng-template>
@@ -25,9 +25,13 @@
             <i class="anticon anticon-edit" title="修改"
                (click)="showModalForTemplate('up',typeTitle,typeContent,typeFooter,data.id)"></i>
           </ng-template>
+          <ng-template #actionDel>
+            <nz-popconfirm nzTitle="确定要删除该分类吗？" nzPlacement="top" (nzOnConfirm)="delKind(data.id)">
+              <i class="iconfont icon-shanchu color-red" title="删除" nz-popconfirm></i>
+            </nz-popconfirm>
+          </ng-template>
           <ng-template #actionEllipsis>
-            <span title="查看" (click)="setCurType(data)">查看</span>
-            <!--<i class="anticon anticon-ellipsis"></i>-->
+            <i class="anticon anticon-eye-o color-green" title="查看" (click)="setCurType(data)"></i>
           </ng-template>
         </li>
       </ul>
@@ -92,39 +96,3 @@
   </ng-template>
 </form>
 <!--弹窗—添加/修改类型 end-->
-<!--<nz-table #nzTable [nzData]="helpKindList.voList"
-          [nzLoading]="_loading"
-          [nzFrontPagination]="false"
-          [nzPageSize]="helpKindList.pageSize"
-          [nzTotal]="helpKindList.totalRow"
-          [nzPageIndex]="helpKindList.curPage"
-          (nzPageIndexChange)="queryHelpKindList($event)">
-  <ng-template #nzFixedHeader>
-    <thead nz-thead>
-    <tr>
-      <th nz-th class="text-center" nzWidth="10%"><span>序号</span></th>
-      <th nz-th class="text-center" nzWidth="20%"><span>名称</span></th>
-      <th nz-th class="text-center" nzWidth="20%"><span>描述</span></th>
-      <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
-      <th nz-th class="text-center" nzWidth="10%"><span>时间</span></th>
-      <th nz-th class="text-center" nzWidth="20%"><span>管理</span></th>
-    </tr>
-    </thead>
-  </ng-template>
-  <tbody nz-tbody>
-  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
-    <tr nz-tbody-tr>
-      <td nz-td class="text-center">{{i+1}}</td>
-      <td nz-td class="text-center">{{data.typeCode}}</td>
-      <td nz-td class="text-center">{{data.info}}</td>
-      <td nz-td class="text-center">{{data.info}}</td>
-      <td nz-td class="text-center">{{data.sort}}</td>
-      <td nz-td class="text-center">
-        <button nz-button title="修改" class="btn-blue">
-          <i class="anticon anticon-edit"></i>
-        </button>
-      </td>
-    </tr>
-  </ng-template>
-  </tbody>
-</nz-table>-->

@@ -242,7 +242,6 @@ export class OperationService {
       url: SettingUrl.URL.kind.addGoodsKind,
       data: params,
       success: (res) => {
-        let info = res.info;
         if (res.success) {
           defer.resolve(true);
           me._notification.success(`操作成功`, res.info);
@@ -291,10 +290,37 @@ export class OperationService {
    * @param id
    * @returns {any<T>}
    */
-  queryGoodsByParentId(id) {
+  getKindByParentId(id) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.get({
-      url: SettingUrl.URL.kind.queryGoodsByParentId,
+      url: SettingUrl.URL.kind.queryKindByParentId,
+      data: {id: id},
+      success: (res) => {
+        let info = res.info;
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
+   * 按分类ID查询商品分类信息
+   * @param id
+   * @returns {any<T>}
+   */
+  loadGoodsKindById(id) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.kind.loadGoodsKindById,
       data: {id: id},
       success: (res) => {
         let info = res.info;
@@ -629,7 +655,6 @@ export class OperationService {
       url: SettingUrl.URL.help.getHelpAnswerById,
       data: {id: id},
       success: (res) => {
-        let info = res.info;
         if (res.success) {
           defer.resolve(res.data);
         } else {

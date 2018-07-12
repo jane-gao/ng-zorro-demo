@@ -8,21 +8,20 @@
   </div>
 
   <!--搜索 start-->
-  <form nz-form class="bg-white mt-15 mb-15">
+  <form nz-form class="bg-white mt-15 mb-15" (submit)="queryStaffList(1)">
     <div class="search-group mb">
       <span class="search-title">管理员姓名：</span>
       <div class="search-main">
         <input nz-input name="staffName"
                [(ngModel)]="query.staffName"
-               placeholder="管理员姓名"
-               (change)="queryStaffList(1)">
+               placeholder="管理员姓名">
       </div>
     </div>
     <div class="inline-block">
-      <button nz-button class="ml-20 mr" title="搜索" (click)="queryStaffList(1)">
+      <button nz-button class="ml-20 mr" title="搜索" type="submit">
         <i class="anticon anticon-search"></i><span>搜索</span>
       </button>
-      <button nz-button [nzType]="'primary'" class="mr" title="重置"
+      <button nz-button [nzType]="'primary'" class="mr" title="重置" type="reset"
               (click)="resetSearch()">
         <i class="anticon anticon-sync"></i><span>重置</span>
       </button>

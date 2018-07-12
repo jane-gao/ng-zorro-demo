@@ -32,6 +32,8 @@ export class SettingUrl {
       upVal: '/admin/datadict/updateDatadict',//修改值
       enableType: '/admin/datadict/updateTypeEnable',//修改类型是否可用
       enableVal: '/admin/datadict/updateEnable',//修改值是否可用
+      deleteDatadictType: '/admin/datadict/deleteDatadictType',//删除数据字典key
+      deleteDatadict: '/admin/datadict/deleteDatadict',//删除数据字典val
       getTypeList: '/admin/datadict/querryDatadictTypeList',//查询类型列表
       getValList: '/admin/datadict/querryDatadictList',//查询值列表
       getTypeByCode: '/admin/datadict/loadDatadictType',
@@ -93,8 +95,9 @@ export class SettingUrl {
       addGoodsKind: '/admin/goodsKind/addGoodsKind',//增加商品分类
       addRelateBrandAndKind: '/admin/goodsKind/addRelateBrandAndKind',//添加品牌与分类关系
       deleteGoodsKind: '/admin/goodsKind/deleteGoodsKind',//删除商品分类
+      loadGoodsKindById: '/admin/goodsKind/loadGoodsKindById',//按id获取某个商品分类信息
       queryBrandByKindId: '/admin/goodsKind/queryBrandByKindId',//根据分类id查询分类关联的所有品牌
-      queryGoodsByParentId: '/admin/goodsKind/queryGoodsByParentId',//按分类父ID查询商品分类信息
+      queryKindByParentId: '/admin/goodsKind/queryGoodsByParentId',//按分类父ID查询商品分类信息
       queryGoodsKindPageByParentId: '/admin/goodsKind/queryGoodsKindPageByParentId',//按分类父ID分页查询商品分类信息
       updateGoodsKind: '/admin/goodsKind/updateGoodsKind',//修改商品分类
       updateStateById: '/admin/goodsKind/updateStateById',//控制显示隐藏
@@ -114,6 +117,10 @@ export class SettingUrl {
       add: 'add',
       up: 'up',
       assignRole: 'assignRole'
+    },
+    helpCenter:{
+      addQuestion: 'question-add',
+      upQuestion: 'question-up',
     }
   }
 }

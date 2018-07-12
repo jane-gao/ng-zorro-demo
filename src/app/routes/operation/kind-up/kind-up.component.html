@@ -1,3 +1,78 @@
-<p>
-  kind-up works!
-</p>
+<form nz-form #editValForm="ngForm" (submit)="upKind()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="kindName" nzRequired>分类名称</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngKindName)" nzHasFeedback>
+      <input [(ngModel)]="validateForm.kindName" name="kindName" id="kindName" #ngKindName="ngModel" type="text"
+             required nz-input placeholder="请输入分类名称">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngKindName) == valitateState.empty">请输入分类名称！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="keywords" nzRequired>关键词</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngKeywords)" nzHasFeedback>
+      <input [(ngModel)]="validateForm.keywords" name="keywords" id="keywords" #ngKeywords="ngModel" type="text"
+             required nz-input placeholder="请填写关键词">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngKeywords) == valitateState.empty">请输入关键词！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">上传分类图标</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        [nzAction]="uploadUrl" nzName="limitFile"
+        nzListType="picture-card"
+        [(nzFileList)]="fileList"
+        [nzShowButton]="fileList.length < 1"
+        [nzPreview]="handlePreview"
+        [nzData]="{uuid:uuid}">
+        <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">上传</div>
+      </nz-upload>
+      <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                (nzOnCancel)="previewVisible=false">
+        <ng-template #modalContent>
+          <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }"/>
+        </ng-template>
+      </nz-modal>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">描述</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngDescription)" nzHasFeedback>
+      <input [(ngModel)]="validateForm.description" name="description" id="description" placeholder="请描述该分类"
+             #ngDescription="ngModel" type="text" nz-input>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="commisRate">分享佣金比例</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngCommisRate)" nzHasFeedback>
+      <input [(ngModel)]="validateForm.commisRate" name="commisRate" id="commisRate" placeholder="分享佣金比例"
+             #ngCommisRate="ngModel" type="number" nz-input [pattern]="patterns.decimals">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngCommisRate) == valitateState.empty">请填写0-1的小数！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="taxRate">税率</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngTaxRate)" nzHasFeedback>
+      <nz-input-group nzAddOnAfter="%">
+        <input [(ngModel)]="validateForm.taxRate" name="taxRate" id="taxRate" placeholder="请输入税率"
+               #ngTaxRate="ngModel" type="number" nz-input [pattern]="patterns.twodecimal">
+      </nz-input-group>
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngTaxRate) == valitateState.empty">请填写0-100之间的数！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sort">排序</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngSort)" nzHasFeedback>
+      <input [(ngModel)]="validateForm.sort" name="sort" id="sort" placeholder="排序"
+             #ngSort="ngModel" type="number" nz-input [pattern]="patterns.doubleDigit">
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngTaxRate) == valitateState.empty">请填写0-99的整数！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="ant-modal-footer">
+    <button nz-button class="btn" [nzType]="'ghost'" type="button" (click)="cancel()"> 取消</button>
+    <button nz-button [nzType]="'primary'" type="submit"
+            [nzLoading]="isConfirmLoading" [disabled]="!editValForm.valid">确定
+    </button>
+  </div>
+</form>

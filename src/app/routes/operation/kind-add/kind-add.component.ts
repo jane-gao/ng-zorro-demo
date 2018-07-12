@@ -36,10 +36,11 @@ export class KindAddComponent implements OnInit {
   ngOnInit() {
     this.uuid = MainService.uploadUid();
     this.validateForm.level = this.pLevel ? this.pLevel + 1 : 1;
+    this.validateForm.state = true;
   }
 
   /**
-   * 添加品牌
+   * 添加分类
    */
   addKind() {
     let me = this, uploadedFile: Array<any> = [];
@@ -49,9 +50,10 @@ export class KindAddComponent implements OnInit {
     if (uploadedFile.length > 0) me.validateForm.brandImageuuid = me.uuid;
     me.isConfirmLoading = true;
     me.validateForm.kindParentId = me.pid;
+    me.validateForm.state = me.validateForm.state ? me.enumState.showState.show : me.enumState.showState.hide;
     $.when(me.operationService.addGoodsKind(me.validateForm)).always(success => {
-      me.isConfirmLoading = false;
       if (success) me.modal.destroy(true);
+      me.isConfirmLoading = false;
     })
   }
 
