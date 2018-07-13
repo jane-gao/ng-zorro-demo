@@ -33,6 +33,7 @@ export class KindUpComponent implements OnInit {
 
   ngOnInit() {
     this.uuid = MainService.uploadUid();
+    this.getKindById();
   }
 
   /**

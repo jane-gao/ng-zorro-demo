@@ -8,6 +8,7 @@ import {isNullOrUndefined} from "util";
 import {BrandUpComponent} from "../brand-up/brand-up.component";
 import {KindAddComponent} from "../kind-add/kind-add.component";
 import {KindUpComponent} from "../kind-up/kind-up.component";
+import {KindBrandBindComponent} from "../kind-brand-bind/kind-brand-bind.component";
 declare var $: any;
 
 @Component({
@@ -49,7 +50,8 @@ export class KindsComponent implements OnInit {
       pageSize: me.kindList.pageSize, //每页条数
       kindParentId: me.kindParentId,
     }
-    $.when(me.operationService.queryGoodsKindPageByParentId(me.kindList.params)).then(res => {
+    $.when(me.operationService.queryGoodsKindPageByParentId(me.kindList.params)).always(res => {
+      console.log("█ res ►►►",  res);
       me._loading = false; //解除锁屏
       if (res) me.kindList = res; //赋值
       if (callback) callback();
@@ -99,6 +101,21 @@ export class KindsComponent implements OnInit {
   }
 
   /**
+   * 关联品牌
+   * @param id
+   */
+  bindBrand(id) {
+    let me = this;
+    const modal = this.modalService.create({
+      nzTitle: '修改分类',
+      nzContent: KindBrandBindComponent,
+      nzComponentParams: {id: id},
+      nzWidth: '660',
+      nzFooter: null
+    });
+  }
+
+  /**
    * 删除分类
    * @param id
    */
@@ -110,21 +127,6 @@ export class KindsComponent implements OnInit {
   }
 
   /**
-   * 修改是否推荐
-   * @param id
-   * @param event
-   */
-  changeIsRecommend(id, state) {
-    let me = this, data = {
-      id: id,
-      brandRecommend: state ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
-    };
-    $.when(me.operationService.updateRecommend(data)).always(res => {
-      if (!res) me.queryGoodsKindPageByParentId(); //不成功刷新列表，可以重置switch
-    })
-  }
-
-  /**
    * 修改状态
    * @param id
    * @param event
@@ -132,9 +134,9 @@ export class KindsComponent implements OnInit {
   changeIsEnable(id, state) {
     let me = this, data = {
       id: id,
-      state: state ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
+      state: state ? Setting.ENUMSTATE.showState.show : Setting.ENUMSTATE.showState.hide
     };
-    $.when(me.operationService.updateBrandState(data)).always(res => {
+    $.when(me.operationService.updateKindStateById(data)).always(res => {
       if (!res) me.queryGoodsKindPageByParentId(); //不成功刷新列表，可以重置switch
     })
   }
@@ -152,7 +154,7 @@ export class KindsComponent implements OnInit {
     if (kindParentId) {
       me.kindParentId = kindParentId;
       let item = {name: menuName, id: kindParentId};
-      if (!isTit) {
+      if (!isTit) {//非点击面包屑路径时，添加面包屑
         me.queryGoodsKindPageByParentId(null, function () {
           me.childKindList.push(item);
         })

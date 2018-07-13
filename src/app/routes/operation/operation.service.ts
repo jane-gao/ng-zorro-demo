@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {SettingUrl} from "../../public/setting/setting_url";
 import {AjaxService} from "../../public/service/ajax.service";
 import {NzNotificationService} from "ng-zorro-antd";
@@ -7,7 +7,33 @@ declare var $: any;
 @Injectable()
 export class OperationService {
 
-  constructor(public _notification: NzNotificationService, public ajax: AjaxService) {
+  constructor(public _notification: NzNotificationService) {
+  }
+
+  /**
+   * 获取所有品牌列表
+   * @param data
+   * @returns {any<T>}
+   */
+  getBrandsAll(data) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.brand.queryAll,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
   }
 
   /**
@@ -38,6 +64,33 @@ export class OperationService {
   }
 
   /**
+   * 关联品牌和分类
+   * @param params
+   * @returns {any<T>}
+   */
+  addRelateBrandAndKind(params) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.post({
+      url: SettingUrl.URL.brand.addRelateBrandAndKind,
+      data: params,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(true);
+          me._notification.success(`操作成功`, res.info);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
    * 添加品牌
    * @param params
    * @returns {any<T>}
@@ -48,7 +101,6 @@ export class OperationService {
       url: SettingUrl.URL.brand.addBrand,
       data: params,
       success: (res) => {
-        let info = res.info;
         if (res.success) {
           defer.resolve(true);
           me._notification.success(`操作成功`, res.info);
@@ -323,7 +375,6 @@ export class OperationService {
       url: SettingUrl.URL.kind.loadGoodsKindById,
       data: {id: id},
       success: (res) => {
-        let info = res.info;
         if (res.success) {
           defer.resolve(res.data);
         } else {
@@ -372,7 +423,7 @@ export class OperationService {
    * @param id, state
    * @returns {any<T>}
    */
-  updateStateById(params) {
+  updateKindStateById(params) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.put({
       url: SettingUrl.URL.kind.updateStateById,
@@ -421,7 +472,6 @@ export class OperationService {
     });
     return defer.promise(); //返回异步请求休息
   }
-
 
 
   /**

@@ -15,6 +15,9 @@ export const routes = [
       {path: 'setting', loadChildren: './basic-setting/basic-setting.module#BasicSettingModule'}, //基本设置
       {path: 'auth', loadChildren: './auth-limit/auth-limit.module#AuthLimitModule'}, //权限管理
       {path: 'operation', loadChildren: './operation/operation.module#OperationModule'}, //运营管理
+      {path: 'announce', loadChildren: './announce/announce.module#AnnounceModule'}, //公告
+      {path: 'finance', loadChildren: './finance/finance.module#FinanceModule'}, //财务
+      {path: 'plat_norms', loadChildren: './plat-norm/plat-norm.module#PlatNormModule'}, //平台标准
     ]
   },
   {

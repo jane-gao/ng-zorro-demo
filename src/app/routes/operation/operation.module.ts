@@ -12,6 +12,7 @@ import {KindAddComponent} from "./kind-add/kind-add.component";
 import {KindUpComponent} from "./kind-up/kind-up.component";
 import {HelpAnswerAddComponent} from "./help-answer-add/help-answer-add.component";
 import {HelpAnswerUpComponent} from "./help-answer-up/help-answer-up.component";
+import {KindBrandBindComponent} from './kind-brand-bind/kind-brand-bind.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'help-kind'},
@@ -30,9 +31,9 @@ const routes: Routes = [
     SharedModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [KindsComponent, BrandsComponent, HelpKindComponent, HelpAnswerComponent, BrandAddComponent, BrandUpComponent, KindAddComponent, KindUpComponent, HelpAnswerAddComponent, HelpAnswerUpComponent],
+  declarations: [KindsComponent, BrandsComponent, HelpKindComponent, HelpAnswerComponent, BrandAddComponent, BrandUpComponent, KindAddComponent, KindUpComponent, HelpAnswerAddComponent, HelpAnswerUpComponent, KindBrandBindComponent],
   providers: [OperationService],
-  entryComponents: [BrandAddComponent, BrandUpComponent, KindAddComponent, KindUpComponent]
+  entryComponents: [BrandAddComponent, BrandUpComponent, KindAddComponent, KindUpComponent, KindBrandBindComponent]
 })
 export class OperationModule {
 }

@@ -30,6 +30,32 @@ export class BasicSettingService {
   }
 
   /**
+   * 获取帮助分类列表
+   * @param data
+   * @returns {any<T>}
+   */
+  getAreaList(data) {
+    let defer = $.Deferred(), me = this; //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.area.queryAreasByCode,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求休息
+  }
+
+  /**
    * getDataByCode
    * @param type
    * @param data

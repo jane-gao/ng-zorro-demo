@@ -1,6 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {Util} from "../../../public/util/util";
-import {Setting} from "../../../public/setting/setting";
 import {AuthLimitService} from "../auth-limit.service";
 import {NzModalRef, NzNotificationService} from "ng-zorro-antd";
 declare var $: any;
@@ -11,10 +9,6 @@ declare var $: any;
   styleUrls: ['./bind-roles.component.css']
 })
 export class BindRolesComponent implements OnInit {
-  public validateForm: any = {};            //表单
-  public ngValidateStatus = Util.ngValidateStatus;//表单项状态
-  public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
-  public valitateState: any = Setting.valitateState;//表单验证状态
   public _staffCode: any;//参数
   public disabledBtn: boolean = false;//参数
   set staffCode(value: string) {

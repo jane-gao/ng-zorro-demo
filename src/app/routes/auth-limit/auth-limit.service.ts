@@ -159,10 +159,12 @@ export class AuthLimitService {
         if (res.success) {
           defer.resolve(true);
         } else {
+          defer.reject(false);
           me._notification.error(`错误提示`, res.info)
         }
       },
       error: (res) => {
+        defer.reject(false);
         me._notification.error(`错误提示`, '失败，请稍后重试')
       }
     });
@@ -184,10 +186,12 @@ export class AuthLimitService {
           defer.resolve(true);
           me._notification.success('操作成功', res.info)
         } else {
+          defer.reject(false);
           me._notification.error(`错误提示`, res.info)
         }
       },
       error: (res) => {
+        defer.reject(false);
         me._notification.error(`错误提示`, '失败，请稍后重试')
       }
     });

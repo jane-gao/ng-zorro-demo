@@ -180,7 +180,7 @@ export class Util {
    </div>
    */
   public static ngValidateStatus(templateParam) {
-    return templateParam.pristine ? null ://未输入状态不返回状态值
+    return !templateParam.value && templateParam.pristine ? null ://未输入且没有值的状态不返回状态值
       templateParam.valid ? 'success' : 'error';//输入正确返回success，否则error
   }
 
@@ -193,7 +193,7 @@ export class Util {
    * eg2:<div nz-form-explain *ngIf="ngValidateErrorMsg(ngPhone) == Setting.valitateState.error">请输入正确的手机号！</div>
    */
   public static ngValidateErrorMsg(templateParam) {
-    return templateParam.pristine ? null ://未输入状态不返回状态值
+    return !templateParam.value && templateParam.pristine ? null ://未输入且没有值的状态不返回状态值
       templateParam.valid ? 'success' : //输入正确返回success
         templateParam.invalid && (isNullOrUndefined(templateParam.value) || templateParam.value == '') ? 'empty' :// 输入后如果不正确，判断是否是值为空，空则返回'empty'
           'error';

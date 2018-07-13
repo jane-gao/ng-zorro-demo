@@ -11,7 +11,7 @@
           <!--有下级menu start-->
           <li nz-submenu *ngIf="menu.subMenuList && menu.subMenuList.length>0">
           <span title>
-            <i class="anticon anticon-{{menu.menuIcon}} font18"></i>
+            <i class="{{menu.menuIcon}} font18"></i>
             <span class="nav-text">{{menu.menuName}}</span>
           </span>
             <ul>
@@ -25,7 +25,7 @@
           <!--无下级menu start-->
           <li nz-menu-item *ngIf="!menu.subMenuList || menu.subMenuList.length<1" (click)="goUrl(menu.menuUrl)">
           <span>
-            <i class="anticon anticon-{{menu.menuIcon}} font18"></i>
+            <i class="{{menu.menuIcon}} font18"></i>
             <span class="nav-text">{{menu.menuName}}</span>
           </span>
           </li>

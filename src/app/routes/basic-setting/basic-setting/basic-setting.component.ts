@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BasicSettingService} from "../basic-setting.service";
 
 @Component({
   selector: 'app-basic-setting',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasicSettingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private basicSettingService: BasicSettingService,) { }
 
   ngOnInit() {
   }

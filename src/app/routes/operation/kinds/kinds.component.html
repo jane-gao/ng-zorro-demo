@@ -5,6 +5,7 @@
   </button>
 </div>
 
+<!--面包屑 start-->
 <div class="font15 mt mb pl ant-breadcrumb">
   <i class="anticon anticon-home font18 color-green"></i>
   <a class="cursor" (click)="queryChildKindList()">商品分类</a>
@@ -17,7 +18,7 @@
     <i class="anticon anticon-rollback"></i>上一级
   </button>
 </div>
-
+<!--面包屑 end-->
 
 <nz-table #nzTable
           [nzData]="kindList.voList"
@@ -33,11 +34,10 @@
     <th nz-th class="text-center" nzWidth="10%"><span>分类名称</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>分类图标</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>上级分类</span></th>
-    <th nz-th class="text-center" nzWidth="5%"><span>排序</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>排序</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>关键字</span></th>
     <th nz-th class="text-center"><span>描述</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
-    <th nz-th class="text-center" nzWidth="8%"><span>税率</span></th>
     <th nz-th class="text-left" nzWidth="17%"><span>管理</span></th>
   </tr>
   </thead>
@@ -64,16 +64,15 @@
                    (ngModelChange)="changeIsEnable(data.id, $event)">
         </nz-switch>
       </td>
-      <td nz-td class="text-center">
-        {{data.taxRate/100}}%
-      </td>
-      <td nz-td class="w10">
+      <td nz-td>
         <button nz-button title="修改" class="btn-blue" (click)="upKind(data.id)">
           <i class="anticon anticon-edit"></i>
         </button>
-        <button nz-button title="添加下级分类" class="btn-green" (click)="addKind(data.id,data.kindName,data.level)">
-          <i class="anticon anticon-plus"></i>
-        </button>
+        <ng-container *ngIf="data.level < 3">
+          <button nz-button title="添加下级分类" class="btn-green" (click)="addKind(data.id,data.kindName,data.level)">
+            <i class="anticon anticon-plus"></i>
+          </button>
+        </ng-container>
         <nz-popconfirm nzTitle="确定要删除该分类吗？" nzPlacement="top" (nzOnConfirm)="delKind(data.id)">
           <button nz-popconfirm nz-button title="删除" class="btn-danger">
             <i class="iconfont icon-shanchu"></i>
@@ -83,6 +82,11 @@
                 (click)="queryChildKindList(data.id,data.kindName,false)">
           <i class="anticon anticon-arrow-down"></i>
         </button>
+        <ng-container *ngIf="data.level === 3">
+          <button nz-button title="关联品牌" class="btn-green" (click)="bindBrand(data.id,data.kindName,data.level)">
+            <i class="anticon anticon-plus"></i>
+          </button>
+        </ng-container>
       </td>
     </tr>
     <tr [nzExpand]="data.expand">
@@ -95,7 +99,7 @@
           <ng-container *ngIf="data.goodsBrandList">
             <span *ngFor="let item of data.goodsBrandList" class="mr">{{item.brandName}}</span>
           </ng-container>
-          <ng-container *ngIf="!kind.goodsBrandList">
+          <ng-container *ngIf="!data.goodsBrandList">
             暂无品牌
           </ng-container>
         </div>

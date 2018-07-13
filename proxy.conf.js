@@ -16,7 +16,7 @@ const PROXY_CONFIG = [
       "/login", //登录
       "/admin", //数据字典
     ],
-    target: sz + "8899",   //拦截 context配置路径，经过此地址
+    target: wp + "8899",   //拦截 context配置路径，经过此地址
     secure: false
   }
 ];

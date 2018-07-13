@@ -1,6 +1,7 @@
 <button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
   <i class="anticon anticon-rollback font20"></i>
 </button>
+
 <form nz-form #addStaffForm="ngForm">
   <div class="fieldset pt-20">
     <div class="legend bb-dashed">添加管理员</div>
@@ -8,7 +9,7 @@
       <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="staffName">姓名</nz-form-label>
       <nz-form-control [nzSm]="10" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngStaffName)" nzHasFeedback>
         <input nz-input [(ngModel)]="validateForm.staffName" name="staffName" #ngStaffName="ngModel" type="text" id="staffName"
-               placeholder="请输入姓名">
+               required placeholder="请输入姓名">
         <nz-form-explain *ngIf="ngValidateErrorMsg(ngStaffName) == valitateState.empty">请输入姓名！</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
@@ -81,12 +82,8 @@
     </nz-form-item>
   </div>
   <div nz-row class="text-center pt-30">
-    <button nz-button [disabled]="!addStaffForm.valid" class="btn-thc" *ngIf="path==='add'"
+    <button nz-button [disabled]="!addStaffForm.valid" class="btn-thc"
             (click)="addStaff()">
-      <span>提交</span>
-    </button>
-    <button nz-button [disabled]="!addStaffForm.valid" class="btn-thc" *ngIf="path==='up'"
-            (click)="upStaff()">
       <span>提交</span>
     </button>
   </div>

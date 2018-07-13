@@ -38,13 +38,7 @@ export class StaffAddComponent implements OnInit {
   ngOnInit() {
     let me = this;
     this.uuid = MainService.uploadUid();
-    me.route.url.subscribe(paths => {
-        me.path = paths[0].path;
-        if (me.path === 'up') me.getStaffByCode();
-      }
-    )
   }
-
   /**
    * 图片预览
    * @param file
@@ -86,24 +80,6 @@ export class StaffAddComponent implements OnInit {
     })
     if (uploadedFile.length > 0) me.validateForm.uuid = me.uuid;
     $.when(me.authLimitService.addStaff(me.validateForm)).done(res => {
-      if (res) {
-        me.location.back();
-        me.ifRefreshParent = true;
-      }//返回上个页面
-      Util.hideMask();
-    });
-  }
-
-  /**
-   * 修改提交表单
-   */
-  upStaff() {
-    let me = this, uploadedFile: Array<any> = [];
-    uploadedFile = me.fileList.filter(item => {
-      return item.status == 'done' && item.uid != -1;//新上传的图片
-    })
-    if (uploadedFile.length > 0) me.validateForm.uuid = me.uuid;
-    $.when(me.authLimitService.upStaff(me.validateForm)).always(res => {
       if (res) {
         me.location.back();
         me.ifRefreshParent = true;

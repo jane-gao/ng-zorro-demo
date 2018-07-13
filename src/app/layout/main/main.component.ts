@@ -25,28 +25,42 @@ export class MainComponent implements OnInit {
   constructor(public router: Router, public cookieService: CookieService) {
     const finance = {
       menuName: '财务管理',
-      menuIcon: 'pay-circle-o',
+      menuIcon: 'anticon anticon-pay-circle-o',
       menuUrl: '/main/finance'
+    };
+    const plat_norms = {
+      menuName: '财务管理',
+      menuIcon: 'anticon anticon-pay-circle-o',
+      menuUrl: '/main/plat_norms'
     };
 
     const set = {
       menuName: '基本配置',
-      menuIcon: 'setting',
+      menuIcon: 'anticon anticon-setting',
       menuUrl: '/main/setting',
       subMenuList: [
         {
+          menuName: '区域管理',
+          menuUrl: '/main/setting/area'
+        },{
           menuName: '数据字典',
           menuUrl: '/main/setting/data'
-        }, {
+        },/* {
           menuName: '常用设置',
           menuUrl: '/main/setting/basic'
-        }
+        }*/
       ]
+    };
+
+    const ad = {
+      menuName: '公告/通知',
+      menuIcon: 'anticon anticon-bell',
+      menuUrl: '/main/announce'
     };
 
     const authLimit = {
       menuName: '权限管理',
-      menuIcon: 'safety',
+      menuIcon: 'anticon anticon-safety',
       menuUrl: '/main/auth',
       subMenuList: [
         {
@@ -64,7 +78,7 @@ export class MainComponent implements OnInit {
 
     const operation = {
       menuName: '运营管理',
-      menuIcon: 'safety',
+      menuIcon: 'anticon anticon-safety',
       menuUrl: '/main/operation',
       subMenuList: [
         {
@@ -80,7 +94,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [set, authLimit, operation]
+    Setting.MENUS = [set, ad, finance, authLimit, operation]
   }
 
   ngOnInit() {

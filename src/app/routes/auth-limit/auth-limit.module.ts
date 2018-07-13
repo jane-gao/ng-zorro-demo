@@ -14,13 +14,14 @@ import {MenuAddComponent} from "./menu-add/menu-add.component";
 import {MenuUpComponent} from "./menu-up/menu-up.component";
 import {UpPwdComponent} from "./up-pwd/up-pwd.component";
 import {BindRolesComponent} from "./bind-roles/bind-roles.component";
+import {StaffUpComponent} from "./staff-up/staff-up.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'staff'},
   {
     path: 'staff', component: StaffComponent, children: [
     {path: 'add', component: StaffAddComponent},
-    {path: 'up', component: StaffAddComponent},
+    {path: 'up', component: StaffUpComponent},
   ]
   },
   {
@@ -50,7 +51,8 @@ const routes: Routes = [
     MenuAddComponent,
     MenuUpComponent,
     UpPwdComponent,
-    BindRolesComponent],
+    BindRolesComponent,
+    StaffUpComponent],
   providers: [AuthLimitService],
   entryComponents: [UpPwdComponent, BindRolesComponent, AddRoleComponent, UpdateRoleComponent, MenuAddComponent, MenuUpComponent]
 })

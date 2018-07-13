@@ -16,6 +16,11 @@ export class SettingUrl {
       upload: '/upload/basic/upload',  //上传图片
       uuid: '/upload/basic/uid',      //获取上传图片的编码
     },
+    area: {
+      addArea: '/admin/area/addArea',//添加区域
+      deleteAreaByCode: '/admin/area/deleteAreaByCode',//删除区域
+      queryAreasByCode: '/admin/area/queryAreasByCode',//查询区域
+    },
     /**
      * 登录接口
      */
@@ -38,6 +43,11 @@ export class SettingUrl {
       getValList: '/admin/datadict/querryDatadictList',//查询值列表
       getTypeByCode: '/admin/datadict/loadDatadictType',
       getValByCode: '/admin/datadict/loadDatadictByCode'
+    },
+    announce: {
+      list: '/admin/announce/queryAnnounce',//查询公告列表
+      create: '/admin/announce/addAnnounce',//创建公告
+      delete: '/admin/announce/deleteAnnounce',//删除公告
     },
     limit: {
       menuList: '/admin/limitMenu/listpage',//获取菜单列表
@@ -91,7 +101,7 @@ export class SettingUrl {
       loadBrandById: '/admin/goodsBrand/loadBrandById',//根据id查询品牌
       queryAll: '/admin/goodsBrand/queryAll',//查询所有品牌
     },
-    kind:{
+    kind: {
       addGoodsKind: '/admin/goodsKind/addGoodsKind',//增加商品分类
       addRelateBrandAndKind: '/admin/goodsKind/addRelateBrandAndKind',//添加品牌与分类关系
       deleteGoodsKind: '/admin/goodsKind/deleteGoodsKind',//删除商品分类
@@ -101,6 +111,12 @@ export class SettingUrl {
       queryGoodsKindPageByParentId: '/admin/goodsKind/queryGoodsKindPageByParentId',//按分类父ID分页查询商品分类信息
       updateGoodsKind: '/admin/goodsKind/updateGoodsKind',//修改商品分类
       updateStateById: '/admin/goodsKind/updateStateById',//控制显示隐藏
+    },
+    standard: {
+      addPlatNorm: '/admin/productPlatNorm/addPlatNorm',//添加标准
+      deletePlatNorm: '/admin/productPlatNorm/deletePlatNorm',//删除标准
+      updatePlatNorm: '/admin/productPlatNorm/updatePlatNorm',//修改标准
+      updateStateByCode: '/admin/productPlatNorm/updateStateByCode',//修改标准状态
     }
   }
   ;
@@ -118,7 +134,13 @@ export class SettingUrl {
       up: 'up',
       assignRole: 'assignRole'
     },
-    helpCenter:{
+    announce: {
+      list: '/main/announce',
+      add: '../add',
+      update: '../update',
+      detail: '../detail',
+    },
+    helpCenter: {
       addQuestion: 'question-add',
       upQuestion: 'question-up',
     }

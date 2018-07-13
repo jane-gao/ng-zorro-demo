@@ -118,7 +118,7 @@ export class MenuComponent implements OnInit {
     if (childCode) {
       me.childMenuCode = childCode;
       let item = {name: menuName, code: childCode};
-      if (!isTit) {
+      if (!isTit) {//非点击面包屑路径时，添加面包屑
         me.getMenuList(me.childMenuCode, function () {
           me.childMenuTitList.push(item);
         })

@@ -79,6 +79,12 @@ export class HomeComponent implements OnInit {
         isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.staff.list)
       },
       {
+        icon: "anticon anticon-notification color-blue",
+        info: "发布公告",
+        url: routerLinks.announce.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.announce.list)
+      },
+      {
         icon: "anticon anticon-usergroup-add color-orange",
         info: "管理权限",
         url: routerLinks.staff.list,

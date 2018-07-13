@@ -5,12 +5,13 @@ import {DataValueComponent} from "./data-value/data-value.component";
 import {SharedModule} from "../../shared/shared.module";
 import {BasicSettingComponent} from "./basic-setting/basic-setting.component";
 import {BasicSettingService} from "./basic-setting.service";
-import { AreaComponent } from './area/area.component';
+import {AreaComponent} from './area/area.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'data'},
   {path: 'data', component: DataTypeComponent},
   {path: 'basic', component: BasicSettingComponent},
+  {path: 'area', component: AreaComponent},
 ];
 
 @NgModule({
@@ -21,4 +22,5 @@ const routes: Routes = [
   declarations: [DataTypeComponent, DataValueComponent, BasicSettingComponent, AreaComponent],
   providers: [BasicSettingService]
 })
-export class BasicSettingModule { }
+export class BasicSettingModule {
+}

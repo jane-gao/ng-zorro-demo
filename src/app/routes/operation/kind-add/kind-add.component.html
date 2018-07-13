@@ -56,29 +56,11 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="commisRate">分享佣金比例</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngCommisRate)" nzHasFeedback>
-      <input [(ngModel)]="validateForm.commisRate" name="commisRate" id="commisRate" placeholder="分享佣金比例"
-             #ngCommisRate="ngModel" type="number" nz-input [pattern]="patterns.decimals">
-      <nz-form-explain *ngIf="ngValidateErrorMsg(ngCommisRate) == valitateState.empty">请填写0-1的小数！</nz-form-explain>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="taxRate">税率</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngTaxRate)" nzHasFeedback>
-      <nz-input-group nzAddOnAfter="%">
-        <input [(ngModel)]="validateForm.taxRate" name="taxRate" id="taxRate" placeholder="请输入税率"
-               #ngTaxRate="ngModel" type="number" nz-input [pattern]="patterns.twodecimal">
-      </nz-input-group>
-      <nz-form-explain *ngIf="ngValidateErrorMsg(ngTaxRate) == valitateState.empty">请填写0-100之间的数！</nz-form-explain>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sort">排序</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="ngValidateStatus(ngSort)" nzHasFeedback>
       <input [(ngModel)]="validateForm.sort" name="sort" id="sort" placeholder="排序"
              #ngSort="ngModel" type="number" nz-input [pattern]="patterns.doubleDigit">
-      <nz-form-explain *ngIf="ngValidateErrorMsg(ngTaxRate) == valitateState.empty">请填写0-99的整数！</nz-form-explain>
+      <nz-form-explain *ngIf="ngValidateErrorMsg(ngSort) == valitateState.empty">请填写0-99的整数！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
