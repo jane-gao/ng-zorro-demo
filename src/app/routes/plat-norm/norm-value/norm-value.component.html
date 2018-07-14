@@ -1,3 +1,48 @@
-<p>
-  norm-value works!
-</p>
+<div class="page-title clearfix">
+  <h3 class="fl">当前分类：<span class="color-orange">{{curNorm.normName}}</span></h3>
+  <button class="fr m btn-thc" nz-button [hidden]="!curNorm.normName">
+    <i class="anticon anticon-plus"></i><span>新增参数</span>
+  </button>
+</div>
+
+<nz-table #nzTable
+          [nzData]="normParamList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false">
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center" nzWidth="10%"><span>序号</span></th>
+    <th nz-th class="text-left" nzWidth="10%"><span>参数名</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>参数值</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>参数权重</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>是否强制</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-left">{{data.question}}</td>
+      <td nz-td class="text-center">
+        <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show"
+                   nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}"
+                   (ngModelChange)="changeIsEnable(data.id, $event)">
+        </nz-switch>
+      </td>
+      <td nz-td class="text-center">{{data.sort}}</td>
+      <td nz-td class="text-center w10">{{data.createTime | date:'yyyy-MM-dd'}}</td>
+      <td nz-td class="text-center w10">
+        <button nz-button title="修改" class="btn-blue">
+          <i class="anticon anticon-edit"></i>
+        </button>
+        <nz-popconfirm nzTitle="确定要删除该问题吗？" nzPlacement="top" (nzOnConfirm)="delParam(data.id)">
+          <button nz-popconfirm nz-button title="删除" class="btn-danger">
+            <i class="iconfont icon-shanchu"></i>
+          </button>
+        </nz-popconfirm>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

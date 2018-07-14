@@ -91,32 +91,41 @@ export class SettingUrl {
       deleteHelpQuestions: '/admin/helpQuestions/deleteHelpQuestions',//删除帮助分类问答
     },
     brand: {
-      addBrand: '/admin/goodsBrand/addBrand',//添加品牌
-      updateBrand: '/admin/goodsBrand/updateBrand',//修改品牌
-      updateState: '/admin/goodsBrand/updateState',//修改品牌状态
-      updateShowType: '/admin/goodsBrand/updateShowType',//修改品牌展示类型
-      updateRecommend: '/admin/goodsBrand/updateRecommend',//修改品牌是否推荐
-      deleteBrand: '/admin/goodsBrand/deleteBrand',//删除品牌
-      getBrandPages: '/admin/goodsBrand/queryBrandPagesByNA',//根绝条件查询品牌
-      loadBrandById: '/admin/goodsBrand/loadBrandById',//根据id查询品牌
-      queryAll: '/admin/goodsBrand/queryAll',//查询所有品牌
+      addBrand: '/admin/productBrand/addBrand',//添加品牌
+      updateBrand: '/admin/productBrand/updateBrand',//修改品牌
+      updateState: '/admin/productBrand/updateState',//修改品牌状态
+      updateShowType: '/admin/productBrand/updateShowType',//修改品牌展示类型
+      updateRecommend: '/admin/productBrand/updateRecommend',//修改品牌是否推荐
+      deleteBrand: '/admin/productBrand/deleteBrand',//删除品牌
+      getBrandPages: '/admin/productBrand/queryBrandPagesByNA',//根绝条件查询品牌
+      loadBrandById: '/admin/productBrand/loadBrandById',//根据id查询品牌
+      queryAll: '/admin/productBrand/queryAll',//查询所有品牌
     },
     kind: {
-      addGoodsKind: '/admin/goodsKind/addGoodsKind',//增加商品分类
-      addRelateBrandAndKind: '/admin/goodsKind/addRelateBrandAndKind',//添加品牌与分类关系
-      deleteGoodsKind: '/admin/goodsKind/deleteGoodsKind',//删除商品分类
-      loadGoodsKindById: '/admin/goodsKind/loadGoodsKindById',//按id获取某个商品分类信息
-      queryBrandByKindId: '/admin/goodsKind/queryBrandByKindId',//根据分类id查询分类关联的所有品牌
-      queryKindByParentId: '/admin/goodsKind/queryGoodsByParentId',//按分类父ID查询商品分类信息
-      queryGoodsKindPageByParentId: '/admin/goodsKind/queryGoodsKindPageByParentId',//按分类父ID分页查询商品分类信息
-      updateGoodsKind: '/admin/goodsKind/updateGoodsKind',//修改商品分类
-      updateStateById: '/admin/goodsKind/updateStateById',//控制显示隐藏
+      addProductKind: '/admin/productKind/addProductKind',//增加商品分类
+      addRelateBrandAndKind: '/admin/productKind/addRelateBrandAndKind',//添加品牌与分类关系
+      deleteProductKind: '/admin/productKind/deleteProductKind',//删除商品分类
+      loadProductKindById: '/admin/productKind/loadProductKindById',//按id获取某个商品分类信息
+      queryBrandByKindId: '/admin/productKind/queryBrandByKindId',//根据分类id查询分类关联的所有品牌
+      queryKindByParentId: '/admin/productKind/queryProductByParentId',//按分类父ID查询商品分类信息
+      queryProductKindPageByParentId: '/admin/productKind/queryProductKindPageByParentId',//按分类父ID分页查询商品分类信息
+      updateProductKind: '/admin/productKind/updateProductKind',//修改商品分类
+      updateStateById: '/admin/productKind/updateStateById',//控制显示隐藏
     },
-    standard: {
+    norm: {
+      queryPlateNormByPage: '/admin/productPlatNorm/queryPlateNormByPage',//查询标准分页列表
+      loadNormByNormCode: '/admin/productPlatNorm/loadParamByNormCode',//查询标准
       addPlatNorm: '/admin/productPlatNorm/addPlatNorm',//添加标准
       deletePlatNorm: '/admin/productPlatNorm/deletePlatNorm',//删除标准
       updatePlatNorm: '/admin/productPlatNorm/updatePlatNorm',//修改标准
       updateStateByCode: '/admin/productPlatNorm/updateStateByCode',//修改标准状态
+    },
+    normParam:{
+      loadParamByNormCode: '/admin/platNormParam/loadParamByNormCode',//查询标准参数列表
+      addPlatNorm: '/admin/platNormParam/addPlatNorm',//添加标准参数
+      deletePlatNorm: '/admin/platNormParam/deletePlatNorm',//删除标准参数
+      updatePlatNorm: '/admin/platNormParam/updatePlatNorm',//修改标准参数
+      updateStateByCode: '/admin/platNormParam/updateStateByCode',//修改标准参数状态
     }
   }
   ;

@@ -71,7 +71,7 @@ export class OperationService {
   addRelateBrandAndKind(params) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.post({
-      url: SettingUrl.URL.brand.addRelateBrandAndKind,
+      url: SettingUrl.URL.kind.addRelateBrandAndKind,
       data: params,
       success: (res) => {
         if (res.success) {
@@ -261,10 +261,10 @@ export class OperationService {
    * @param data
    * @returns {any<T>}
    */
-  queryGoodsKindPageByParentId(data) {
+  queryProductKindPageByParentId(data) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.get({
-      url: SettingUrl.URL.kind.queryGoodsKindPageByParentId,
+      url: SettingUrl.URL.kind.queryProductKindPageByParentId,
       data: data,
       success: (res) => {
         let info = res.info;
@@ -288,10 +288,10 @@ export class OperationService {
    * @param params
    * @returns {any<T>}
    */
-  addGoodsKind(params) {
+  addProductKind(params) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.post({
-      url: SettingUrl.URL.kind.addGoodsKind,
+      url: SettingUrl.URL.kind.addProductKind,
       data: params,
       success: (res) => {
         if (res.success) {
@@ -346,7 +346,7 @@ export class OperationService {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.get({
       url: SettingUrl.URL.kind.queryKindByParentId,
-      data: {id: id},
+      data: {kindParentId: id},
       success: (res) => {
         let info = res.info;
         if (res.success) {
@@ -369,10 +369,10 @@ export class OperationService {
    * @param id
    * @returns {any<T>}
    */
-  loadGoodsKindById(id) {
+  loadProductKindById(id) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.get({
-      url: SettingUrl.URL.kind.loadGoodsKindById,
+      url: SettingUrl.URL.kind.loadProductKindById,
       data: {id: id},
       success: (res) => {
         if (res.success) {
@@ -395,10 +395,10 @@ export class OperationService {
    * @param params
    * @returns {any<T>}
    */
-  updateGoodsKind(params) {
+  updateProductKind(params) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.put({
-      url: SettingUrl.URL.kind.updateGoodsKind,
+      url: SettingUrl.URL.kind.updateProductKind,
       data: params,
       success: (res) => {
         let info = res.info;
@@ -450,10 +450,10 @@ export class OperationService {
    * @param id, state
    * @returns {any<T>}
    */
-  deleteGoodsKind(id) {
+  deleteProductKind(id) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.del({
-      url: SettingUrl.URL.kind.deleteGoodsKind,
+      url: SettingUrl.URL.kind.deleteProductKind,
       data: {id: id},
       success: (res) => {
         let info = res.info;

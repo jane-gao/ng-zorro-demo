@@ -27,7 +27,7 @@
           [nzPageSize]="kindList.pageSize"
           [nzTotal]="kindList.totalRow"
           [nzPageIndex]="kindList.curPage"
-          (nzPageIndexChange)="queryGoodsKindPageByParentId($event)">
+          (nzPageIndexChange)="queryProductKindPageByParentId($event)">
   <thead nz-thead>
   <tr>
     <th nz-th class="text-center" nzWidth="5%" nzShowExpand><span>序号</span></th>
@@ -83,8 +83,8 @@
           <i class="anticon anticon-arrow-down"></i>
         </button>
         <ng-container *ngIf="data.level === 3">
-          <button nz-button title="关联品牌" class="btn-green" (click)="bindBrand(data.id,data.kindName,data.level)">
-            <i class="anticon anticon-plus"></i>
+          <button nz-button title="关联品牌" class="btn-success" (click)="bindBrand(data.id,data.kindName,data.level)">
+            <i class="anticon anticon-pushpin"></i>
           </button>
         </ng-container>
       </td>
@@ -96,10 +96,10 @@
         </div>
         <div *ngIf="data.level == 3">
           绑定的品牌：
-          <ng-container *ngIf="data.goodsBrandList">
-            <span *ngFor="let item of data.goodsBrandList" class="mr">{{item.brandName}}</span>
+          <ng-container *ngIf="data.productBrandList">
+            <span *ngFor="let item of data.productBrandList" class="mr">{{item.brandName}}</span>
           </ng-container>
-          <ng-container *ngIf="!data.goodsBrandList">
+          <ng-container *ngIf="!data.productBrandList">
             暂无品牌
           </ng-container>
         </div>

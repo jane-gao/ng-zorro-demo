@@ -1,3 +1,60 @@
-<p>
-  norms works!
-</p>
+<div nz-row>
+  <div nz-col [nzSpan]="6" class="pr">
+    <div class="mb page-title">
+      <h3 class="fl">平台标准</h3>
+      <button class="fr m btn-thc" nz-button (click)="addNorm()">
+        <i class="anticon anticon-plus"></i><span>添加平台标准</span>
+      </button>
+    </div>
+    <!--搜索 start-->
+    <form nz-form class="mt-15 mb-15" (submit)="queryNormList()">
+      <input class="inline-block" style="width: 75%;" nz-input name="question" [(ngModel)]="query.normName" placeholder="标准名">
+      <button nz-button class="w20" [nzType]="'primary'" type="submit" title="搜索">
+        <i class="anticon anticon-search"></i>
+      </button>
+    </form>
+    <!--搜索 end-->
+    <ng-container *ngIf="normList.voList.length > 0">
+      <ul class="data-list pr">
+        <li class="data-item none mb-20" *ngFor="let data of normList.voList;let i=index">
+          <nz-card class="w100" [ngClass]="{'checked': curNorm.normCode === data.normCode}"
+                   [nzActions]="[actionSetting,actionEdit,actionDel,actionEllipsis]">
+            <nz-card-meta [nzTitle]="data.normName" [nzDescription]="data.tplDesc"></nz-card-meta>
+          </nz-card>
+          <ng-template #actionSetting>
+            <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show"
+                       [ngModelOptions]="{standalone: true}" title="是否显示"
+                       nzCheckedChildren="显示" nzUnCheckedChildren="隐藏"
+                       (ngModelChange)="changeIsEnable(data.id, $event)">
+            </nz-switch>
+          </ng-template>
+          <ng-template #actionEdit>
+            <i class="anticon anticon-edit" title="修改" (click)="upNorm(data.normName, data.normCode)"></i>
+          </ng-template>
+          <ng-template #actionDel>
+            <nz-popconfirm nzTitle="确定要删除该平台标准吗？" nzPlacement="top" (nzOnConfirm)="deletePlatNorm(data.normCode)">
+              <i class="iconfont icon-shanchu color-red" title="删除" nz-popconfirm></i>
+            </nz-popconfirm>
+          </ng-template>
+          <ng-template #actionEllipsis>
+            <i class="anticon anticon-eye-o color-green" title="查看" (click)="setCurNorm(data)"></i>
+          </ng-template>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="normList.voList.length == 0">
+      <div class="ant-table-placeholder"><span class="ng-star-inserted">暂无数据</span></div>
+    </ng-container>
+  </div>
+
+  <div nz-col [nzSpan]="1" class="text-center">
+    <i class="anticon anticon-caret-right mt-slg color-red"></i>
+  </div>
+
+  <!--数据字典信息 start-->
+  <div nz-col [nzSpan]="17" class="pl">
+    <app-norm-value [curNorm]="curNorm"></app-norm-value>
+  </div>
+  <!--数据字典信息 end-->
+</div>
+

@@ -1,0 +1,14 @@
+.data-list {
+  max-height: 700px;
+  overflow: auto;
+  list-style: none;
+  padding-left: 0;
+}
+
+.mt-slg {
+  margin-top: 150px;
+}
+
+.ant-card-bordered.checked {
+  border: 1px solid #1BBC9B;
+}

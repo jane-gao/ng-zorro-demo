@@ -1,10 +1,12 @@
 <form nz-form #bindRolesForm="ngForm">
   <nz-form-item>
-    <nz-form-label [nzXs]="20" nzRequired nzFor="pwd">选择品牌</nz-form-label>
-    <nz-form-control [nzXs]="20">
-      <nz-select style="width: 100%" [(ngModel)]="tagHadValue" nzMode="tags" name="brand"
-                 nzPlaceHolder="选择品牌">
-      </nz-select>
+    <nz-form-label [nzXs]="4" nzRequired nzFor="pwd">选择品牌</nz-form-label>
+    <nz-form-control [nzXs]="18">
+      <div class="b checked-box">
+        <nz-tag *ngFor="let option of checkedbrandList;let i = index;"
+                nzMode="closeable" (nzAfterClose)="afterClose(option)">{{option.brandName}}
+        </nz-tag>
+      </div>
       <div>
         <nz-tag *ngFor="let option of leftbrandList;let i = index;" (click)="onChecked(option,i)">{{option.brandName}}
           <i class="anticon anticon-plus"></i>

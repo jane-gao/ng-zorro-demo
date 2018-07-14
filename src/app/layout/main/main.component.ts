@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
       menuUrl: '/main/finance'
     };
     const plat_norms = {
-      menuName: '财务管理',
+      menuName: '平台标准管理',
       menuIcon: 'anticon anticon-pay-circle-o',
       menuUrl: '/main/plat_norms'
     };
@@ -42,13 +42,13 @@ export class MainComponent implements OnInit {
         {
           menuName: '区域管理',
           menuUrl: '/main/setting/area'
-        },{
+        }, {
           menuName: '数据字典',
           menuUrl: '/main/setting/data'
-        },/* {
-          menuName: '常用设置',
-          menuUrl: '/main/setting/basic'
-        }*/
+        }, /* {
+         menuName: '常用设置',
+         menuUrl: '/main/setting/basic'
+         }*/
       ]
     };
 
@@ -94,7 +94,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [set, ad, finance, authLimit, operation]
+    Setting.MENUS = [set, ad, finance, authLimit, operation, plat_norms]
   }
 
   ngOnInit() {

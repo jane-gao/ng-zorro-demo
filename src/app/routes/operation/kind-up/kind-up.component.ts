@@ -41,7 +41,7 @@ export class KindUpComponent implements OnInit {
    */
   getKindById() {
     let me = this;
-    $.when(me.operationService.loadGoodsKindById(me.id)).always(data => {
+    $.when(me.operationService.loadProductKindById(me.id)).always(data => {
       if (data) me.validateForm = data;
     })
   }
@@ -57,7 +57,7 @@ export class KindUpComponent implements OnInit {
     if (uploadedFile.length > 0) me.validateForm.brandImageuuid = me.uuid;
     me.isConfirmLoading = true;
     me.validateForm.kindParentId = me.id;
-    $.when(me.operationService.updateGoodsKind(me.validateForm)).always(success => {
+    $.when(me.operationService.updateProductKind(me.validateForm)).always(success => {
       if (success) me.modal.destroy(true);
       me.isConfirmLoading = false;
     })

@@ -51,7 +51,7 @@ export class KindAddComponent implements OnInit {
     me.isConfirmLoading = true;
     me.validateForm.kindParentId = me.pid;
     me.validateForm.state = me.validateForm.state ? me.enumState.showState.show : me.enumState.showState.hide;
-    $.when(me.operationService.addGoodsKind(me.validateForm)).always(success => {
+    $.when(me.operationService.addProductKind(me.validateForm)).always(success => {
       if (success) me.modal.destroy(true);
       me.isConfirmLoading = false;
     })

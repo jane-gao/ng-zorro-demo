@@ -89,7 +89,7 @@ export class HelpKindComponent implements OnInit {
    */
   getCurKindInfo(id){
     let me = this;
-    $.when(me.operationService.getHelpKindById(id)).done(res => {
+    $.when(me.operationService.getHelpKindById(id)).always(res => {
       if (res) me.validateForm = res;
     })
   }

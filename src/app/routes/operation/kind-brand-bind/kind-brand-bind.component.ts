@@ -11,7 +11,7 @@ declare var $: any;
 export class KindBrandBindComponent implements OnInit {
   public brandList: Array<any> = [];//所有品牌列表
   public leftbrandList: Array<any> = [];//选中后剩余的品牌列表
-  public checkedbrandIdList: Array<any> = [];//选中的品牌id列表
+  public checkedbrandList: Array<any> = [];//选中的品牌id列表
   public tagHadValue: Array<any> = [];//已经选中的值列表
   public disabledBtn: boolean = false;
   @Input('id') id: string;
@@ -28,13 +28,13 @@ export class KindBrandBindComponent implements OnInit {
    */
   getBrandsAll() {
     let me = this;
-    $.when(me.operationService.getBrandsAll({goodsKindId: me.id})).then(data => {
+    $.when(me.operationService.getBrandsAll({productKindId: me.id})).then(data => {
       if (data) {
         me.brandList = data;
         me.brandList.forEach(item => {
           if (item.binded) {
-            me.tagHadValue.push(item.brandName);
-            me.checkedbrandIdList.push(item.id);
+            me.tagHadValue.push(item.id);
+            me.checkedbrandList.push(item);
           }
           else me.leftbrandList.push(item);
         })
@@ -47,9 +47,19 @@ export class KindBrandBindComponent implements OnInit {
    * @param item
    */
   onChecked(item, idx) {
-    this.tagHadValue.push(item.brandName);
-    this.checkedbrandIdList.push(item.id);
+    this.tagHadValue.push(item.id);
+    this.checkedbrandList.push(item);
     this.leftbrandList.splice(idx, 1);//从未选中的数组中剔除
+  }
+
+  afterClose(item) {
+    this.leftbrandList.push(item);
+    this.checkedbrandList = this.checkedbrandList.filter(one => {
+      return one.id != item.id;
+    });
+    this.tagHadValue = this.tagHadValue.filter(id => {
+      return id != item.id;
+    });
   }
 
   /**
@@ -61,8 +71,8 @@ export class KindBrandBindComponent implements OnInit {
       me.disabledBtn = true;
     } else {
       let brands = {
-        goodsKindId: me.id,
-        goodsBrandIdStrings: me.tagHadValue.join(',')
+        productKindId: me.id,
+        productBrandIdStrings: me.tagHadValue.join(',')
       };
       $.when(me.operationService.addRelateBrandAndKind(brands)).then(data => {
         me.modal.destroy(true);

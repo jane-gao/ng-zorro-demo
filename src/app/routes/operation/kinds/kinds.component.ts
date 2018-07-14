@@ -33,7 +33,7 @@ export class KindsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.queryGoodsKindPageByParentId()
+    this.queryProductKindPageByParentId()
   }
 
   /**
@@ -41,7 +41,7 @@ export class KindsComponent implements OnInit {
    * @param curPage
    * @param callback
    */
-  queryGoodsKindPageByParentId(curPage: number = 1, callback?) {
+  queryProductKindPageByParentId(curPage: number = 1, callback?) {
     let me = this;
     me._loading = true; //锁屏
     if (!isNullOrUndefined(curPage)) me.kindList.curPage = curPage;//当有页码时，查询该页数据
@@ -50,8 +50,7 @@ export class KindsComponent implements OnInit {
       pageSize: me.kindList.pageSize, //每页条数
       kindParentId: me.kindParentId,
     }
-    $.when(me.operationService.queryGoodsKindPageByParentId(me.kindList.params)).always(res => {
-      console.log("█ res ►►►",  res);
+    $.when(me.operationService.queryProductKindPageByParentId(me.kindList.params)).always(res => {
       me._loading = false; //解除锁屏
       if (res) me.kindList = res; //赋值
       if (callback) callback();
@@ -78,7 +77,7 @@ export class KindsComponent implements OnInit {
       nzFooter: null
     });
     modal.afterClose.subscribe((result) => {
-      if (result) me.queryGoodsKindPageByParentId();
+      if (result) me.queryProductKindPageByParentId();
     });
   }
 
@@ -96,7 +95,7 @@ export class KindsComponent implements OnInit {
       nzFooter: null
     });
     modal.afterClose.subscribe((result) => {
-      if (result) me.queryGoodsKindPageByParentId();
+      if (result) me.queryProductKindPageByParentId();
     });
   }
 
@@ -121,8 +120,8 @@ export class KindsComponent implements OnInit {
    */
   delKind(id) {
     let me = this;
-    $.when(me.operationService.deleteGoodsKind(id)).then(success => {
-      if (success) me.queryGoodsKindPageByParentId();
+    $.when(me.operationService.deleteProductKind(id)).then(success => {
+      if (success) me.queryProductKindPageByParentId();
     })
   }
 
@@ -137,7 +136,7 @@ export class KindsComponent implements OnInit {
       state: state ? Setting.ENUMSTATE.showState.show : Setting.ENUMSTATE.showState.hide
     };
     $.when(me.operationService.updateKindStateById(data)).always(res => {
-      if (!res) me.queryGoodsKindPageByParentId(); //不成功刷新列表，可以重置switch
+      if (!res) me.queryProductKindPageByParentId(); //不成功刷新列表，可以重置switch
     })
   }
 
@@ -155,7 +154,7 @@ export class KindsComponent implements OnInit {
       me.kindParentId = kindParentId;
       let item = {name: menuName, id: kindParentId};
       if (!isTit) {//非点击面包屑路径时，添加面包屑
-        me.queryGoodsKindPageByParentId(null, function () {
+        me.queryProductKindPageByParentId(null, function () {
           me.childKindList.push(item);
         })
       } //非点击面包屑路径时，添加面包屑
@@ -164,11 +163,11 @@ export class KindsComponent implements OnInit {
           if (item.id == me.childKindList[i].id) num = i;
         }
         me.childKindList.splice(num + 1); //剔除下标后的路径
-        me.queryGoodsKindPageByParentId();
+        me.queryProductKindPageByParentId();
       }
     } else {
       me.kindParentId = null, this.childKindList = []; //清空子集查询
-      me.queryGoodsKindPageByParentId();
+      me.queryProductKindPageByParentId();
     }
   }
 
