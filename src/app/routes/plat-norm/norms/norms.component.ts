@@ -114,9 +114,9 @@ export class NormsComponent implements OnInit {
    * @param code
    * @param enable
    */
-  changeIsEnable(id, enable) {
+  changeIsEnable(normCode, enable) {
     let me = this, data = {
-      id: id,
+      normCode: normCode,
       isUse: enable ? Setting.ENUMSTATE.yes : Setting.ENUMSTATE.no
     };
     $.when(me.platNormService.upPlatNormStateByCode(data)).always(res => {

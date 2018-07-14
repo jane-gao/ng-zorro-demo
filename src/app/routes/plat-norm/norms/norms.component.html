@@ -23,9 +23,9 @@
           </nz-card>
           <ng-template #actionSetting>
             <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show"
-                       [ngModelOptions]="{standalone: true}" title="是否显示"
-                       nzCheckedChildren="显示" nzUnCheckedChildren="隐藏"
-                       (ngModelChange)="changeIsEnable(data.id, $event)">
+                       [ngModelOptions]="{standalone: true}" title="是否启用"
+                       nzCheckedChildren="暂停" nzUnCheckedChildren="启用"
+                       (ngModelChange)="changeIsEnable(data.normCode, $event)">
             </nz-switch>
           </ng-template>
           <ng-template #actionEdit>
