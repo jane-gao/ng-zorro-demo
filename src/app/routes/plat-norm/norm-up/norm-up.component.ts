@@ -44,7 +44,6 @@ export class NormUpComponent implements OnInit {
   }
 
   public loadData(node: any, index: number): PromiseLike<any> {
-    console.log("█ index ►►►", index);
     return new Promise((resolve) => {
       AjaxService.get({
         url: SettingUrl.URL.kind.queryKindByParentId,

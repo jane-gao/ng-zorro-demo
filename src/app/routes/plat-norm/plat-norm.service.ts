@@ -207,7 +207,8 @@ export class PlatNormService {
     let defer = $.Deferred(), me = this; //封装异步请求结果
     AjaxService.post({
       url: SettingUrl.URL.normParam.addPlatNorm,
-      data: params,
+      data: JSON.stringify(params),
+      contentType: "application/json",
       success: (res) => {
         if (res.success) {
           defer.resolve(true);

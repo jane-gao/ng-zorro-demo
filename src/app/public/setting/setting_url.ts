@@ -122,9 +122,9 @@ export class SettingUrl {
     },
     normParam:{
       loadParamByNormCode: '/admin/platNormParam/loadParamByNormCode',//查询标准参数列表
-      addPlatNorm: '/admin/platNormParam/addPlatNorm',//添加标准参数
-      deletePlatNorm: '/admin/platNormParam/deletePlatNorm',//删除标准参数
-      updatePlatNorm: '/admin/platNormParam/updatePlatNorm',//修改标准参数
+      addPlatNorm: '/admin/platNormParam/addPlatNormParam',//添加标准参数
+      deletePlatNorm: '/admin/platNormParam/deletePlatNormParam',//删除标准参数
+      updatePlatNorm: '/admin/platNormParam/updatePlatNormParam',//修改标准参数
       updateStateByCode: '/admin/platNormParam/updateStateByCode',//修改标准参数状态
     }
   }
@@ -152,6 +152,9 @@ export class SettingUrl {
     helpCenter: {
       addQuestion: 'question-add',
       upQuestion: 'question-up',
+    },
+    norm: {
+      paramAdd: 'param-add',
     }
   }
 }

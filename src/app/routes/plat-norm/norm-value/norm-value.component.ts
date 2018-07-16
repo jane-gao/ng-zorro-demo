@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {PlatNormService} from "../plat-norm.service";
 import {Setting} from "../../../public/setting/setting";
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -12,10 +13,11 @@ export class NormValueComponent implements OnInit, OnChanges {
   public normParamList: Array<any> = [];
   public _loading: boolean = false;                 //是否加载中
   public enumState: any = Setting.ENUMSTATE;
+  public routerLinks: any = SettingUrl.ROUTERLINK;
   @Input('curNorm') curNorm: any;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['curKind']) {
+    if (changes['curNorm']) {
       if (this.curNorm.normCode) this.getNormParams();
     }
   }
@@ -25,6 +27,7 @@ export class NormValueComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   }
+
 
   /**
    * 获取标准参数

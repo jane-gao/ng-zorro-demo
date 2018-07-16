@@ -1,4 +1,4 @@
-<div nz-row>
+<div nz-row *ngIf="isShowThisComponent">
   <div nz-col [nzSpan]="6" class="pr">
     <div class="mb page-title">
       <h3 class="fl">平台标准</h3>
@@ -57,4 +57,8 @@
   </div>
   <!--数据字典信息 end-->
 </div>
+
+<!--路由嵌套 begin-->
+<router-outlet (activate)='activate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
+<!--路由嵌套 end-->
 

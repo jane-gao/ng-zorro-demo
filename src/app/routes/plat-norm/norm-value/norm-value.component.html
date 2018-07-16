@@ -1,6 +1,7 @@
 <div class="page-title clearfix">
   <h3 class="fl">当前分类：<span class="color-orange">{{curNorm.normName}}</span></h3>
-  <button class="fr m btn-thc" nz-button [hidden]="!curNorm.normName">
+  <button class="fr m btn-thc" nz-button [hidden]="!curNorm.normName"
+          [routerLink]="routerLinks.norm.paramAdd" [queryParams]="{normCode: curNorm.normCode}">
     <i class="anticon anticon-plus"></i><span>新增参数</span>
   </button>
 </div>
