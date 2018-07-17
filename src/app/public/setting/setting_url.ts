@@ -154,6 +154,7 @@ export class SettingUrl {
       upQuestion: 'question-up',
     },
     norm: {
+      params: 'param',
       paramAdd: 'param-add',
     }
   }

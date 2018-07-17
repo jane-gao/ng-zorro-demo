@@ -15,20 +15,28 @@ export class NormParamAddComponent implements OnInit {
   public refresh: boolean = false;//是否需要刷新父页面数据
   public enumState: any = Setting.ENUMSTATE;
   public normParamList: Array<any> = [];
+  public normName: string;
   public normCode: string;
 
   constructor(public location: Location, public route: ActivatedRoute, public platNormService: PlatNormService,) {
   }
 
   ngOnInit() {
+    this.normName = this.route.snapshot.queryParams['normName'];
     this.normCode = this.route.snapshot.queryParams['normCode'];
     this.addNewParam();
   }
 
+  /**
+   * 添加新参数
+   */
   addNewParam() {
     this.normParamList.push({});
   }
 
+  /**
+   * 提交参数
+   */
   addParams() {
     let me = this;
     me.isConfirmLoading = true;
@@ -50,6 +58,10 @@ export class NormParamAddComponent implements OnInit {
     })
   }
 
+  /**
+   * 取消添加某参数
+   * @param i
+   */
   delParam(i) {
     this.normParamList.splice(i, 1)
   }

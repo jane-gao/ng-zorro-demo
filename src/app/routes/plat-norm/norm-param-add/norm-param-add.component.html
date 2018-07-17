@@ -1,9 +1,5 @@
-<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
-  <i class="anticon anticon-rollback font20"></i>
-</button>
-
 <form #addParam="ngForm" (submit)="addParams()">
-  <nz-table #nzTable nzBordered
+  <nz-table #nzTable nzBordered nzTitle="添加参数"
             [nzData]="normParamList"
             [nzFooter]="Footer"
             [nzFrontPagination]="false"
@@ -63,17 +59,17 @@
                  placeholder="可允许最大差值" title="参数差值一旦超过此值，则认为不合格">
         </td>
         <td nz-td class="text-center">
-          <nz-switch class="thc" [ngModel]="data.isNecessary"
+          <nz-switch class="thc" [(ngModel)]="data.isNecessary"
                      nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}">
           </nz-switch>
         </td>
         <td nz-td class="text-center">
-          <nz-switch class="thc" [ngModel]="data.isRequired"
+          <nz-switch class="thc" [(ngModel)]="data.isRequired"
                      nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}">
           </nz-switch>
         </td>
         <td nz-td class="text-center">
-          <nz-switch class="thc" [ngModel]="data.isUse"
+          <nz-switch class="thc" [(ngModel)]="data.isUse"
                      nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}">
           </nz-switch>
         </td>
@@ -90,10 +86,11 @@
     </ng-template>
     </tbody>
     <ng-template #Footer>
-      <div class="text-right">
-        <button nz-button type="button" nzType="default" (click)="addNewParam()" class="btn-green">
-          <i class="anticon anticon-plus"></i>添加参数
-        </button>
+      <button nz-button type="button" nzType="default" (click)="addNewParam()" class="btn-green">
+        <i class="anticon anticon-plus"></i>添加参数
+      </button>
+      <div class="text-right fr">
+        <button nz-button type="button" nzType="default" (click)="back()">取消</button>
         <button nz-button type="submit" nzType="primary" class="ml" [disabled]="!addParam.valid"
                 [nzLoading]="isConfirmLoading">提交
         </button>

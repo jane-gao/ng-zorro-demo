@@ -7,6 +7,7 @@ import {NzModalService} from "ng-zorro-antd";
 import {PlatNormService} from "../plat-norm.service";
 import {NormAddComponent} from "../norm-add/norm-add.component";
 import {NormUpComponent} from "../norm-up/norm-up.component";
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -18,10 +19,10 @@ export class NormsComponent implements OnInit {
   public normList: Page = new Page();        //列表
   public _loading: boolean = false;              //是否加载中
   public isConfirmLoading: boolean = false;     //是否加载中
-  public isShowThisComponent: boolean = true;     //是否显示当前组件
   public query: any = {};//搜索参数
   public curNorm: any = {};
   public enumState: any = Setting.ENUMSTATE;
+  public routerLinks:any = SettingUrl.ROUTERLINK;
 
   constructor(public platNormService: PlatNormService,
               private modalService: NzModalService) {
@@ -29,13 +30,6 @@ export class NormsComponent implements OnInit {
 
   ngOnInit() {
     this.queryNormList();
-  }
-
-  setCurNorm(data) {
-    this.curNorm = {
-      normName: data.normName,
-      normCode: data.normCode
-    };
   }
 
   /**
@@ -55,10 +49,6 @@ export class NormsComponent implements OnInit {
       me._loading = false; //解除锁屏
       if (res) {
         me.normList = res;
-        me.curNorm = {
-          normName: me.normList.voList[0].normName,
-          normCode: me.normList.voList[0].normCode
-        };
       } //赋值
     })
   }
@@ -122,22 +112,5 @@ export class NormsComponent implements OnInit {
     $.when(me.platNormService.upPlatNormStateByCode(data)).always(res => {
       if (!res) me.queryNormList()
     })
-  }
-
-  /**
-   *
-   * @param event
-   */
-  activate(event){
-    this.isShowThisComponent = false;
-  }
-
-  /**
-   * 子组件注销时
-   * @param event
-   */
-  onDeactivate(event) {
-    this.isShowThisComponent = true;
-    if (event.refresh) this.curNorm.addSuccess = true;
   }
 }

@@ -233,9 +233,10 @@ export class PlatNormService {
    */
   upPlatNormParam(params) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
-    AjaxService.put({
+    AjaxService.post({
       url: SettingUrl.URL.normParam.updatePlatNorm,
-      data: params,
+      data: JSON.stringify(params),
+      contentType: "application/json",
       success: (res) => {
         if (res.success) {
           defer.resolve(true);
@@ -260,7 +261,7 @@ export class PlatNormService {
    */
   upPlatNormParamStateByCode(params) {
     let defer = $.Deferred(), me = this; //封装异步请求结果
-    AjaxService.put({
+    AjaxService.post({
       url: SettingUrl.URL.normParam.updateStateByCode,
       data: params,
       success: (res) => {

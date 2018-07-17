@@ -10,9 +10,12 @@ import {OperationService} from "../operation/operation.service";
 import {NormParamAddComponent} from './norm-param-add/norm-param-add.component';
 
 const routes: Routes = [
-  {path: '', component: NormsComponent,children: [
+  {path: '', component: NormsComponent},
+  {
+    path: 'param', component: NormValueComponent, children: [
     {path: 'param-add', component: NormParamAddComponent}
-  ]},
+  ]
+  },
 ];
 @NgModule({
   imports: [
