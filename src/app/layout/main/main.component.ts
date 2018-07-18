@@ -57,6 +57,11 @@ export class MainComponent implements OnInit {
       menuIcon: 'anticon anticon-bell',
       menuUrl: '/main/announce'
     };
+    const cust = {
+      menuName: '用户管理',
+      menuIcon: 'anticon anticon-bell',
+      menuUrl: '/main/cust'
+    };
 
     const authLimit = {
       menuName: '权限管理',
@@ -94,7 +99,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [set, ad, finance, authLimit, operation, plat_norms]
+    Setting.MENUS = [set, ad, cust, finance, authLimit, operation, plat_norms]
   }
 
   ngOnInit() {

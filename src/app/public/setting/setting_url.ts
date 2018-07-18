@@ -74,6 +74,9 @@ export class SettingUrl {
       rolesList: '/admin/staff/rolesList',//角色
       addRolesRelation: '/admin/staff/addRolesRelation',//分配管理员角色
     },
+    cust:{
+        list:"/cust/queryPage",  //用户列表
+    },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类
       addHelpKind: '/admin/helpKind/addHelpKind',//添加帮助分类
