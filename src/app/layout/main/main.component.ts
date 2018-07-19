@@ -59,8 +59,17 @@ export class MainComponent implements OnInit {
     };
     const cust = {
       menuName: '用户管理',
-      menuIcon: 'anticon anticon-bell',
-      menuUrl: '/main/cust'
+      menuIcon: 'anticon anticon-user',
+      menuUrl: '/main/cust',
+      subMenuList: [
+        {
+          menuName: '用户管理',
+          menuUrl: '/main/cust/custManager'
+        }, {
+          menuName: '认证审核',
+          menuUrl: '/main/cust/custAudit'
+        }
+      ]
     };
 
     const authLimit = {

@@ -74,8 +74,9 @@ export class SettingUrl {
       rolesList: '/admin/staff/rolesList',//角色
       addRolesRelation: '/admin/staff/addRolesRelation',//分配管理员角色
     },
-    cust:{
-        list:"/cust/queryPage",  //用户列表
+    cust: {
+      list: "/admin/cust/queryCust",  //用户列表
+      updateState: "/admin/cust/updateState",  //修改用户状态
     },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类
@@ -123,7 +124,7 @@ export class SettingUrl {
       updatePlatNorm: '/admin/productPlatNorm/updatePlatNorm',//修改标准
       updateStateByCode: '/admin/productPlatNorm/updateStateByCode',//修改标准状态
     },
-    normParam:{
+    normParam: {
       loadParamByNormCode: '/admin/platNormParam/loadParamByNormCode',//查询标准参数列表
       addPlatNorm: '/admin/platNormParam/addPlatNormParam',//添加标准参数
       deletePlatNorm: '/admin/platNormParam/deletePlatNormParam',//删除标准参数

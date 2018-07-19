@@ -38,6 +38,9 @@ export class Setting {
   public static ENUM: any = {
     yesOrNo: 1001,  // 是否
     brandShowType: 1024,  // 品牌展示类型
+    custState: 9009,  // 用户状态
+    custSex: 9002,  // 用户性别
+    custAuthState: 9010, //用户认证状态
   };
 
   //定义枚举状态名
@@ -53,13 +56,14 @@ export class Setting {
     },
     custState: {
       freeze: 'FREEZE',//冻结
+      del: 'DEL',//删除
       normal: 'NORMAL'//正常
     },
     announceState: {
       online: 'ONLINE',//上线
       noline: 'NOLINE'//下线
     },
-    showState:{
+    showState: {
       show: 'SHOW',
       hide: 'HIDE',
       del: 'DEL'

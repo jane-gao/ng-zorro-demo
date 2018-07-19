@@ -7,18 +7,34 @@
   <div class="search-group">
     <span class="search-title">用户名称：</span>
     <div class="search-main">
-      <input nz-input name="brandInitial"
-             [(ngModel)]="searchParams.brandInitial"
-             placeholder="首字母">
+      <input nz-input name="custName"
+             [(ngModel)]="searchParams.custName"
+             placeholder="用户名称">
     </div>
   </div>
   <div class="search-group">
-    <span class="search-title">品牌：</span>
+    <span class="search-title">手机号：</span>
     <div class="search-main">
-    <input nz-input name="brandName"
-           [(ngModel)]="searchParams.brandName"
-           placeholder="品牌中文名">
+      <input nz-input name="custPhone"
+             [(ngModel)]="searchParams.custPhone"
+             placeholder="手机号">
+    </div>
   </div>
+  <div class="search-group">
+    <span class="search-title">认证状态：</span>
+    <div class="search-main">
+      <nz-select style="width: 200px;" [(ngModel)]="searchParams.authState" name="authState">
+        <nz-option *ngFor="let option of authEnums" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
+      </nz-select>
+    </div>
+  </div>
+  <div class="search-group">
+    <span class="search-title">用户状态：</span>
+    <div class="search-main">
+      <nz-select style="width: 200px;" [(ngModel)]="searchParams.state" name="state">
+        <nz-option *ngFor="let option of stateEnums" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
+      </nz-select>
+    </div>
   </div>
   <div class="inline-block">
     <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
@@ -42,14 +58,13 @@
   <thead nz-thead>
   <tr>
     <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
-    <th nz-th class="text-center" nzWidth="5%"><span>首字母</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>英文名</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>中文名</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>LOGO</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>是否推荐</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>展示类型</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>排序</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>是否显示</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>用户名称</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>手机号</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>头像</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>性别</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>所在区域</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>创建时间</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
   </tr>
   </thead>
@@ -57,40 +72,38 @@
   <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
     <tr nz-tbody-tr>
       <td nz-td class="text-center">{{i+1}}</td>
-      <td nz-td class="text-center">{{data.brandInitial}}</td>
-      <td nz-td class="text-center">{{data.englishName || '未填写'}}</td>
-      <td nz-td class="text-center">{{data.brandName}}</td>
+      <td nz-td class="text-center">{{data.custName}}</td>
+      <td nz-td class="text-center">{{data.custPhone}}</td>
       <td nz-td class="text-center">
         <nz-popover [nzTrigger]="'click'">
-          <img [src]="data.brandPic | imgSize :'50'" width="50" appImgErr title="点击查看大图" nz-popover>
+          <img [src]="data.custAvatar | imgSize :'50'" width="50" appImgErr title="点击查看大图" nz-popover>
           <ng-template #nzTemplate>
-            <img [src]="data.brandPic | imgSize :'200'" appImgErr>
+            <img [src]="data.custAvatar | imgSize :'200'" appImgErr>
           </ng-template>
         </nz-popover>
       </td>
-      <td nz-td class="text-center">
-        <nz-switch class="thc" [ngModel]="data.brandRecommend === enumState.yes" [ngModelOptions]="{standalone: true}"
-                   nzCheckedChildren="是" nzUnCheckedChildren="否"
-                   (ngModelChange)="changeIsRecommend(data.id, $event)">
-        </nz-switch>
-      </td>
-      <td nz-td class="text-center">{{data.showType}}</td>
-      <td nz-td class="text-center">{{data.brandSort}}</td>
-      <td nz-td class="text-center">
-        <nz-switch class="thc" [ngModel]="data.state === enumState.showState.show" [ngModelOptions]="{standalone: true}"
-                   nzCheckedChildren="是" nzUnCheckedChildren="否"
-                   (ngModelChange)="changeIsEnable(data.id, $event)">
-        </nz-switch>
-      </td>
+      <td nz-td class="text-center">{{data.custSex | stateName: enums.custSex}}</td>
+      <td nz-td class="text-center">{{data.areaFullName || '未填写'}}</td>
+      <td nz-td class="text-center">{{data.state | stateName: enums.custState}}</td>
+      <td nz-td class="text-center">{{data.createTime }}</td>
       <td nz-td class="text-center w10">
-        <button nz-button title="修改" class="btn-blue" (click)="upBrand(data.id)">
-          <i class="anticon anticon-edit"></i>
-        </button>
-        <nz-popconfirm nzTitle="确定要删除该品牌吗？" nzPlacement="top" (nzOnConfirm)="delBrand(data.id)">
-          <button nz-popconfirm nz-button title="删除" class="btn-danger">
+        <nz-popconfirm nzTitle="确定要冻结此用户吗？" nzPlacement="top" (nzOnConfirm)="freezeCust(data.custCode)">
+          <button nz-popconfirm nz-button title="冻结" class="btn-blue" *ngIf="data.state==custState.normal">
+            <i class="anticon anticon-pause-circle-o"></i>
+          </button>
+        </nz-popconfirm>
+
+        <nz-popconfirm nzTitle="确定要激活此用户吗？" nzPlacement="top" (nzOnConfirm)="activeCust(data.custCode)">
+          <button nz-popconfirm nz-button title="激活" class="btn-green" *ngIf="data.state==custState.freeze">
+            <i class="anticon anticon-play-circle"></i>
+          </button>
+        </nz-popconfirm>
+        <nz-popconfirm nzTitle="确定要删除此用户吗？" nzPlacement="top" (nzOnConfirm)="delCust(data.custCode)">
+          <button nz-popconfirm nz-button title="删除" class="btn-danger" *ngIf="data.state==custState.freeze">
             <i class="iconfont icon-shanchu"></i>
           </button>
         </nz-popconfirm>
+
       </td>
     </tr>
   </ng-template>

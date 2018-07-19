@@ -4,6 +4,7 @@ import {CustAuditComponent} from "./cust-audit/cust-audit.component";
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import {CustService} from "./cust.service";
+import {MainService} from "../../public/service/main.service";
 
 const routes: Routes = [
   {path: '', redirectTo: 'custManager'},
@@ -16,7 +17,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [CustComponent, CustAuditComponent],
-  providers: [CustService]
+  providers: [CustService, MainService]
 })
 export class CustModule {
 }
