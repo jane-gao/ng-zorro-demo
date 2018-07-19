@@ -50,7 +50,7 @@ export class Setting {
     custAuthState: {
       audit: 'AUDIT',//待审核
       unPass: 'UNPASS',//未通过
-      auth: 'AUTH',//认证通过
+      pass: 'PASS',//认证通过
       unAuth: 'UNAUTH',//未认证
       expired: 'EXPIRED',//认证过期
     },

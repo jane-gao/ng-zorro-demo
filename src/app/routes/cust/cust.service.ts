@@ -62,4 +62,56 @@ export class CustService {
   }
 
 
+  /**
+   * 查询用户认证信息列表
+   * @param data
+   * @returns {any<T>}
+   */
+  queryCustAuthList(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.get({
+      url: SettingUrl.URL.cust.authList,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 修改用户实名认证信息
+   * @param data
+   * @returns {any<T>}
+   */
+  updateCustAuthState(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.put({
+      url: SettingUrl.URL.cust.updateAuthState,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
 }

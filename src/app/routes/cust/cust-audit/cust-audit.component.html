@@ -1,3 +1,199 @@
-<p>
-  cust-audit works!
-</p>
+<div class="auditPage-title">
+  <h3>用户管理</h3>
+</div>
+<div>
+  <nz-tabset>
+    <nz-tab nzTitle="待审核">
+      <!--搜索 start-->
+      <form nz-form class="bg-white mt-15 mb-15" (submit)="queryAuditCustList(1)">
+        <div class="search-group">
+          <span class="search-title">用户名称：</span>
+          <div class="search-main">
+            <input nz-input name="custName" [(ngModel)]="auditSearchParams.custName" placeholder="用户名称">
+          </div>
+        </div>
+        <div class="search-group">
+          <span class="search-title">手机号：</span>
+          <div class="search-main">
+            <input nz-input name="custPhone" [(ngModel)]="auditSearchParams.custPhone" placeholder="手机号">
+          </div>
+        </div>
+        <div class="inline-block">
+          <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
+            <i class="anticon anticon-search"></i><span>搜索</span>
+          </button>
+          <button nz-button class="mr" title="重置" type="reset" (click)="resetAuthSearch()">
+            <i class="anticon anticon-sync"></i><span>重置</span>
+          </button>
+        </div>
+      </form>
+      <!--搜索 end-->
+      <nz-table #nzTable
+                [nzData]="auditPage.voList"
+                [nzLoading]="_loading"
+                [nzFrontPagination]="false"
+                [nzPageSize]="auditPage.pageSize"
+                [nzTotal]="auditPage.totalRow"
+                [nzPageIndex]="auditPage.curPage"
+                (nzPageIndexChange)="queryAuditCustList($event)">
+        <thead nz-thead>
+        <tr>
+          <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>姓名</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>身份证号</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>有效期</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>申请时间</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+          <tr nz-tbody-tr>
+            <td nz-td class="text-center">{{i+1}}</td>
+            <td nz-td class="text-center">{{data.name}}</td>
+            <td nz-td class="text-center">{{data.idcard}}</td>
+            <td nz-td class="text-center" *ngIf="data.endTime!=null">{{data.startTime | date:"yyyy-MM-dd"}} &nbsp;&nbsp;至 &nbsp;&nbsp;{{data.endTime | date:"yyyy-MM-dd"}}</td>
+            <td nz-td class="text-center" *ngIf="data.endTime==null">{{data.startTime | date:"yyyy-MM-dd"}}&nbsp;&nbsp;至&nbsp;&nbsp;长期</td>
+            <td nz-td class="text-center">{{data.createTime}}</td>
+            <td nz-td class="text-center w10">
+              <button nz-button title="审核" class="btn-blue" (click)="auditCust(data.id)">
+                <i class="fa fa-check-square-o"></i> 审核
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+    <nz-tab nzTitle="审核通过">
+      <!--搜索 start-->
+      <form nz-form class="bg-white mt-15 mb-15" (submit)="queryPassCustList(1)">
+        <div class="search-group">
+          <span class="search-title">用户名称：</span>
+          <div class="search-main">
+            <input nz-input name="custName" [(ngModel)]="passSearchParams.custName" placeholder="用户名称">
+          </div>
+        </div>
+        <div class="search-group">
+          <span class="search-title">手机号：</span>
+          <div class="search-main">
+            <input nz-input name="custPhone" [(ngModel)]="passSearchParams.custPhone" placeholder="手机号">
+          </div>
+        </div>
+        <div class="inline-block">
+          <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
+            <i class="anticon anticon-search"></i><span>搜索</span>
+          </button>
+          <button nz-button class="mr" title="重置" type="reset" (click)="resetPassSearch()">
+            <i class="anticon anticon-sync"></i><span>重置</span>
+          </button>
+        </div>
+      </form>
+      <!--搜索 end-->
+      <nz-table #nzPassTable
+                [nzData]="passPage.voList"
+                [nzLoading]="_loading"
+                [nzFrontPagination]="false"
+                [nzPageSize]="passPage.pageSize"
+                [nzTotal]="passPage.totalRow"
+                [nzPageIndex]="passPage.curPage"
+                (nzPageIndexChange)="queryPassCustList($event)">
+        <thead nz-thead>
+        <tr>
+          <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>姓名</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>身份证号</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>有效期</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>申请时间</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>审核时间</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <ng-template ngFor let-data [ngForOf]="nzPassTable.data" let-i="index">
+          <tr nz-tbody-tr>
+            <td nz-td class="text-center">{{i+1}}</td>
+            <td nz-td class="text-center">{{data.name}}</td>
+            <td nz-td class="text-center">{{data.idcard}}</td>
+            <td nz-td class="text-center" *ngIf="data.endTime!=null">{{data.startTime | date:"yyyy-MM-dd"}} &nbsp;&nbsp;至 &nbsp;&nbsp;{{data.endTime | date:"yyyy-MM-dd"}}</td>
+            <td nz-td class="text-center" *ngIf="data.endTime==null">{{data.startTime | date:"yyyy-MM-dd"}}&nbsp;&nbsp;至&nbsp;&nbsp;长期</td>
+            <td nz-td class="text-center">{{data.createTime}}</td>
+            <td nz-td class="text-center">{{data.verifyTime}}</td>
+            <td nz-td class="text-center w10">
+              <button nz-button title="查看" class="btn-blue" (click)="auditCust(data.id)">
+                <i class="fa fa-check-square-o"></i> 查看
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+    <nz-tab nzTitle="审核驳回">
+      <!--搜索 start-->
+      <form nz-form class="bg-white mt-15 mb-15" (submit)="queryUnPassCustList(1)">
+        <div class="search-group">
+          <span class="search-title">用户名称：</span>
+          <div class="search-main">
+            <input nz-input name="custName" [(ngModel)]="unPassSearchParams.custName" placeholder="用户名称">
+          </div>
+        </div>
+        <div class="search-group">
+          <span class="search-title">手机号：</span>
+          <div class="search-main">
+            <input nz-input name="custPhone" [(ngModel)]="unPassSearchParams.custPhone" placeholder="手机号">
+          </div>
+        </div>
+        <div class="inline-block">
+          <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
+            <i class="anticon anticon-search"></i><span>搜索</span>
+          </button>
+          <button nz-button class="mr" title="重置" type="reset" (click)="resetUnPassSearch()">
+            <i class="anticon anticon-sync"></i><span>重置</span>
+          </button>
+        </div>
+      </form>
+      <!--搜索 end-->
+      <nz-table #nzUnPassTable
+                [nzData]="unPassPage.voList"
+                [nzLoading]="_loading"
+                [nzFrontPagination]="false"
+                [nzPageSize]="unPassPage.pageSize"
+                [nzTotal]="unPassPage.totalRow"
+                [nzPageIndex]="unPassPage.curPage"
+                (nzPageIndexChange)="queryUnPassCustList($event)">
+        <thead nz-thead>
+        <tr>
+          <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>姓名</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>身份证号</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>有效期</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>申请时间</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>审核时间</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>驳回原因</span></th>
+          <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <ng-template ngFor let-data [ngForOf]="nzUnPassTable.data" let-i="index">
+          <tr nz-tbody-tr>
+            <td nz-td class="text-center">{{i+1}}</td>
+            <td nz-td class="text-center">{{data.name}}</td>
+            <td nz-td class="text-center">{{data.idcard}}</td>
+            <td nz-td class="text-center" *ngIf="data.endTime!=null">{{data.startTime | date:"yyyy-MM-dd"}} &nbsp;&nbsp;至 &nbsp;&nbsp;{{data.endTime | date:"yyyy-MM-dd"}}</td>
+            <td nz-td class="text-center" *ngIf="data.endTime==null">{{data.startTime | date:"yyyy-MM-dd"}}&nbsp;&nbsp;至&nbsp;&nbsp;长期</td>
+            <td nz-td class="text-center">{{data.createTime}}</td>
+            <td nz-td class="text-center">{{data.verifyTime}}</td>
+            <td nz-td class="text-center">{{data.verifyReason}}</td>
+            <td nz-td class="text-center w10">
+              <button nz-button title="查看" class="btn-blue" (click)="auditCust(data.id)">
+                <i class="fa fa-check-square-o"></i> 查看
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+  </nz-tabset>
+</div>

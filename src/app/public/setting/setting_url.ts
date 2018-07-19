@@ -77,6 +77,8 @@ export class SettingUrl {
     cust: {
       list: "/admin/cust/queryCust",  //用户列表
       updateState: "/admin/cust/updateState",  //修改用户状态
+      authList:"/admin/custAuthInfo/query",
+      updateAuthState:"/admin/custAuthInfo/updateState",
     },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类

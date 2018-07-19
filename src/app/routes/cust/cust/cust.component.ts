@@ -46,7 +46,6 @@ export class CustComponent implements OnInit {
     };
     $.when(me.custService.queryCustList(me.queryParams)).always(res => {
       me._loading = false;
-      console.log(res);
       if (res) me.page = res; //赋值
     })
   }
@@ -67,7 +66,6 @@ export class CustComponent implements OnInit {
       state: this.custState.freeze
     };
     $.when(me.custService.updateCustState(data)).done(res => {
-      me._loading = false;
       this.queryCustList();
     })
   }
@@ -83,7 +81,6 @@ export class CustComponent implements OnInit {
       state: this.custState.del
     };
     $.when(me.custService.updateCustState(data)).done(res => {
-      me._loading = false;
       this.queryCustList();
     })
   }
@@ -99,7 +96,6 @@ export class CustComponent implements OnInit {
       state: this.custState.normal
     };
     $.when(me.custService.updateCustState(data)).done(res => {
-      me._loading = false;
       this.queryCustList();
     })
   }
