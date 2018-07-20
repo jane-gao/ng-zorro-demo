@@ -14,6 +14,7 @@ import {CKEditorModule} from "ng2-ckeditor";
 import {CanStoreProvide} from "../public/provide/can-store-provide";
 import {SpliceStrPipe} from "../public/pipes/splice-str.pipe";
 import {NgxEchartsModule} from "ngx-echarts";
+import {ENgxViewerModule} from "e-ngx-viewer";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {NgxEchartsModule} from "ngx-echarts";
     ReactiveFormsModule,          //表单支持
     CKEditorModule,               //富文本编辑器
     NgxEchartsModule,             //echarts
+    ENgxViewerModule,
     NgZorroAntdModule.forRoot()   //zorroUI库
   ],
   declarations: [
@@ -50,7 +52,8 @@ import {NgxEchartsModule} from "ngx-echarts";
     ImgErrDirective,          //图片加载失败时，加载默认图片
     CKEditorModule,         //富文本编辑器
     StrJsonPipe,               //后台返回字符转转化为json格式
-    SpliceStrPipe                //字符串截取加密
+    SpliceStrPipe,                //字符串截取加密
+    ENgxViewerModule
   ]
 })
 export class SharedModule {

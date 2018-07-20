@@ -56,7 +56,7 @@
             <td nz-td class="text-center" *ngIf="data.endTime==null">{{data.startTime | date:"yyyy-MM-dd"}}&nbsp;&nbsp;至&nbsp;&nbsp;长期</td>
             <td nz-td class="text-center">{{data.createTime}}</td>
             <td nz-td class="text-center w10">
-              <button nz-button title="审核" class="btn-blue" (click)="auditCust(data.id)">
+              <button nz-button title="审核" class="btn-blue" (click)="auditCust(data)">
                 <i class="fa fa-check-square-o"></i> 审核
               </button>
             </td>
@@ -120,7 +120,7 @@
             <td nz-td class="text-center">{{data.createTime}}</td>
             <td nz-td class="text-center">{{data.verifyTime}}</td>
             <td nz-td class="text-center w10">
-              <button nz-button title="查看" class="btn-blue" (click)="auditCust(data.id)">
+              <button nz-button title="查看" class="btn-blue" (click)="auditCust(data)">
                 <i class="fa fa-check-square-o"></i> 查看
               </button>
             </td>
@@ -186,7 +186,7 @@
             <td nz-td class="text-center">{{data.verifyTime}}</td>
             <td nz-td class="text-center">{{data.verifyReason}}</td>
             <td nz-td class="text-center w10">
-              <button nz-button title="查看" class="btn-blue" (click)="auditCust(data.id)">
+              <button nz-button title="查看" class="btn-blue" (click)="auditCust(data)">
                 <i class="fa fa-check-square-o"></i> 查看
               </button>
             </td>

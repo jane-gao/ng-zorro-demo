@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import {CustService} from "./cust.service";
 import {MainService} from "../../public/service/main.service";
+import {CustAuditWinComponent} from './cust-audit-win/cust-audit-win.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'custManager'},
@@ -16,8 +17,9 @@ const routes: Routes = [
     SharedModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [CustComponent, CustAuditComponent],
-  providers: [CustService, MainService]
+  declarations: [CustComponent, CustAuditComponent, CustAuditWinComponent],
+  providers: [CustService, MainService],
+  entryComponents: [CustAuditWinComponent]
 })
 export class CustModule {
 }

@@ -3,6 +3,8 @@ import {Page} from "../../../public/util/page";
 import {isNullOrUndefined} from "util";
 import {CustService} from "../cust.service";
 import {Setting} from "../../../public/setting/setting";
+import {CustAuditWinComponent} from "../cust-audit-win/cust-audit-win.component";
+import {NzModalService} from "ng-zorro-antd";
 declare var $: any;
 @Component({
   selector: 'app-cust-audit',
@@ -29,7 +31,7 @@ export class CustAuditComponent implements OnInit {
 
   public custAuthState = Setting.ENUMSTATE.custAuthState; //用户状态信息
 
-  constructor(private custService: CustService) {
+  constructor(private custService: CustService, private modalService: NzModalService) {
     this.queryAuditCustList(1);
   }
 
@@ -46,6 +48,7 @@ export class CustAuditComponent implements OnInit {
     me.auditQuesryParams = {
       curPage: me.auditPage.curPage, //目标页码
       pageSize: me.auditPage.pageSize, //每页条数
+      state: me.custAuthState.audit, //状态
       custName: me.auditSearchParams.custName, //用户名称
       custPhone: me.auditSearchParams.custPhone, //用户手机
     };
@@ -66,6 +69,7 @@ export class CustAuditComponent implements OnInit {
     me.passQueryParams = {
       curPage: me.passPage.curPage, //目标页码
       pageSize: me.passPage.pageSize, //每页条数
+      state: me.custAuthState.pass, //状态
       custName: me.passSearchParams.custName, //用户名称
       custPhone: me.passSearchParams.custPhone, //用户手机
     };
@@ -86,6 +90,7 @@ export class CustAuditComponent implements OnInit {
     me.unPassQueryParams = {
       curPage: me.unPassPage.curPage, //目标页码
       pageSize: me.unPassPage.pageSize, //每页条数
+      state: me.custAuthState.unPass, //状态
       custName: me.unPassSearchParams.custName, //用户名称
       custPhone: me.unPassSearchParams.custPhone, //用户手机
     };
@@ -121,17 +126,26 @@ export class CustAuditComponent implements OnInit {
 
   /**
    * 审核用户信息
-   * @param id
+   * @param data 用户实名认证信息
    */
-  auditCust(id ?: int) {
+  auditCust(data ?: object) {
     let me = this;
-    let data = {
-      id: id,
-      state: this.custAuthState.pass
-    };
-    $.when(me.custService.updateCustAuthState(data)).always(res => {
-      me.queryAuditCustList();
-    })
+    const modal = this.modalService.create({
+      nzTitle: '审核实名认证',
+      nzContent: CustAuditWinComponent,
+      nzComponentParams: {data: data},
+      nzWidth: '1200',
+      nzFooter: null
+    });
+    console.log("data", data);
+    // modal.afterClose.subscribe((result) => {
+    // });
+    // let data = {
+    //   id: id,
+    //   state: this.custAuthState.pass
+    // };
+    // $.when(me.custService.updateCustAuthState(data)).always(res => {
+    //   me.queryAuditCustList();
+    // })
   }
-
 }
