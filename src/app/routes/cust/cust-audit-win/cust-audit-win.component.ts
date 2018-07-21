@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {isUndefined} from "util";
+import {isNullOrUndefined, isUndefined} from "util";
 import {MainService} from "../../../public/service/main.service";
 import {CustService} from "../cust.service";
 import {NzModalRef} from "ng-zorro-antd";
+import {forEach} from "@angular/router/src/utils/collection";
 declare var $: any;
 @Component({
   selector: 'app-cust-audit-win',
@@ -15,21 +16,21 @@ export class CustAuditWinComponent implements OnInit {
   public showRecord: boolean = true;         //默认是通过
   public isAgree: string = 'N';         //默认是通过
   public yesOrNo: any;         //用户审核是否通过枚举
-  images: Array<string> = ['http://pb48qefxh.bkt.clouddn.com/cust/1531367622684-1.png'];
+  images: Array<string> = [];
   public reason: string = '';//驳回原因
-  public reasonList: Array<string> = [];//选中的驳回原因编号
+  public reasonList: any = {};//选中的驳回原因
   public reasons: Array<any> = [
-    {label:'姓名必须与身份证姓名保持一致',value:'a'},
-    {label:'身份证号有误',value:'a'},
-    {label:'身份证有效期有误',value:'b'},
-    {label:'身份证正面照有误',value:'c'},
-    {label:'身份证正面照不清晰',value:'d'},
-    {label:'身份证反面照有误',value:'e'},
-    {label:'身份证反面照不清晰',value:'f'},
-    {label:'姓名必须与身份证姓名保持一致',value:'g'},
-    {label:'手持身份证照片有误',value:'h'},
-    {label:'手持身份证照片不清晰',value:'i'},
-    {label:'没有按顺序上传图片',value:'j'}
+    {label: '姓名必须与身份证姓名保持一致', value: '1'},
+    {label: '身份证号有误', value: '2'},
+    {label: '身份证有效期有误', value: '3'},
+    {label: '身份证正面照有误', value: '4'},
+    {label: '身份证正面照不清晰', value: '5'},
+    {label: '身份证反面照有误', value: '6'},
+    {label: '身份证反面照不清晰', value: '7'},
+    {label: '姓名必须与身份证姓名保持一致', value: '8'},
+    {label: '手持身份证照片有误', value: '9'},
+    {label: '手持身份证照片不清晰', value: '10'},
+    {label: '没有按顺序上传图片', value: '11'}
   ];
 
   constructor(private custService: CustService, private modal: NzModalRef) {
@@ -38,12 +39,7 @@ export class CustAuditWinComponent implements OnInit {
   ngOnInit() {
     this.yesOrNo = MainService.getEnumDataList('9000');  // 用户审核是否通过
     let me = this;
-    // $('.wrapper > section').css('z-index', 200);
-    // me.isAgree = 'N';
-    // me.images = [];
-    // me.reasonList = [];
-    // me.reason = '';
-    // me.images.push(me.data.idcardPic1, me.data.idcardPic2, me.data.idcardPic3);
+    me.images.push(me.data.idcardPic1, me.data.idcardPic2, me.data.idcardPic3);
   }
 
   /**
@@ -51,17 +47,24 @@ export class CustAuditWinComponent implements OnInit {
    * @param event
    * @param idx
    */
-  getReasonId(event, idx) {
+  getReason() {
     let me = this;
-    if (event.target.checked) {
-      me.reasonList.push(me.reasons[idx]);
-    } else {
-      me.reasonList = me.reasonList.filter(item => {
-        return item !== me.reasons[idx];
-      })
+    for (let obj of me.reasons) {
+      if (obj.checked) {
+        me.reasonList[obj.value] = obj;
+      } else {
+        delete me.reasonList[obj.value];
+      }
     }
-    if (me.reasonList.length > 0) me.reason = me.reasonList.join('，') + '，请重新提交';
-    else me.reason = '';
+    if (me.reasonList != {}) {
+      me.reason = "";
+      for (let name in me.reasonList) {
+        me.reason += "," + me.reasonList[name].label;
+      }
+      me.reason = me.reason.substring(1);
+    } else {
+      me.reason = "";
+    }
   }
 
   /**
@@ -69,33 +72,24 @@ export class CustAuditWinComponent implements OnInit {
    */
   access(id) {
     let me = this;
-    let url = '/custAuthInfo/updateState';
     let data = {
       id: id,
-      state: 'PASS',
+      state: 'PASS'
     };
-    //
-    // me.submit.putRequest(url, data);
-    // me.hideWindow("success");
-    // me.certificationComponent.aqeuryAll('AUDIT', me.curPage);
+    if (me.isAgree == "N") {
+      data.state = "UNPASS";
+      data["verifyReason"] = me.reason;
+    }
+    $.when(me.custService.updateCustAuthState(data)).done(res => {
+      me.modal.triggerOk();
+    })
   }
 
-  /*
-   * 审核驳回原因
-   * */
-  delivery(obj) {
-    let me = this;
-    let url = '/custAuthInfo/updateState';
-    let data = {
-      state: 'UNPASS',
-      verifyReason: obj.reason,
-    };
-    // let a = this.reasonRejecService.reasonReject(url, data);
-    // me.hideWindow("success");
-    // me.certificationComponent.aqeuryAll('AUDIT', me.curPage);
+  closeWin() {
+    this.modal.destroy();
   }
 
-  imageViewerReady ($event: any) {
+  imageViewerReady($event: any) {
     console.log($event);
   }
 }

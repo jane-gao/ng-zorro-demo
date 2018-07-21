@@ -135,7 +135,11 @@ export class CustAuditComponent implements OnInit {
       nzContent: CustAuditWinComponent,
       nzComponentParams: {data: data},
       nzWidth: '1200',
-      nzFooter: null
+      nzFooter: null,
+      nzOnOk: function () {
+        alert("成功");
+        me.queryAuditCustList();
+      }
     });
     console.log("data", data);
     // modal.afterClose.subscribe((result) => {
