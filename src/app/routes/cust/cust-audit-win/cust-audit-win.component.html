@@ -30,32 +30,34 @@
       </dd>
     </dl>
 
-    <dl class="bb m0 clearfix item-head p0">
-      <dt nz-col nzSpan="6">是否通过：</dt>
-      <dd nz-col nzSpan="18">
-        <nz-radio-group name="isAllow" style="line-height: 45px" [(ngModel)]="isAgree">
-          <label nz-radio [nzValue]="item.key" *ngFor="let item of yesOrNo">{{item.val}}</label>
-        </nz-radio-group>
-      </dd>
-    </dl>
-    <ng-container *ngIf="data.state=='AUDIT' && isAgree=='N'">
-      <dl class="clearfix bb textArea-row">
-        <dt nz-col nzSpan="6">驳回原因：</dt>
+    <ng-container *ngIf="data.state=='AUDIT'">
+      <dl class="bb m0 clearfix item-head p0">
+        <dt nz-col nzSpan="6">是否通过：</dt>
         <dd nz-col nzSpan="18">
-          <textarea row="6" nz-input style="height: 79px;" [(ngModel)]="reason"></textarea>
+          <nz-radio-group name="isAllow" style="line-height: 45px" [(ngModel)]="isAgree">
+            <label nz-radio [nzValue]="item.key" *ngFor="let item of yesOrNo">{{item.val}}</label>
+          </nz-radio-group>
         </dd>
       </dl>
-      <dl class="clearfix bb clearfix p0 h250">
-        <dt nz-col nzSpan="6" class="lh34 h90">快速选择驳回原因：</dt>
-        <dd nz-col nzSpan="17" class="reason-unpass font12 h250">
-          <nz-checkbox-group [ngModel]="reasons" name="reasonList" (ngModelChange)="getReason()"></nz-checkbox-group>
-        </dd>
-      </dl>
+      <ng-container *ngIf="isAgree=='N'">
+        <dl class="clearfix bb textArea-row">
+          <dt nz-col nzSpan="6">驳回原因：</dt>
+          <dd nz-col nzSpan="18">
+            <textarea row="6" nz-input style="height: 79px;" [(ngModel)]="reason"></textarea>
+          </dd>
+        </dl>
+        <dl class="clearfix bb clearfix p0 h250">
+          <dt nz-col nzSpan="6" class="lh34 h90">快速选择驳回原因：</dt>
+          <dd nz-col nzSpan="17" class="reason-unpass font12 h250">
+            <nz-checkbox-group [ngModel]="reasons" name="reasonList" (ngModelChange)="getReason()"></nz-checkbox-group>
+          </dd>
+        </dl>
+      </ng-container>
+      <div class="panel-footer text-right mt-15">
+        <button nz-button title="放弃操作" class="btn-danger" (click)="closeWin()">放弃操作</button>
+        <button nz-button title="确认提交" class="btn-green" (click)="access(data.id)">确认提交</button>
+      </div>
     </ng-container>
-    <div class="panel-footer text-right mt-15">
-      <button nz-button title="放弃操作" class="btn-danger" (click)="closeWin()">放弃操作</button>
-      <button nz-button title="确认提交" class="btn-green" (click)="access(data.id)">确认提交</button>
-    </div>
   </div>
   <div style="display: inline-block;">
     <e-ngx-viewer (ready)="imageViewerReady($event)" [model]="'image'" [source]="images" [width]="750" [height]="580"></e-ngx-viewer>

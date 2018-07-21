@@ -3,7 +3,7 @@
 </div>
 <div>
   <nz-tabset>
-    <nz-tab nzTitle="待审核">
+    <nz-tab nzTitle="待审核" (nzClick)="queryAuditCustList()">
       <!--搜索 start-->
       <form nz-form class="bg-white mt-15 mb-15" (submit)="queryAuditCustList(1)">
         <div class="search-group">
@@ -65,7 +65,7 @@
         </tbody>
       </nz-table>
     </nz-tab>
-    <nz-tab nzTitle="审核通过">
+    <nz-tab nzTitle="审核通过" (nzClick)="queryPassCustList()">
       <!--搜索 start-->
       <form nz-form class="bg-white mt-15 mb-15" (submit)="queryPassCustList(1)">
         <div class="search-group">
@@ -129,7 +129,7 @@
         </tbody>
       </nz-table>
     </nz-tab>
-    <nz-tab nzTitle="审核驳回">
+    <nz-tab nzTitle="审核驳回" (nzClick)="queryUnPassCustList()">
       <!--搜索 start-->
       <form nz-form class="bg-white mt-15 mb-15" (submit)="queryUnPassCustList(1)">
         <div class="search-group">
