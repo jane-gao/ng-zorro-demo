@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 192.168.10.124 --port 800 --proxy-config proxy.conf.js",
+    "start": "ng serve --host 192.168.10.112 --port 4200 --proxy-config proxy.conf.js",
     "start:aot": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve --host 192.168.10.124 --port 800 --proxy-config proxy.conf.js -aot",
     "build": "ng build --prod",
     "test": "ng test",
@@ -25,6 +25,7 @@
     "angular2-cookie": "1.2.6",
     "core-js": "2.5.7",
     "echarts": "4.1.0",
+    "e-ngx-viewer": "4.2.0",
     "jquery": "3.3.1",
     "ng-zorro-antd": "0.7.1",
     "ng2-ckeditor": "1.2.1",
