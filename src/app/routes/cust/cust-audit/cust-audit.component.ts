@@ -29,7 +29,7 @@ export class CustAuditComponent implements OnInit {
   public unPassQueryParams: any = {};   //查询参数
   public unPassPage: Page = new Page();  //未审核页面分页对象
 
-  public custAuthState = Setting.ENUMSTATE.custAuthState; //用户状态信息
+  public custAuthState = Setting.ENUMSTATE.authState; //用户状态信息
 
   constructor(private custService: CustService, private modalService: NzModalService) {
     this.queryAuditCustList(1);

@@ -17,8 +17,8 @@ export class CustComponent implements OnInit {
   public _loading: boolean = false;                 //是否加载中
   public page: Page = new Page();  //用户分页对象
   public enums = Setting.ENUM;
-  public authEnums = MainService.getEnumDataList(this.enums.custAuthState); //用户认证状态枚举集合
-  public stateEnums = MainService.getEnumDataList(this.enums.custState);  //用户状态枚举集合
+  public authEnums = MainService.getEnumDataList(this.enums.authState); //用户认证状态枚举集合
+  public stateEnums = MainService.getEnumDataList(this.enums.enterpriseState);  //用户状态枚举集合
 
   public custState = Setting.ENUMSTATE.custState; //用户状态信息
 

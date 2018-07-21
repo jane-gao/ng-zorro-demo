@@ -40,14 +40,16 @@ export class Setting {
     brandShowType: 1024,  // 品牌展示类型
     custState: 9009,  // 用户状态
     custSex: 9002,  // 用户性别
-    custAuthState: 9010, //用户认证状态
+    authState: 9010, //认证状态
+    enterpriseState: 9012,  //企业状态
+    enterPriseJoinState: 9013  //企业入驻状态
   };
 
   //定义枚举状态名
   public static ENUMSTATE: any = {
     yes: 'Y',
     no: 'N',
-    custAuthState: {
+    authState: {
       audit: 'AUDIT',//待审核
       unPass: 'UNPASS',//未通过
       pass: 'PASS',//认证通过
@@ -58,6 +60,18 @@ export class Setting {
       freeze: 'FREEZE',//冻结
       del: 'DEL',//删除
       normal: 'NORMAL'//正常
+    },
+    enterpriseState: {
+      freeze: 'FREEZE',//冻结
+      del: 'DEL',//删除
+      normal: 'NORMAL'//正常
+    },
+    enterpriseJoinState: {
+      half: 'HALF',//待完善
+      audit: 'AUDIT',//待审核
+      normal: 'NORMAL',//正常
+      black: 'BLACK',//黑名单
+      reject: 'REJECT',//驳回
     },
     announceState: {
       online: 'ONLINE',//上线

@@ -77,8 +77,16 @@ export class SettingUrl {
     cust: {
       list: "/admin/cust/queryCust",  //用户列表
       updateState: "/admin/cust/updateState",  //修改用户状态
-      authList:"/admin/custAuthInfo/query",
-      updateAuthState:"/admin/custAuthInfo/updateState",
+      authList: "/admin/custAuthInfo/query",
+      updateAuthState: "/admin/custAuthInfo/updateState",
+    },
+    enterprise: {
+      list: "/admin/Enterprise/queryEnterprise",  //企业列表
+      loadEnterprise: "/admin/Enterprise/loadEnterprise",
+      loadEnterpriseJoin: "/admin/Enterprise/loadEnterpriseJoin",
+      queryJoin: "/admin/Enterprise/queryJoinPage",
+      auditEnterprise: "/admin/Enterprise/auditEnterprise",
+
     },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类

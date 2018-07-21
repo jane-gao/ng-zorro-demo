@@ -72,6 +72,21 @@ export class MainComponent implements OnInit {
       ]
     };
 
+    const enterprise = {
+      menuName: '企业管理',
+      menuIcon: 'anticon anticon-bank',
+      menuUrl: '/main/enterprise',
+      subMenuList: [
+        {
+          menuName: '企业管理',
+          menuUrl: '/main/enterprise/enterpriseManager'
+        }, {
+          menuName: '企业认证',
+          menuUrl: '/main/enterprise/enterpriseAudit'
+        }
+      ]
+    };
+
     const authLimit = {
       menuName: '权限管理',
       menuIcon: 'anticon anticon-safety',
@@ -108,7 +123,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [set, ad, cust, finance, authLimit, operation, plat_norms]
+    Setting.MENUS = [set, ad, cust, enterprise, finance, authLimit, operation, plat_norms]
   }
 
   ngOnInit() {
