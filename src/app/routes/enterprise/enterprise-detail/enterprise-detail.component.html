@@ -1,0 +1,303 @@
+<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
+  <i class="anticon anticon-rollback font20"></i>
+</button>
+<div class="panel-body">
+  <div class="body-title thc bg p">
+    <span>企业编码：{{epJoinInfo.epCode}}</span>
+  </div>
+  <!--企业基本信息 start-->
+  <legend class="legend mb0">企业基本信息</legend>
+  <table class="t-items p w100">
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">企业名称：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.epName}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">邮箱：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.contactsEmail}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">负责人：</td>
+      <td class="item-bd" nz-col nzSpan="20" [ngClass]="{'font-gray': !epJoinInfo?.contactsName}">
+        {{epJoinInfo?.contactsName || '未填写'}}
+      </td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">负责人电话：</td>
+      <td class="item-bd" nz-col nzSpan="20" [ngClass]="{'font-gray': !epJoinInfo?.contactsPhone}">
+        {{epJoinInfo?.contactsPhone || '未填写'}}
+      </td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">营业执照类型：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.idType | stateName: enums.idType}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">申请时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.createTime}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">当前状态：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.state | stateName: enums.enterPriseJoinState}}</td>
+    </tr>
+    <!--多证合一营业执照-->
+    <ng-container *ngIf="epJoinInfo?.idType == 'UNITY'">
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">社会信用代码：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.creditCode}}</td>
+      </tr>
+    </ng-container>
+    <!--普通营业执照-->
+    <ng-container *ngIf="epJoinInfo?.idType == 'NORMAL'">
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">税务登记证号：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.taxRegistrationCertificate}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">税务登记证：</td>
+        <td class="item-bd" nz-col nzSpan="20">
+          <ng-container *ngIf="epJoinInfo?.taxRegistrationCertificateElectronic">
+            <div class="tag-dib imgbox text-center mr">
+              <a [href]="epJoinInfo?.taxRegistrationCertificateElectronic" target="_blank" title="点击看大图">
+                <img [src]="epJoinInfo?.taxRegistrationCertificateElectronic" class="img"
+                     onerror="javascript:this.src='../../../assets/img/dummy.png'">
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!epJoinInfo?.taxRegistrationCertificateElectronic">
+            <span class="font-gray">【未上传】</span>
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">组织机构代码：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.organizationCode}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">组织机构代码证：</td>
+        <td class="item-bd" nz-col nzSpan="20">
+          <ng-container *ngIf="epJoinInfo?.taxRegistrationCertificateElectronic">
+            <div class="tag-dib imgbox text-center mr">
+              <a [href]="epJoinInfo?.taxRegistrationCertificateElectronic" target="_blank" title="点击看大图">
+                <img [src]="epJoinInfo?.organizationCodeElectronic" class="img"
+                     onerror="javascript:this.src='../../../assets/img/dummy.png'">
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!epJoinInfo?.taxRegistrationCertificateElectronic">
+            <span class="font-gray">【未上传】</span>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+
+  <!--企业法人信息 start-->
+  <legend class="legend mb0">企业法人信息</legend>
+  <table class="t-items p w100">
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">法人姓名：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.legalPersonName}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">法人身份证号：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.legalPersonIdcard}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">身份证有效期：</td>
+      <td class="item-bd" nz-col nzSpan="20">
+        <ng-container *ngIf="epJoinInfo?.isForever == 'N'">
+          {{epJoinInfo?.idcardStartTime | date: 'yyyy/MM/dd'}} ~ {{epJoinInfo?.idcardEndTime | date: 'yyyy/MM/dd'}}
+        </ng-container>
+        <ng-container *ngIf="epJoinInfo?.isForever == 'Y'|| !epJoinInfo?.idcardEndTime">
+          {{epJoinInfo?.idcardStartTime | date: 'yyyy/MM/dd'}} ~ 长期
+        </ng-container>
+      </td>
+    </tr>
+  </table>
+
+  <!--营业执照信息 start-->
+  <legend class="legend mb0">营业执照信息</legend>
+  <table class="t-items p w100">
+    <ng-container *ngIf="epJoinInfo?.idType == 'NORMAL'">
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">营业执照注册号：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.businessLicence}}</td>
+      </tr>
+    </ng-container>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">注册资本：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.businessRegisteredCapital}}万</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">经营范围：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.businessSphere}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">营业执照所在地：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.businessLicenceAreaFullName}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">详细地址：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.businessLicenceAddress}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">营业执照有效期：</td>
+      <td class="item-bd" nz-col nzSpan="20">
+        <ng-container *ngIf="epJoinInfo?.businessLicenceEnd">
+          {{epJoinInfo?.businessLicenceStart | date: 'yyyy/MM/dd'}} ~ {{epJoinInfo?.businessLicenceEnd | date: 'yyyy/MM/dd'}}
+        </ng-container>
+        <ng-container *ngIf="!epJoinInfo?.businessLicenceEnd">
+          {{epJoinInfo?.businessLicenceStart | date: 'yyyy/MM/dd'}} ~ 长期
+        </ng-container>
+      </td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">营业执照电子版：</td>
+      <td class="item-bd" nz-col nzSpan="20">
+        <ng-container *ngIf="epJoinInfo?.businessLicenceNumberElectronic">
+          <div class="tag-dib imgbox text-center mr">
+            <a [href]="epJoinInfo?.businessLicenceNumberElectronic" target="_blank" title="点击看大图">
+              <img height="100%" [src]="epJoinInfo?.businessLicenceNumberElectronic" class="img"
+                   onerror="javascript:this.src='../../../assets/img/dummy.png'">
+            </a>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!epJoinInfo?.businessLicenceNumberElectronic">
+          <span class="font-gray">【未上传】</span>
+        </ng-container>
+      </td>
+    </tr>
+  </table>
+
+  <!--开户行信息 start-->
+  <ng-container *ngIf="epJoinInfo.state != 'HALF'">
+    <legend class="legend mb0">开户行信息</legend>
+    <table class="t-items p w100">
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">银行开户名：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.bankAccountName}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">公司银行账号：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.bankAccountNumber}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">开户行支行名称：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.bankName}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">开户支行联行号：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.bankCode}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">开户银行地址：</td>
+        <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.bankAddress}}</td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">开户银行许可证：</td>
+        <td class="item-bd" nz-col nzSpan="20">
+          <ng-container *ngIf="epJoinInfo?.bankLicenceElectronic">
+            <div class="tag-dib imgbox text-center mr">
+              <a [href]="epJoinInfo?.bankLicenceElectronic" target="_blank" title="点击看大图">
+                <img height="100%" [src]="epJoinInfo?.bankLicenceElectronic" class="img" [alt]="epJoinInfo?.bankLicenceElectronic"
+                     onerror="javascript:this.src='../../../assets/img/dummy.png'">
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!epJoinInfo?.bankLicenceElectronic">
+            <span class="font-gray">【未上传】</span>
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="t-item clearfix">
+        <td class="item-hd" nz-col nzSpan="4">是否为结算账户：</td>
+        <td class="item-bd" nz-col nzSpan="20"
+            [ngClass]="{'font-success': epJoinInfo?.isSettlementAccount=='Y','main-red': epJoinInfo?.isSettlementAccount=='N'}">
+          {{epJoinInfo?.isSettlementAccount | stateName: enums.yesOrNo}}
+        </td>
+      </tr>
+    </table>
+
+    <!--结算账户信息 start-->
+    <ng-container *ngIf="epJoinInfo?.isSettlementAccount == 'N'">
+      <legend class="legend mb0">结算账户信息</legend>
+      <table class="t-items p w100">
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">银行开户名：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.settlementBankAccountName}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">银行账号：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.settlementBankAccountNumber}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">开户行支行名称：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.settlementBankName}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">开户行支行联行号：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.settlementBankCode}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">开户行所在地：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{epJoinInfo?.settlementBankAddress}}</td>
+        </tr>
+      </table>
+    </ng-container>
+  </ng-container>
+
+  <!--审核记录 start-->
+  <ng-container *ngIf="epRecords.length > 0">
+    <legend class="legend mb0">审核记录</legend>
+    <table class="table table-striped b bt0 w100">
+      <thead>
+      <tr>
+        <th class="text-center" nz-col nzSpan="6">时间</th>
+        <th class="text-center" nz-col nzSpan="6">审核人</th>
+        <th class="text-center" nz-col nzSpan="5">审核结果</th>
+        <th class="text-center" nz-col nzSpan="7">审核意见</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of epRecords" class="text-center">
+        <td nz-col nzSpan="6">{{item.createTime}}</td>
+        <td nz-col nzSpan="6">{{item.optMan}}</td>
+        <td nz-col nzSpan="5">{{item.result == 'PASS'? '通过': '不通过'}}</td>
+        <td nz-col nzSpan="7">{{item.opinion}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
+<ng-container *ngIf="operation == 'AUDIT'">
+  <!--审核-->
+  <form class="goods-audit panel panel-danger w96 m-auto mt mb-xl">
+    <fieldset class="p0 panel-body">
+      <legend class="m0 goods-audit-title">企业入驻审核</legend>
+      <table class="w100">
+        <tr>
+          <td class="item-hd col-sm-2">审核结果：</td>
+          <td class="item-bd col-sm-2">
+            <nz-radio-group [(ngModel)]="audit.auditResult" name="auditResult">
+              <label nz-radio [ngStyle]="style" nzValue="PASS">通过</label>
+              <label nz-radio [ngStyle]="style" nzValue="UNPASS">不通过</label>
+            </nz-radio-group>
+          </td>
+          <td class="col-sm-8 mb0 p">
+                <textarea nz-input class="form-control w66 tag-dib align-middle" name="opinion" [(ngModel)]="audit.opinion" name="opinion"
+                          placeholder="填写审核意见"
+                          cols="10" rows="3">
+                </textarea>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+    <fieldset class="pt-xl m0 text-center">
+      <button class="btn btn-green" nz-button (click)="auditEnterprise()" [disabled]="audit.auditResult == 'UNPASS' && !audit.opinion">
+        <i class="anticon anticon-upload"></i>{{audit.auditResult == 'UNPASS'?'不通过':'通过'}}
+      </button>
+    </fieldset>
+  </form>
+</ng-container>
+

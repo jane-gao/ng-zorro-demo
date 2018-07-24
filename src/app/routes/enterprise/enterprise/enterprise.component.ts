@@ -21,27 +21,28 @@ export class EnterpriseComponent implements OnInit {
   public stateEnums = MainService.getEnumDataList(this.enums.enterpriseState);  //企业状态枚举集合
 
   public enterpriseState = Setting.ENUMSTATE.enterpriseState; //企业状态信息
-  public enterpriseJoinState = Setting.ENUMSTATE.enterpriseJoinState; //企业状态信息
+  public enterpriseAuthState = Setting.ENUMSTATE.authState; //企业状态信息
 
   constructor(private enterpriseService: EnterpriseService) {
   }
 
   ngOnInit() {
+    this.queryEnterpriseList(1);
   }
 
 
   /**
    * 查询企业列表
    */
-  queryCustList(curPage?: number) {
+  queryEnterpriseList(curPage?: number) {
     let me = this;
     me._loading = true;
     if (!isNullOrUndefined(curPage)) me.page.curPage = curPage;//当有页码时，查询该页数据
     me.queryParams = {
       curPage: me.page.curPage, //目标页码
       pageSize: me.page.pageSize, //每页条数
-      custName: me.searchParams.custName, //企业名称
-      custPhone: me.searchParams.custPhone, //企业手机
+      epName: me.searchParams.epName, //企业名称
+      phone: me.searchParams.phone, //企业手机
       authState: me.searchParams.authState, //认证状态
       state: me.searchParams.state, //企业状态
     };
@@ -53,6 +54,6 @@ export class EnterpriseComponent implements OnInit {
 
   resetSearch() {
     this.searchParams = {};
-    this.queryCustList();
+    this.queryEnterpriseList();
   }
 }

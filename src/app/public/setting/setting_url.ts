@@ -84,7 +84,8 @@ export class SettingUrl {
       list: "/admin/Enterprise/queryEnterprise",  //企业列表
       loadEnterprise: "/admin/Enterprise/loadEnterprise",
       loadEnterpriseJoin: "/admin/Enterprise/loadEnterpriseJoin",
-      queryJoin: "/admin/Enterprise/queryJoinPage",
+      auditRecList: "/admin/Enterprise/queryAuditRecListByEpCode",
+      joinList: "/admin/Enterprise/queryJoinPage",
       auditEnterprise: "/admin/Enterprise/auditEnterprise",
 
     },

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {EnterpriseJoinListComponent} from "../enterprise-join-list/enterprise-join-list.component";
 
 @Component({
   selector: 'app-enterprise-audit',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./enterprise-audit.component.css']
 })
 export class EnterpriseAuditComponent implements OnInit {
+  @ViewChild('allList') allList: EnterpriseJoinListComponent;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.allList.queryEnterpriseJoinList(1);
   }
 
 }

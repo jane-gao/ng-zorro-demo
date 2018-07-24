@@ -1,3 +1,23 @@
-<p>
-  enterprise-audit works!
-</p>
+<div class="page-title">
+  <h3>企业审核</h3>
+</div>
+<nz-tabset>
+  <nz-tab nzTitle="全部" (nzClick)="allList.queryEnterpriseJoinList(1)">
+    <app-enterprise-join-list #allList></app-enterprise-join-list>
+  </nz-tab>
+  <nz-tab nzTitle="待完善" (nzClick)="halfList.queryEnterpriseJoinList(1)">
+    <app-enterprise-join-list #halfList [state]="'HALF'"></app-enterprise-join-list>
+  </nz-tab>
+  <nz-tab nzTitle="待审核" (nzClick)="auditList.queryEnterpriseJoinList(1)">
+    <app-enterprise-join-list #auditList [state]="'AUDIT'"></app-enterprise-join-list>
+  </nz-tab>
+  <nz-tab nzTitle="审核通过" (nzClick)="normalList.queryEnterpriseJoinList(1)">
+    <app-enterprise-join-list #normalList [state]="'NORMAL'"></app-enterprise-join-list>
+  </nz-tab>
+  <nz-tab nzTitle="已驳回" (nzClick)="rejectList.queryEnterpriseJoinList(1)">
+    <app-enterprise-join-list #rejectList [state]="'REJECT'"></app-enterprise-join-list>
+  </nz-tab>
+  <nz-tab nzTitle="黑名单" (nzClick)="blackList.queryEnterpriseJoinList(1)">
+    <app-enterprise-join-list #blackList [state]="'BLACK'"></app-enterprise-join-list>
+  </nz-tab>
+</nz-tabset>

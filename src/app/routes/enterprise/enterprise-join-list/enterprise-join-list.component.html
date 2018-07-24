@@ -1,0 +1,71 @@
+<!--搜索 start-->
+<form nz-form class="bg-white mt-15 mb-15" (submit)="queryEnterpriseJoinList(1)">
+  <div class="search-group">
+    <span class="search-title">企业名称：</span>
+    <div class="search-main">
+      <input nz-input name="epName" [(ngModel)]="searchParams.epName" placeholder="企业名称">
+    </div>
+  </div>
+  <div class="search-group">
+    <span class="search-title">法人名：</span>
+    <div class="search-main">
+      <input nz-input name="legalPersonName" [(ngModel)]="searchParams.legalPersonName" placeholder="法人名">
+    </div>
+  </div>
+  <div class="inline-block">
+    <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
+      <i class="anticon anticon-search"></i><span>搜索</span>
+    </button>
+    <button nz-button class="mr" title="重置" type="reset" (click)="resetSearch()">
+      <i class="anticon anticon-sync"></i><span>重置</span>
+    </button>
+  </div>
+</form>
+<!--搜索 end-->
+
+<nz-table #nzTable
+          [nzData]="page.voList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false"
+          [nzPageSize]="page.pageSize"
+          [nzTotal]="page.totalRow"
+          [nzPageIndex]="page.curPage"
+          (nzPageIndexChange)="queryEnterpriseJoinList($event)">
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>企业名称</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>企业法人</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>负责人</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>负责人电话</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>营业执照类型</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>经营范围</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>营业执照地址</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>更新时间</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-center">{{data.epName}}</td>
+      <td nz-td class="text-center">{{data.legalPersonName}}</td>
+      <td nz-td class="text-center">{{data.contactsName}}</td>
+      <td nz-td class="text-center">{{data.contactsPhone}}</td>
+      <td nz-td class="text-center">{{data.idType | stateName: enums.idType}}</td>
+      <td nz-td class="text-center">{{data.businessSphere}}</td>
+      <td nz-td class="text-center">{{data.businessLicenceAreaFullName || '未填写'}}</td>
+      <td nz-td class="text-center">{{data.updateTime}}</td>
+      <td nz-td class="text-center w10">
+        <button nz-button title="查看" class="btn-blue" routerLink="/main/enterprise/detail" [queryParams]="{epCode: data.epCode}">
+          <i class="anticon anticon-search"></i>
+        </button>
+        <button nz-button title="审核" *ngIf="data.state == 'AUDIT'" class="btn-blue" routerLink="/main/enterprise/detail" [queryParams]="{epCode: data.epCode,operation:'AUDIT'}">
+          <i class="anticon anticon-check-circle-o"></i>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

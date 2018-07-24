@@ -3,17 +3,17 @@
 </div>
 
 <!--搜索 start-->
-<form nz-form class="bg-white mt-15 mb-15" (submit)="queryCustList(1)">
+<form nz-form class="bg-white mt-15 mb-15" (submit)="queryEnterpriseList(1)">
   <div class="search-group">
     <span class="search-title">企业名称：</span>
     <div class="search-main">
-      <input nz-input name="custName" [(ngModel)]="searchParams.epName" placeholder="企业名称">
+      <input nz-input name="epName" [(ngModel)]="searchParams.epName" placeholder="企业名称">
     </div>
   </div>
   <div class="search-group">
     <span class="search-title">手机号：</span>
     <div class="search-main">
-      <input nz-input name="custPhone" [(ngModel)]="searchParams.phone" placeholder="手机号">
+      <input nz-input name="phone" [(ngModel)]="searchParams.phone" placeholder="手机号">
     </div>
   </div>
   <div class="search-group">
@@ -50,7 +50,7 @@
           [nzPageSize]="page.pageSize"
           [nzTotal]="page.totalRow"
           [nzPageIndex]="page.curPage"
-          (nzPageIndexChange)="queryCustList($event)">
+          (nzPageIndexChange)="queryEnterpriseList($event)">
   <thead nz-thead>
   <tr>
     <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
@@ -78,27 +78,14 @@
           </ng-template>
         </nz-popover>
       </td>
-      <td nz-td class="text-center">{{data.areaFullName || '未填写'}}</td>
+      <td nz-td class="text-center">{{data.areaFullName+data.address || '未填写'}}</td>
+      <td nz-td class="text-center">{{data.authState | stateName: enums.authState}}</td>
       <td nz-td class="text-center">{{data.state | stateName: enums.enterpriseState}}</td>
-      <td nz-td class="text-center">{{data.state | stateName: enums.enterpriseJoinState}}</td>
-      <td nz-td class="text-center">{{data.createTime }}</td>
+      <td nz-td class="text-center">{{data.createTime}}</td>
       <td nz-td class="text-center w10">
-        <!--<nz-popconfirm nzTitle="确定要冻结此企业吗？" nzPlacement="top" (nzOnConfirm)="freezeCust(data.custCode)">-->
-          <!--<button nz-popconfirm nz-button title="冻结" class="btn-blue" *ngIf="data.state==enterpriseState.normal">-->
-            <!--<i class="anticon anticon-pause-circle-o"></i>-->
-          <!--</button>-->
-        <!--</nz-popconfirm>-->
-
-        <!--<nz-popconfirm nzTitle="确定要激活此企业吗？" nzPlacement="top" (nzOnConfirm)="activeCust(data.custCode)">-->
-          <!--<button nz-popconfirm nz-button title="激活" class="btn-green" *ngIf="data.state==enterpriseState.freeze">-->
-            <!--<i class="anticon anticon-play-circle"></i>-->
-          <!--</button>-->
-        <!--</nz-popconfirm>-->
-        <!--<nz-popconfirm nzTitle="确定要删除此企业吗？" nzPlacement="top" (nzOnConfirm)="delCust(data.custCode)">-->
-          <!--<button nz-popconfirm nz-button title="删除" class="btn-danger" *ngIf="data.state==enterpriseState.freeze">-->
-            <!--<i class="iconfont icon-shanchu"></i>-->
-          <!--</button>-->
-        <!--</nz-popconfirm>-->
+        <button *ngIf="data.authState != 'UNAUTH'" nz-button title="查看" class="btn-blue" routerLink="/main/enterprise/detail" [queryParams]="{epCode: data.epCode}">
+          <i class="anticon anticon-search"></i>查看
+        </button>
       </td>
     </tr>
   </ng-template>
