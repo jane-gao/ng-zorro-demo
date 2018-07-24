@@ -7,9 +7,9 @@ export class Setting {
   };//ajax 信息
 
   public static APP: any = {                           //平台信息
-    name: '仁中和网络技术-企业管理系统',
-    description: '企业管理系统',
-    copyright: '© 2017 - 仁中和-企业管理系统',
+    name: '仁中和科技-集合竞价管理系统',
+    description: '集合竞价管理系统',
+    copyright: '© 2017 - 仁中和-集合竞价管理系统',
     logo: '../../../assets/img/logo.png',
     logoDark: '../../../assets/img/logo-dark.png',
     defaultImg: '../../../assets/img/dummy.png',
@@ -43,7 +43,10 @@ export class Setting {
     authState: 9010, //认证状态
     idType: 9011,  // 营业执照类型
     enterpriseState: 9012,  //企业状态
-    enterPriseJoinState: 9013  //企业入驻状态
+    enterPriseJoinState: 9013,  //企业入驻状态
+    platSubject: 8000, //平台会计科目
+    userType: 9017,  //交易对象类型
+    payWay: 8003,  //交易方式
   };
 
   //定义枚举状态名

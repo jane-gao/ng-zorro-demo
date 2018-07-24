@@ -87,7 +87,11 @@ export class SettingUrl {
       auditRecList: "/admin/Enterprise/queryAuditRecListByEpCode",
       joinList: "/admin/Enterprise/queryJoinPage",
       auditEnterprise: "/admin/Enterprise/auditEnterprise",
-
+    },
+    finance: {
+      list: "/admin/finacePlat/query",  //平台账户列表
+      load: "/admin/finacePlat/load", //平台账户流水
+      loadBalance: "/admin/finacePlat/loadBalance", //平台账户余额
     },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类

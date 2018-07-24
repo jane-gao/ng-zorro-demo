@@ -26,7 +26,19 @@ export class MainComponent implements OnInit {
     const finance = {
       menuName: '财务管理',
       menuIcon: 'anticon anticon-pay-circle-o',
-      menuUrl: '/main/finance'
+      menuUrl: '/main/finance',
+      subMenuList: [
+        {
+          menuName: '平台财务管理',
+          menuUrl: '/main/finance/financeManager'
+        }, {
+          menuName: '竞价结算管理',
+          menuUrl: '/main/finance/biddingSetttle'
+        }, /* {
+         menuName: '常用设置',
+         menuUrl: '/main/setting/basic'
+         }*/
+      ]
     };
     const plat_norms = {
       menuName: '平台标准管理',

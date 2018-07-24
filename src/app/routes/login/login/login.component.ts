@@ -12,7 +12,7 @@ import {CookieService} from "angular2-cookie/core";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  array = ['../../../assets/img/bak/1.png'];//广告banner
+  array = ['../../../assets/img/index/index-1.png'];//广告banner
   validateForm: FormGroup;//登录的表单
   app = Setting.APP; //平台基本信息
 
