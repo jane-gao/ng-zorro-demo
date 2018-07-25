@@ -5,12 +5,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import {FinanceService} from "./finance.service";
 import {BiddingSettleComponent} from './bidding-settle/bidding-settle.component';
-import { FinanceDetailComponent } from './finance-detail/finance-detail.component';
+import {FinanceDetailComponent} from './finance-detail/finance-detail.component';
 
 const routes: Routes = [
   {path: '', component: FinanceComponent},
   {path: 'financeManager', component: FinanceComponent},
   {path: 'biddingSetttle', component: BiddingSettleComponent},
+  {path: 'financeRecDetail', component: FinanceDetailComponent},
 ];
 
 @NgModule({

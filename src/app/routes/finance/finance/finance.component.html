@@ -85,7 +85,7 @@
       <td nz-td class="text-center">{{data.bacctn+"-"+data.bacct}}</td>
       <td nz-td class="text-center">{{data.createTime }}</td>
       <td nz-td class="text-center w10">
-        <button nz-button title="查看详情" class="btn-blue">
+        <button nz-button title="查看详情" class="btn-blue" routerLink="/main/finance/financeRecDetail" [queryParams]="{tc: data.tc}">
           <i class="fa fa-check-square-o"></i> 查看
         </button>
       </td>

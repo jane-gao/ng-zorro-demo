@@ -43,6 +43,9 @@ export class FinanceService {
     let me = this, defer = $.Deferred();
     AjaxService.get({
       url: SettingUrl.URL.finance.load,
+      data: {
+        tc: tc
+      },
       success: (res) => {
         if (res.success) {
           defer.resolve(res.data);
@@ -58,6 +61,7 @@ export class FinanceService {
     });
     return defer.promise(); //返回异步请求消息
   }
+
   /**
    * 查询平台账户余额
    * @returns {any<T>}
