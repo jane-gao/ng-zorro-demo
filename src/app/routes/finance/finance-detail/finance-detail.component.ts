@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from "@angular/common";
 import {FinanceService} from "../finance.service";
 import {ActivatedRoute} from "@angular/router";
 import {MainService} from "../../../public/service/main.service";
@@ -17,7 +18,7 @@ export class FinanceDetailComponent implements OnInit {
   public enums = Setting.ENUM;
   public subject = MainService.getEnumDataList(this.enums.platSubject); //平台会计科目
   public userType = MainService.getEnumDataList(this.enums.userType);  //交易对象类型
-  constructor(private financeService: FinanceService, public route: ActivatedRoute,) {
+  constructor(private financeService: FinanceService, public route: ActivatedRoute,public location: Location) {
   }
 
   ngOnInit() {
@@ -30,4 +31,10 @@ export class FinanceDetailComponent implements OnInit {
       });
     }
   }
+
+  //返回
+  back() {
+    this.location.back();
+  }
+
 }

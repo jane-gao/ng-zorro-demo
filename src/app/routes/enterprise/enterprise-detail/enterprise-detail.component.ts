@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
-import {isNullOrUndefined} from "util";
 import {EnterpriseService} from "../enterprise.service";
 import {ActivatedRoute} from "@angular/router";
 import {Setting} from "../../../public/setting/setting";
