@@ -40,6 +40,23 @@ export class MainComponent implements OnInit {
          }*/
       ]
     };
+    const bidding = {
+      menuName: '竞价项目',
+      menuIcon: 'anticon anticon-pay-circle-o',
+      menuUrl: '/main/bidding',
+      subMenuList: [
+        {
+          menuName: '竞价项目管理',
+          menuUrl: '/main/bidding/biddingManager'
+        }, {
+          menuName: '竞价项目支付确认',
+          menuUrl: '/main/bidding/biddingManager'
+        }, /* {
+         menuName: '常用设置',
+         menuUrl: '/main/setting/basic'
+         }*/
+      ]
+    };
     const plat_norms = {
       menuName: '平台标准管理',
       menuIcon: 'anticon anticon-pay-circle-o',
@@ -135,7 +152,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [set, ad, cust, enterprise, finance, authLimit, operation, plat_norms]
+    Setting.MENUS = [authLimit,set, ad, cust, enterprise, finance,  bidding, plat_norms, operation]
   }
 
   ngOnInit() {

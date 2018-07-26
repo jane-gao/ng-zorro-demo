@@ -47,6 +47,8 @@ export class Setting {
     platSubject: 8000, //平台会计科目
     userType: 9017,  //交易对象类型
     payWay: 8003,  //交易方式
+    biddingState: 9015,  //招标项目状态
+    biddingModel: 9016,  //招标项目状态
   };
 
   //定义枚举状态名

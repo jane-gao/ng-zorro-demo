@@ -93,6 +93,14 @@ export class SettingUrl {
       load: "/admin/finacePlat/load", //平台账户流水
       loadBalance: "/admin/finacePlat/loadBalance", //平台账户余额
     },
+    bidding: {
+      list: "/admin/bidding/queryBiddings",  //招标列表
+      loadBidding: "/admin/bidding/loadBiddingInfo", //招标详情
+      delBidding: "/admin/bidding/deleteBidding",  //删除招标项目
+      updatePayRecState: "/admin/bidding/updatePayRecState", //修改招标项目款状态
+      updateBiddingState:"/admin/bidding/updateState",  //修改招标项目状态
+      loadBid: "/admin/bidding/loadBidInfo"  //投标记录详情
+    },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类
       addHelpKind: '/admin/helpKind/addHelpKind',//添加帮助分类

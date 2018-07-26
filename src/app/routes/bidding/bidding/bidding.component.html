@@ -1,0 +1,92 @@
+<div class="page-title">
+  <h3>企业管理</h3>
+</div>
+
+<!--搜索 start-->
+<form nz-form class="bg-white mt-15 mb-15" (submit)="queryBiddingList(1)">
+  <div class="search-group">
+    <span class="search-title">招标项目编码：</span>
+    <div class="search-main">
+      <input nz-input name="projectCode" [(ngModel)]="searchParams.projectCode" placeholder="企业名称">
+    </div>
+  </div>
+  <div class="search-group">
+    <span class="search-title">用户编码：</span>
+    <div class="search-main">
+      <input nz-input name="custCode" [(ngModel)]="searchParams.custCode" placeholder="手机号">
+    </div>
+  </div>
+  <div class="search-group">
+    <span class="search-title">企业编码：</span>
+    <div class="search-main">
+      <input nz-input name="epCode" [(ngModel)]="searchParams.epCode" placeholder="手机号">
+    </div>
+  </div>
+  <div class="search-group">
+    <span class="search-title">创建时间：</span>
+    <div class="search-main">
+      <nz-range-picker name="createTime" [(ngModel)]="searchParams.createTime" (ngModelChange)="onChange($event)" nzShowTime></nz-range-picker>
+    </div>
+  </div>
+  <div class="search-group">
+    <span class="search-title">项目状态：</span>
+    <div class="search-main">
+      <nz-select style="width: 200px;" [(ngModel)]="searchParams.state" name="state">
+        <nz-option *ngFor="let option of stateEnums" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
+      </nz-select>
+    </div>
+  </div>
+  <div class="inline-block">
+    <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
+      <i class="anticon anticon-search"></i><span>搜索</span>
+    </button>
+    <button nz-button class="mr" title="重置" type="reset" (click)="resetSearch()">
+      <i class="anticon anticon-sync"></i><span>重置</span>
+    </button>
+  </div>
+</form>
+<!--搜索 end-->
+
+<nz-table #nzTable
+          [nzData]="page.voList"
+          [nzLoading]="_loading"
+          [nzFrontPagination]="false"
+          [nzPageSize]="page.pageSize"
+          [nzTotal]="page.totalRow"
+          [nzPageIndex]="page.curPage"
+          (nzPageIndexChange)="queryBiddingList($event)">
+  <thead nz-thead>
+  <tr>
+    <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>项目编码</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>项目名称</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>发布人</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>分类</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>竞标模式</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>竞标截止时间</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>创建时间</span></th>
+    <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <tr nz-tbody-tr>
+      <td nz-td class="text-center">{{i+1}}</td>
+      <td nz-td class="text-center">{{data.projectCode}}</td>
+      <td nz-td class="text-center">{{data.projectName}}</td>
+      <td nz-td class="text-center">{{data.custCode ? data.custName+"-"+data.custCode : data.epName+"-"+data.epCode}}</td>
+      <td nz-td class="text-center">{{data.kind_id_3}}</td>
+      <td nz-td class="text-center">{{data.biddingModel | stateName: enums.biddingModel}}</td>
+      <td nz-td class="text-center">{{data.end_time}}</td>
+      <td nz-td class="text-center">{{data.state | stateName: enums.biddingState}}</td>
+      <td nz-td class="text-center">{{data.createTime}}</td>
+      <td nz-td class="text-center w10">
+        <button nz-button title="查看详情" class="btn-blue" routerLink="/main/enterprise/detail">
+          <i class="anticon anticon-search"></i>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>
