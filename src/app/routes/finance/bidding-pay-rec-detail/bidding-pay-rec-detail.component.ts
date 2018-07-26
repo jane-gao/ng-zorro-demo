@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {FinanceService} from "../finance.service";
 import {ActivatedRoute} from "@angular/router";
-import {MainService} from "../../../public/service/main.service";
 import {Setting} from "../../../public/setting/setting";
 declare var $: any;
 

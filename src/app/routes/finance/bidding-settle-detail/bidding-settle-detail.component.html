@@ -1,0 +1,81 @@
+<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
+  <i class="anticon anticon-rollback font20"></i>
+</button>
+<div class="panel-body">
+  <div class="body-title thc bg p">
+    <span>交易码：{{settleRec.tc}}</span>
+    <span class="ml-20">项目编码：{{settleRec.updateTime}}</span>
+  </div>
+  <!--企业基本信息 start-->
+  <table class="t-items p w100">
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">金额：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.settleMoney}}￥</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">会计科目：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.subjectName}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易方式：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.payWay | stateName: enums.payWay}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易对象：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.payCustType | stateName: enums.userType}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易对象编码：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.payCustCode}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">收款人：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.bacctn || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">收款人银行：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.bank || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">收款人银行卡号：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.bacct || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">平台汇款开户行：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.payBank || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">平台汇款账号：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.payAcct || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">平台汇款账户户主：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.payBacctName || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">平台汇款凭证：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.bacct}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">平台汇款备注：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.remark || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">状态：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.state | stateName: enums.payRecState}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">申请时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.createTime}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">处理时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.dealTime}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">完成时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{settleRec.doneTime}}</td>
+    </tr>
+  </table>
+</div>
+

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Setting} from "../../../public/setting/setting";
+import {BiddingSettleListComponent} from "../bidding-settle-list/bidding-settle-list.component";
 
 @Component({
   selector: 'app-bidding-settle',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bidding-settle.component.css']
 })
 export class BiddingSettleComponent implements OnInit {
+  @ViewChild('crList') crList: BiddingSettleListComponent;
+  public payRecState: any = Setting.ENUMSTATE.payRecState;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.crList.querySettleList(1);
   }
 
 }

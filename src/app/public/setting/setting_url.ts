@@ -95,7 +95,7 @@ export class SettingUrl {
       payRecList: "/admin/biddngPayRec/queryPayRecs",  //查询付款记录列表
       updatePayRecState: "/admin/biddngPayRec/queryPayRecs",  //查询列表付款记录
       loadPayRec: "/admin/biddngPayRec/loadPayRecInfoByTc",  //加载付款记录
-      settleRecList: "/admin/biddngSettleRec/querySettleRecs", //项目结算记录列表
+      settleRecList: "/admin/biddngSettleRec/querySettleRecsPage", //项目结算记录列表
       updateSettleRecState: "/admin/biddngSettleRec/updateSettleRecState", //项目结算记录列表
       loadSettleRec: "/admin/biddngSettleRec/loadSettleInfoByTc",  //加载结算记录
     },
