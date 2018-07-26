@@ -92,13 +92,18 @@ export class SettingUrl {
       list: "/admin/finacePlat/query",  //平台账户列表
       load: "/admin/finacePlat/load", //平台账户流水
       loadBalance: "/admin/finacePlat/loadBalance", //平台账户余额
+      payRecList: "/admin/biddngPayRec/queryPayRecs",  //查询付款记录列表
+      updatePayRecState: "/admin/biddngPayRec/queryPayRecs",  //查询列表付款记录
+      loadPayRec: "/admin/biddngPayRec/loadPayRecInfoByTc",  //加载付款记录
+      settleRecList: "/admin/biddngSettleRec/querySettleRecs", //项目结算记录列表
+      updateSettleRecState: "/admin/biddngSettleRec/updateSettleRecState", //项目结算记录列表
+      loadSettleRec: "/admin/biddngSettleRec/loadSettleInfoByTc",  //加载结算记录
     },
     bidding: {
       list: "/admin/bidding/queryBiddings",  //招标列表
       loadBidding: "/admin/bidding/loadBiddingInfo", //招标详情
       delBidding: "/admin/bidding/deleteBidding",  //删除招标项目
-      updatePayRecState: "/admin/bidding/updatePayRecState", //修改招标项目款状态
-      updateBiddingState:"/admin/bidding/updateState",  //修改招标项目状态
+      updateBiddingState: "/admin/bidding/updateState",  //修改招标项目状态
       loadBid: "/admin/bidding/loadBidInfo"  //投标记录详情
     },
     help: {

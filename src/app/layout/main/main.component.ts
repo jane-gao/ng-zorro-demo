@@ -32,12 +32,12 @@ export class MainComponent implements OnInit {
           menuName: '平台财务管理',
           menuUrl: '/main/finance/financeManager'
         }, {
-          menuName: '竞价结算管理',
-          menuUrl: '/main/finance/biddingSetttle'
-        }, /* {
-         menuName: '常用设置',
-         menuUrl: '/main/setting/basic'
-         }*/
+          menuName: '竞价支付',
+          menuUrl: '/main/finance/biddingPayRec'
+        }, {
+          menuName: '竞价结算',
+          menuUrl: '/main/finance/biddingSetttleRec'
+        }
       ]
     };
     const bidding = {
@@ -152,7 +152,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [authLimit,set, ad, cust, enterprise, finance,  bidding, plat_norms, operation]
+    Setting.MENUS = [authLimit, set, ad, cust, enterprise, finance, bidding, plat_norms, operation]
   }
 
   ngOnInit() {

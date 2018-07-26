@@ -86,4 +86,156 @@ export class FinanceService {
     return defer.promise(); //返回异步请求消息
   }
 
+  /**
+   * 查询付款记录列表
+   */
+  queryPayRec(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.payRecList,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 加载支付记录
+   * @param tc
+   * @returns {any<T>}
+   */
+  loadPayRec(tc) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.loadPayRec,
+      data: {
+        tc: tc
+      },
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 修改支付记录状态
+   */
+  updatePayRecState(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.updatePayRecState,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 查询结算记录列表
+   */
+  querySettleRec(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.settleRecList,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 加载支付记录
+   * @param tc
+   * @returns {any<T>}
+   */
+  loadSettleRec(tc) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.loadSettleRec,
+      data: {
+        tc: tc
+      },
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 修改结算记录状态
+   */
+  updateSettleRecState(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.updateSettleRecState,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
 }

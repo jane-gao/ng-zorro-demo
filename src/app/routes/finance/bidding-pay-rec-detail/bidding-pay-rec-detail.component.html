@@ -1,0 +1,69 @@
+<button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
+  <i class="anticon anticon-rollback font20"></i>
+</button>
+<div class="panel-body">
+  <div class="body-title thc bg p">
+    <span>交易码：{{payRec.tc}}</span>
+    <span class="ml-20">修改时间：{{payRec.updateTime}}</span>
+  </div>
+  <!--企业基本信息 start-->
+  <table class="t-items p w100">
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">金额：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.pay}}￥</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">会计科目：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.subjectName }}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易方式：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.payWay | stateName: enums.payWay}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易对象：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.payCustType | stateName: enums.userType}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易对象编码：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.payCustCode}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">付款方：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.bacctn || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">付款方银行：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.bank || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">付款方银行卡号：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.bacct || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">交易凭证：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.bacct}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">备注：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.remark || "无"}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">状态：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.state | stateName: enums.payRecState}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">创建时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.createTime}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">处理时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.dealTime}}</td>
+    </tr>
+    <tr class="t-item clearfix">
+      <td class="item-hd" nz-col nzSpan="4">完成时间：</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.doneTime}}</td>
+    </tr>
+  </table>
+</div>
+

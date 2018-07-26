@@ -1,0 +1,17 @@
+<div class="page-title">
+  <h3 class="inline-block mr-20">平台财务管理</h3>
+</div>
+<nz-tabset>
+  <nz-tab nzTitle="待审核" (nzClick)="crList.queryPayRecList(1)">
+    <app-bidding-pay-rec-list #crList [state]="payRecState.cr"></app-bidding-pay-rec-list>
+  </nz-tab>
+  <nz-tab nzTitle="处理中" (nzClick)="dealList.queryPayRecList(1)">
+    <app-bidding-pay-rec-list #dealList [state]="payRecState.deal"></app-bidding-pay-rec-list>
+  </nz-tab>
+  <nz-tab nzTitle="已到账" (nzClick)="normalList.queryPayRecList(1)">
+    <app-bidding-pay-rec-list #normalList [state]="payRecState.done"></app-bidding-pay-rec-list>
+  </nz-tab>
+  <nz-tab nzTitle="已驳回" (nzClick)="rejectList.queryPayRecList(1)">
+    <app-bidding-pay-rec-list #rejectList [state]="payRecState.refuse"></app-bidding-pay-rec-list>
+  </nz-tab>
+</nz-tabset>

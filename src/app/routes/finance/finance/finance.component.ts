@@ -42,7 +42,7 @@ export class FinanceComponent implements OnInit {
       pageSize: me.page.pageSize, //每页条数
       tc: me.searchParams.tc, //交易码
       subject: me.searchParams.subject, //会计科目
-      userType: me.searchParams.userType //交易对象类型
+      toType: me.searchParams.toType //交易对象类型
     };
     $.when(me.finaceService.queryFinaceRec(me.queryParams)).always(res => {
       me._loading = false;
