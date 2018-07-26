@@ -1,9 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {isNullOrUndefined, isUndefined} from "util";
+import {Component, Input, OnInit} from "@angular/core";
 import {MainService} from "../../../public/service/main.service";
 import {CustService} from "../cust.service";
 import {NzModalRef} from "ng-zorro-antd";
-import {forEach} from "@angular/router/src/utils/collection";
 declare var $: any;
 @Component({
   selector: 'app-cust-audit-win',
@@ -13,7 +11,6 @@ declare var $: any;
 export class CustAuditWinComponent implements OnInit {
   @Input('data') data: any = {};
   public state: any;//审核状态
-  public showRecord: boolean = true;         //默认是通过
   public isAgree: string = 'N';         //默认是通过
   public yesOrNo: any;         //用户审核是否通过枚举
   images: Array<string> = [];
@@ -87,9 +84,5 @@ export class CustAuditWinComponent implements OnInit {
 
   closeWin() {
     this.modal.destroy();
-  }
-
-  imageViewerReady($event: any) {
-    console.log($event);
   }
 }

@@ -31,7 +31,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [FinanceComponent, BiddingSettleComponent, FinanceDetailComponent, BiddingPayRecComponent, BiddingPayRecListComponent, BiddingPayRecDetailComponent, BiddingPayRecAuditWinComponent, BiddingSettleListComponent, BiddingSettleDetailComponent, BiddingSettleAuditWinComponent],
-  providers: [FinanceService]
+  providers: [FinanceService],
+  entryComponents: [BiddingPayRecAuditWinComponent, BiddingSettleAuditWinComponent]
 })
 export class FinanceModule {
 }

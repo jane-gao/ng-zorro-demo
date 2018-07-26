@@ -15,6 +15,7 @@ export class BiddingPayRecComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.crList.state = this.payRecState.cr;
     this.crList.queryPayRecList(1);
   }
 }

@@ -4,7 +4,8 @@ import {FinanceService} from "../finance.service";
 import {MainService} from "../../../public/service/main.service";
 import {Setting} from "../../../public/setting/setting";
 import {Page} from "../../../public/util/page";
-import {NzNotificationService} from "ng-zorro-antd";
+import {NzModalService, NzNotificationService} from "ng-zorro-antd";
+import {BiddingPayRecAuditWinComponent} from "../bidding-pay-rec-audit-win/bidding-pay-rec-audit-win.component";
 declare var $: any;
 
 @Component({
@@ -22,8 +23,11 @@ export class BiddingPayRecListComponent implements OnInit {
   public enums = Setting.ENUM;
   public subject = MainService.getEnumDataList(this.enums.platSubject); //平台会计科目
   public userType = MainService.getEnumDataList(this.enums.userType);  //交易对象类型
+  public payRecState = MainService.getEnumDataList(this.enums.payRecState);  //状态类型
 
-  constructor(private financeService: FinanceService, private _notification: NzNotificationService) {
+  public payRecStateEnum: any = Setting.ENUMSTATE.payRecState;
+
+  constructor(private financeService: FinanceService, private _notification: NzNotificationService, private modalService: NzModalService) {
   }
 
   ngOnInit() {
@@ -82,5 +86,23 @@ export class BiddingPayRecListComponent implements OnInit {
   resetSearch() {
     this.searchParams = {};
     this.queryPayRecList();
+  }
+
+  /**
+   * 审核支付记录认证
+   * @param data 用户实名认证信息
+   */
+  auditPayRec(data ?: object) {
+    let me = this;
+    this.modalService.create({
+      nzTitle: '审核支付记录认证',
+      nzContent: BiddingPayRecAuditWinComponent,
+      nzComponentParams: {data: data},
+      nzWidth: '1200',
+      nzFooter: null,
+      nzOnOk: function () {
+        me.queryPayRecList();
+      }
+    });
   }
 }

@@ -137,19 +137,8 @@ export class CustAuditComponent implements OnInit {
       nzWidth: '1200',
       nzFooter: null,
       nzOnOk: function () {
-        alert("成功");
         me.queryAuditCustList();
       }
     });
-    console.log("data", data);
-    // modal.afterClose.subscribe((result) => {
-    // });
-    // let data = {
-    //   id: id,
-    //   state: this.custAuthState.pass
-    // };
-    // $.when(me.custService.updateCustAuthState(data)).always(res => {
-    //   me.queryAuditCustList();
-    // })
   }
 }
