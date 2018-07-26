@@ -37,15 +37,17 @@ export class BiddingService {
   }
 
   /**
-   * 查询竞标列表
+   * 查询竞价详情
    * @param data
    * @returns {any<T>}
    */
-  loadBidding(data) {
+  loadBidding(projectCode) {
     let me = this, defer = $.Deferred();
     AjaxService.get({
       url: SettingUrl.URL.bidding.loadBidding,
-      data: data,
+      data: {
+        projectCode: projectCode
+      },
       success: (res) => {
         if (res.success) {
           defer.resolve(res.data);

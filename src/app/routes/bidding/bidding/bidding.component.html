@@ -13,30 +13,30 @@
   <div class="search-group">
     <span class="search-title">用户编码：</span>
     <div class="search-main">
-      <input nz-input name="custCode" [(ngModel)]="searchParams.custCode" placeholder="手机号">
+      <input nz-input name="custCode" [(ngModel)]="searchParams.custCode" placeholder="用户编码">
     </div>
   </div>
   <div class="search-group">
     <span class="search-title">企业编码：</span>
     <div class="search-main">
-      <input nz-input name="epCode" [(ngModel)]="searchParams.epCode" placeholder="手机号">
+      <input nz-input name="epCode" [(ngModel)]="searchParams.epCode" placeholder="企业编码">
     </div>
   </div>
   <div class="search-group">
     <span class="search-title">创建时间：</span>
-    <div class="search-main">
+    <div class="search-main" style="width: 220px;">
       <nz-range-picker name="createTime" [(ngModel)]="searchParams.createTime" (ngModelChange)="onChange($event)" nzShowTime></nz-range-picker>
     </div>
   </div>
-  <div class="search-group">
-    <span class="search-title">项目状态：</span>
-    <div class="search-main">
-      <nz-select style="width: 200px;" [(ngModel)]="searchParams.state" name="state">
-        <nz-option *ngFor="let option of stateEnums" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
-      </nz-select>
-    </div>
-  </div>
   <div class="inline-block">
+    <div class="search-group">
+      <span class="search-title">项目状态：</span>
+      <div class="search-main">
+        <nz-select style="width: 200px;" [(ngModel)]="searchParams.state" name="state">
+          <nz-option *ngFor="let option of stateEnums" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
+        </nz-select>
+      </div>
+    </div>
     <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
       <i class="anticon anticon-search"></i><span>搜索</span>
     </button>
@@ -60,11 +60,11 @@
     <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>项目编码</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>项目名称</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>发布人</span></th>
+    <th nz-th class="text-center" nzWidth="15%"><span>发布人</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>分类</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>竞标模式</span></th>
+    <th nz-th class="text-center" nzWidth="5%"><span>竞标模式</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>竞标截止时间</span></th>
-    <th nz-th class="text-center" nzWidth="10%"><span>状态</span></th>
+    <th nz-th class="text-center" nzWidth="5%"><span>状态</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>创建时间</span></th>
     <th nz-th class="text-center" nzWidth="10%"><span>操作</span></th>
   </tr>
@@ -75,10 +75,21 @@
       <td nz-td class="text-center">{{i+1}}</td>
       <td nz-td class="text-center">{{data.projectCode}}</td>
       <td nz-td class="text-center">{{data.projectName}}</td>
-      <td nz-td class="text-center">{{data.custCode ? data.custName+"-"+data.custCode : data.epName+"-"+data.epCode}}</td>
-      <td nz-td class="text-center">{{data.kind_id_3}}</td>
+      <td nz-td class="text-center">
+        <nz-popover nzTitle="用户编码" nzContent="{{data.custCode}}">
+          <span *ngIf="data.custCode" nz-popover>
+            {{"用户-"+data.custName}}
+          </span>
+        </nz-popover>
+        <nz-popover nzTitle="企业编码" nzContent="{{data.epCode}}">
+            <span *ngIf="data.epCode">
+            {{"企业-"+data.epName}}
+          </span>
+        </nz-popover>
+      </td>
+      <td nz-td class="text-center">{{data.kindVO.kindName1}}>{{data.kindVO.kindName2}}>{{data.kindVO.kindName3}}</td>
       <td nz-td class="text-center">{{data.biddingModel | stateName: enums.biddingModel}}</td>
-      <td nz-td class="text-center">{{data.end_time}}</td>
+      <td nz-td class="text-center">{{data.endTime}}</td>
       <td nz-td class="text-center">{{data.state | stateName: enums.biddingState}}</td>
       <td nz-td class="text-center">{{data.createTime}}</td>
       <td nz-td class="text-center w10">
