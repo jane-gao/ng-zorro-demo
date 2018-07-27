@@ -49,7 +49,8 @@ export class Setting {
     payWay: 8003,  //交易方式
     biddingState: 9015,  //招标项目状态
     biddingModel: 9016,  //招标项目状态
-    payRecState: 8009  //支付结算状态
+    payRecState: 8009, //支付结算状态
+    productState: 9006,  //产品状态
   };
 
   //定义枚举状态名
@@ -98,6 +99,12 @@ export class Setting {
       deal: "DEAL",
       done: "DONE",
       refuse: "REFUSE"
+    },
+    productState: {
+      audit: "AUDIT",
+      normal: "NORMAL",
+      stop: "STOP",
+      unpass: "UNPASS"
     }
   };
 

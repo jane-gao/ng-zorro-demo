@@ -106,6 +106,11 @@ export class SettingUrl {
       updateBiddingState: "/admin/bidding/updateState",  //修改招标项目状态
       loadBid: "/admin/bidding/loadBidInfo"  //投标记录详情
     },
+    product: {
+      list: "/admin/product/query", //产品列表
+      loadProduct: "/admin/product/load", //加载产品
+      updateState: "/admin/product/updateState", //产品审核
+    },
     help: {
       getAllHelpKinds: '/helpKind/queryAll',//查询所有帮助分类
       addHelpKind: '/admin/helpKind/addHelpKind',//添加帮助分类

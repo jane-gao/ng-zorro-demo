@@ -1,0 +1,20 @@
+<div class="page-title">
+  <h3 class="inline-block mr-20">产品管理</h3>
+</div>
+<nz-tabset>
+  <nz-tab nzTitle="全部" (nzClick)="all.queryProductList(1)">
+    <app-product-list #all></app-product-list>
+  </nz-tab>
+  <nz-tab nzTitle="正常" (nzClick)="normalList.queryProductList(1)">
+    <app-product-list #normalList [state]="productState.normal"></app-product-list>
+  </nz-tab>
+  <nz-tab nzTitle="待审核" (nzClick)="auditList.queryProductList(1)">
+    <app-product-list #auditList [state]="productState.audit"></app-product-list>
+  </nz-tab>
+  <nz-tab nzTitle="驳回" (nzClick)="unpassList.queryProductList(1)">
+    <app-product-list #unpassList [state]="productState.unpass"></app-product-list>
+  </nz-tab>
+  <nz-tab nzTitle="停售" (nzClick)="stopList.queryProductList(1)">
+    <app-product-list #stopList [state]="productState.stop"></app-product-list>
+  </nz-tab>
+</nz-tabset>

@@ -57,6 +57,12 @@ export class MainComponent implements OnInit {
          }*/
       ]
     };
+    const product = {
+      menuName: '产品管理',
+      menuIcon: 'anticon anticon-pay-circle-o',
+      menuUrl: '/main/product/productManager'
+    };
+
     const plat_norms = {
       menuName: '平台标准管理',
       menuIcon: 'anticon anticon-pay-circle-o',
@@ -152,7 +158,7 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [authLimit, set, ad, cust, enterprise, finance, bidding, plat_norms, operation]
+    Setting.MENUS = [authLimit, set, cust, enterprise, finance, bidding, product, plat_norms, ad, operation]
   }
 
   ngOnInit() {

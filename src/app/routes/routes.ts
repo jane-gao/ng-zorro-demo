@@ -1,8 +1,6 @@
 import {MainComponent} from "../layout/main/main.component";
-import {SimpleComponent} from "../layout/simple/simple.component";
 import {PageComponent} from "../layout/page/page.component";
 import {SettingUrl} from "../public/setting/setting_url";
-import {CanStoreProvide} from "../public/provide/can-store-provide";
 
 export const routes = [
   {
@@ -20,6 +18,7 @@ export const routes = [
       {path: 'enterprise', loadChildren: './enterprise/enterprise.module#EnterpriseModule'}, //企业管理
       {path: 'finance', loadChildren: './finance/finance.module#FinanceModule'}, //财务
       {path: 'bidding', loadChildren: './bidding/bidding.module#BiddingModule'}, //竞价项目
+      {path: 'product', loadChildren: './product/product.module#ProductModule'}, //竞价项目
       {path: 'plat_norms', loadChildren: './plat-norm/plat-norm.module#PlatNormModule'}, //平台标准
     ]
   },
