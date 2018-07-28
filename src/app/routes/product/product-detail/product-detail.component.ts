@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {Setting} from "../../../public/setting/setting";
 import {ActivatedRoute} from "@angular/router";
-import {FinanceService} from "../finance.service";
 import {ProductService} from "../product.service";
-import {Page} from "../../../public/util/page";
 import {NzNotificationService} from "ng-zorro-antd";
 declare var $: any;
 @Component({
@@ -53,7 +51,7 @@ export class ProductDetailComponent implements OnInit {
    */
   auditProduct() {
     let me = this;
-    let data = {
+    let data: any = {
       productCode: me.productCode
     };
     if (me.audit.auditResult = "PASS") {
