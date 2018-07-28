@@ -42,7 +42,16 @@
     </tr>
     <tr class="t-item clearfix">
       <td class="item-hd" nz-col nzSpan="4">交易凭证：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{payRec.bacct}}</td>
+      <td class="item-bd" nz-col nzSpan="20">
+        <span *ngFor="let pic of payRec.realUrl">
+          <nz-popover [nzTrigger]="'hover'">
+            <img [src]="pic | imgSize :'50'" width="50" appImgErr title="点击查看大图" nz-popover>
+            <ng-template #nzTemplate>
+              <img [src]="pic | imgSize :'200'" appImgErr>
+            </ng-template>
+          </nz-popover>
+        </span>
+      </td>
     </tr>
     <tr class="t-item clearfix">
       <td class="item-hd" nz-col nzSpan="4">备注：</td>
@@ -50,7 +59,7 @@
     </tr>
     <tr class="t-item clearfix">
       <td class="item-hd" nz-col nzSpan="4">状态：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{payRec.state | stateName: enums.payRecStateEnum}}</td>
+      <td class="item-bd" nz-col nzSpan="20">{{payRec.state | stateName: enums.payRecState}}</td>
     </tr>
     <tr class="t-item clearfix">
       <td class="item-hd" nz-col nzSpan="4">创建时间：</td>

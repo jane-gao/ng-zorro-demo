@@ -26,7 +26,7 @@ export class BiddingPayRecAuditWinComponent implements OnInit {
   ngOnInit() {
     this.yesOrNo = MainService.getEnumDataList('9000');  // 用户审核是否通过
     let me = this;
-    me.images.push(me.data.realUrl);
+    me.images = me.images.concat(me.data.realUrl);
   }
 
   /**
