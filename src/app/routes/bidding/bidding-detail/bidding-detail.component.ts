@@ -12,7 +12,7 @@ declare var $: any;
 })
 export class BiddingDetailComponent implements OnInit {
   public projectCode: string; //交易码
-  public bidding: any = {};  //竞价项目
+  public data: any = {};  //竞价项目
 
   public enums = Setting.ENUM;
   public subject = MainService.getEnumDataList(this.enums.platSubject); //平台会计科目
@@ -26,7 +26,7 @@ export class BiddingDetailComponent implements OnInit {
     me.projectCode = this.route.snapshot.queryParams['projectCode'];
     if (me.projectCode) {
       $.when(me.biddingService.loadBidding(me.projectCode)).done(res => {
-        if (res) me.bidding = res; //赋值
+        if (res) me.data = res; //赋值
       });
     }
   }

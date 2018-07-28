@@ -93,7 +93,7 @@
       <td nz-td class="text-center">{{data.state | stateName: enums.biddingState}}</td>
       <td nz-td class="text-center">{{data.createTime}}</td>
       <td nz-td class="text-center w10">
-        <button nz-button title="查看详情" class="btn-blue" routerLink="/main/enterprise/detail">
+        <button nz-button title="查看详情" class="btn-blue" routerLink="/main/bidding/biddingDetail" [queryParams]="{projectCode: data.projectCode}">
           <i class="anticon anticon-search"></i>
         </button>
       </td>

@@ -24,7 +24,7 @@ export class KindAddComponent implements OnInit {
   public fileList: Array<any> = [];
   public previewVisible = false;
   public previewImage = '';
-  private uuid: string;
+  public uuid: string;
   public patterns = PatternService;
   @Input('pid') pid: string;
   @Input('pLevel') pLevel: string;

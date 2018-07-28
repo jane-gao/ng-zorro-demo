@@ -1,65 +1,119 @@
 <button nz-button [nzType]="'danger'" [nzShape]="'circle'" class="page-back" (click)="back()" title="返回">
   <i class="anticon anticon-rollback font20"></i>
 </button>
-<div class="panel-body">
-  <div class="body-title thc bg p">
-    <span>交易码：{{bidding.tc}}</span>
-    <span class="ml-20">流水码：{{bidding.sn}}</span>
-  </div>
-  <!--企业基本信息 start-->
-  <table class="t-items p w100">
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">金额：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.income >0 ? bidding.income: "-"+bidding.expenditure}}￥</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">会计科目：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.subjectName }}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">交易方式：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.payWay | stateName: enums.payWay}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">交易对象：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.toType | stateName: enums.userType}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">交易对象编码：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.toCode}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">付款方：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.bacctn || "无"}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">付款方银行：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.bank || "无"}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">付款方银行卡号：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.bacct || "无"}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">交易凭证：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.bacct}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">操作员：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.staffName}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">操作员编码：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.staffCode}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">备注：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.remark || "无"}}</td>
-    </tr>
-    <tr class="t-item clearfix">
-      <td class="item-hd" nz-col nzSpan="4">创建时间：</td>
-      <td class="item-bd" nz-col nzSpan="20">{{bidding.createTime}}</td>
-    </tr>
-  </table>
-</div>
+
+<nz-tabset>
+  <nz-tab nzTitle="项目详情">
+    <div class="panel-body">
+      <div class="body-title thc bg p">
+        <span>项目编码：{{data.projectCode}}</span>
+      </div>
+      <!--企业基本信息 start-->
+      <table class="t-items p w100">
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">项目详情：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.projectName}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">发布方：</td>
+          <td class="item-bd" nz-col nzSpan="20">
+            <nz-popover nzTitle="用户编码" nzContent="{{data.custCode}}">
+              <span *ngIf="data.custCode" nz-popover>
+                {{"用户-"+data.custName}}
+              </span>
+            </nz-popover>
+            <nz-popover nzTitle="企业编码" nzContent="{{data.epCode}}">
+                <span *ngIf="data.epCode">
+                {{"企业-"+data.epName}}
+              </span>
+            </nz-popover>
+          </td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">分类：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data?.kindVO?.kindName1}}>{{data?.kindVO?.kindName2}}>{{data?.kindVO?.kindName3}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">申购数量：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.subscriptionNum + data.subscriptionName}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">竞标模式：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.biddingModel | stateName: enums.biddingModel}}</td>
+        </tr>
+        <tr class="t-item clearfix" *ngIf="data.biddingModel == 'SHARE'">
+          <td class="item-hd" nz-col nzSpan="4">中标公司数量：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.biddingComNum}}个</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">项目预算：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.biddingBudget || 0}}￥</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">只允许企业投标：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.isOnlyEp | stateName: enums.yesOrNo}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">竞标截止时间：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.endTime}}</td>
+        </tr>
+        <tr class="t-item clearfix" *ngIf="data.state == 'PUBLICITY' || data.state == 'TRADING' ||data.state == 'SUCCESS' ">
+          <td class="item-hd" nz-col nzSpan="4">成交总金额：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.bacct || 0}}￥</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">状态：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.state | stateName: enums.biddingState}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">创建时间：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.createTime}}</td>
+        </tr>
+        <tr class="t-item clearfix">
+          <td class="item-hd" nz-col nzSpan="4">修改时间：</td>
+          <td class="item-bd" nz-col nzSpan="20">{{data.updateTime}}</td>
+        </tr>
+      </table>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="参数需求">
+    <nz-table #nzTable
+              [nzData]="data.biddingNorms"
+              [nzFrontPagination]="true"
+              [nzPageSize]="10">
+      <thead nz-thead>
+      <tr>
+        <th nz-th class="text-center" nzWidth="5%"><span>序号</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>参数名称</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>需求值</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>参数因子</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>溢价因子</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>参数权重</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>是否是强制条件</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>可允许最大差值</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>参数说明</span></th>
+        <th nz-th class="text-center" nzWidth="10%"><span>创建时间</span></th>
+      </tr>
+      </thead>
+      <tbody nz-tbody>
+      <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+        <tr nz-tbody-tr>
+          <td nz-td class="text-center">{{i+1}}</td>
+          <td nz-td class="text-center">{{data.paramName}}</td>
+          <td nz-td class="text-center">{{data.standardVal + data.unit}}</td>
+          <td nz-td class="text-center">{{data.paramFactor}}</td>
+          <td nz-td class="text-center">{{data.redundancyQualityFactor}}</td>
+          <td nz-td class="text-center">{{data.weight}}</td>
+          <td nz-td class="text-center">{{data.isNecessary | stateName: enums.yesOrNo}}</td>
+          <td nz-td class="text-center">{{data.allowDifference + data.unit}}</td>
+          <td nz-td class="text-center">{{data.paramDesc}}</td>
+          <td nz-td class="text-center">{{data.createTime }}</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+</nz-tabset>
+
+
 

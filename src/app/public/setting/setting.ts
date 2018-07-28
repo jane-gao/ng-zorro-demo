@@ -36,7 +36,7 @@ export class Setting {
   }
   //定义枚举
   public static ENUM: any = {
-    yesOrNo: 1001,  // 是否
+    yesOrNo: 9000,  // 是否
     brandShowType: 1024,  // 品牌展示类型
     custState: 9009,  // 用户状态
     custSex: 9002,  // 用户性别

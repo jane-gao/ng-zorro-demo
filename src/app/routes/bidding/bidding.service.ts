@@ -43,7 +43,7 @@ export class BiddingService {
    */
   loadBidding(projectCode) {
     let me = this, defer = $.Deferred();
-    AjaxService.get({
+    AjaxService.post({
       url: SettingUrl.URL.bidding.loadBidding,
       data: {
         projectCode: projectCode

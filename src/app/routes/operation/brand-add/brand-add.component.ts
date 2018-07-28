@@ -23,7 +23,7 @@ export class BrandAddComponent implements OnInit {
   public fileList: Array<any> = [];
   public previewVisible = false;
   public previewImage = '';
-  private uuid: string;
+  public uuid: string;
 
   constructor(private operationService: OperationService, private modal: NzModalRef) {
   }

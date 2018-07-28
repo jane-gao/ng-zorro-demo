@@ -48,10 +48,7 @@ export class MainComponent implements OnInit {
         {
           menuName: '竞价项目管理',
           menuUrl: '/main/bidding/biddingManager'
-        }, {
-          menuName: '竞价项目支付确认',
-          menuUrl: '/main/bidding/biddingManager'
-        }, /* {
+        } /* {
          menuName: '常用设置',
          menuUrl: '/main/setting/basic'
          }*/
