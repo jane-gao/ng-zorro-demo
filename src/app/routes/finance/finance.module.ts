@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {CommonModule} from "@angular/common";
 import {FinanceComponent} from "./finance/finance.component";
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
@@ -21,7 +20,7 @@ const routes: Routes = [
   {path: 'biddingPayRec', component: BiddingPayRecComponent},
   {path: 'biddingPayRecDetail', component: BiddingPayRecDetailComponent},
   {path: 'biddingSetttleRec', component: BiddingSettleComponent},
-  {path: 'biddingSetttleRecDetail', component: BiddingSettleComponent},
+  {path: 'biddingSetttleRecDetail', component: BiddingSettleDetailComponent},
 ];
 
 @NgModule({

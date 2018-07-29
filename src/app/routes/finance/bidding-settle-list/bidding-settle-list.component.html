@@ -28,14 +28,14 @@
       <input nz-input name="tc" [(ngModel)]="searchParams.payCustCode" placeholder="交易码"/>
     </div>
   </div>
-  <div class="search-group">
-    <span class="search-title">状态：</span>
-    <div class="search-main">
-      <nz-select style="width: 200px;" [(ngModel)]="searchParams.subject" name="authState">
-        <nz-option *ngFor="let option of subject" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
-      </nz-select>
-    </div>
-  </div>
+  <!--<div class="search-group">-->
+    <!--<span class="search-title">状态：</span>-->
+    <!--<div class="search-main">-->
+      <!--<nz-select style="width: 200px;" [(ngModel)]="searchParams.subject" name="authState">-->
+        <!--<nz-option *ngFor="let option of subject" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>-->
+      <!--</nz-select>-->
+    <!--</div>-->
+  <!--</div>-->
   <div class="inline-block">
     <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
       <i class="anticon anticon-search"></i><span>搜索</span>
@@ -74,12 +74,12 @@
     <tr nz-tbody-tr>
       <td nz-td class="text-center">{{i+1}}</td>
       <td nz-td class="text-center">{{data.projectCode}}</td>
-      <td nz-td class="text-center">{{data.settle_money}}￥</td>
+      <td nz-td class="text-center">{{data.settleMoney}}￥</td>
       <td nz-td class="text-center">{{data.subjectName }}</td>
-      <td nz-td class="text-center">{{data.payCustType | stateName: enums.userType}}-{{data.toCode}}</td>
+      <td nz-td class="text-center">{{data.payCustType | stateName: enums.userType}}-{{data.payCustCode}}</td>
       <td nz-td class="text-center">{{data.payWay | stateName: enums.payWay}}</td>
-      <td nz-td class="text-center">{{data.bank}}</td>
-      <td nz-td class="text-center">{{data.bacctn+"-"+data.bacct}}</td>
+      <td nz-td class="text-center">{{data.acct}}</td>
+      <td nz-td class="text-center">{{data.bacctName+"-"+data.acct}}</td>
       <td nz-td class="text-center">{{data.createTime }}</td>
       <td nz-td class="text-center w10">
         <button nz-button title="查看详情" class="btn-blue" routerLink="/main/finance/biddingSetttleRecDetail" [queryParams]="{tc: data.tc}">

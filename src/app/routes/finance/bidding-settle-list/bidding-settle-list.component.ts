@@ -19,6 +19,7 @@ export class BiddingSettleListComponent implements OnInit {
   public queryParams: any = {};   //查询参数
   public page: Page = new Page();  //支付记录分页对象
   public enums = Setting.ENUM;
+
   public subject = MainService.getEnumDataList(this.enums.platSubject); //平台会计科目
   public userType = MainService.getEnumDataList(this.enums.userType);  //交易对象类型
   constructor(private financeService: FinanceService, private _notification: NzNotificationService) { }
@@ -40,7 +41,7 @@ export class BiddingSettleListComponent implements OnInit {
       payCustType: me.searchParams.payCustType, //交易对象类型
       payCustCode: me.searchParams.payCustCode, //交易对象编码
       subject: me.searchParams.subject, //会计科目
-      state: me.state, //状态
+      status: me.state, //状态
     };
     $.when(me.financeService.querySettleRec(me.queryParams)).always(res => {
       me._loading = false;

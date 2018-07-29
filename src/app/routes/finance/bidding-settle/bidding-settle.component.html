@@ -11,7 +11,4 @@
   <nz-tab nzTitle="已打款" (nzClick)="normalList.querySettleList(1)">
     <app-bidding-settle-list #normalList [state]="payRecState.done"></app-bidding-settle-list>
   </nz-tab>
-  <nz-tab nzTitle="已驳回" (nzClick)="rejectList.querySettleList(1)">
-    <app-bidding-settle-list #rejectList [state]="payRecState.refuse"></app-bidding-settle-list>
-  </nz-tab>
 </nz-tabset>

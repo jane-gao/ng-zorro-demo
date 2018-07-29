@@ -15,6 +15,7 @@ export class BiddingSettleDetailComponent implements OnInit {
 
   public enums = Setting.ENUM;
 
+  public payRecStateEnum: any = Setting.ENUMSTATE.payRecState;
   constructor(private financeService: FinanceService, public route: ActivatedRoute, public location: Location) {
   }
 
