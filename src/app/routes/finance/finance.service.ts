@@ -139,16 +139,40 @@ export class FinanceService {
   }
 
   /**
-   * 修改支付记录状态
+   * 修改结算记录为处理中
    */
-  updatePayRecState(data) {
+  updateSettleToDeal(data) {
     let me = this, defer = $.Deferred();
     AjaxService.post({
-      url: SettingUrl.URL.finance.updatePayRecState,
+      url: SettingUrl.URL.finance.updateSettleToDeal,
       data: data,
       success: (res) => {
         if (res.success) {
           defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
+  }
+
+  /**
+   * 修改结算记录为已到账
+   */
+  updateSettleRecToDone(data) {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.finance.updateSettleRecToDone,
+      data: data,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res);
         } else {
           defer.reject(false);
           me._notification.error(`错误提示`, res.info);

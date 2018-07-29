@@ -4,7 +4,8 @@ import {FinanceService} from "../finance.service";
 import {MainService} from "../../../public/service/main.service";
 import {Setting} from "../../../public/setting/setting";
 import {Page} from "../../../public/util/page";
-import {NzNotificationService} from "ng-zorro-antd";
+import {NzModalService, NzNotificationService} from "ng-zorro-antd";
+import {BiddingSettleAuditWinComponent} from "../bidding-settle-audit-win/bidding-settle-audit-win.component";
 declare var $: any;
 
 @Component({
@@ -22,7 +23,8 @@ export class BiddingSettleListComponent implements OnInit {
 
   public subject = MainService.getEnumDataList(this.enums.platSubject); //平台会计科目
   public userType = MainService.getEnumDataList(this.enums.userType);  //交易对象类型
-  constructor(private financeService: FinanceService, private _notification: NzNotificationService) { }
+  constructor(private financeService: FinanceService, private _notification: NzNotificationService, private modalService: NzModalService) {
+  }
 
   ngOnInit() {
   }
@@ -52,29 +54,32 @@ export class BiddingSettleListComponent implements OnInit {
   /**
    * 标记支付记录为处理中状态
    */
-  update2Deal(projectCode: string) {
+  update2Deal(id: string) {
     let me = this;
     let data = {
-      projectCode: projectCode,
-      state: Setting.ENUMSTATE.payRecState.deal
+      id: id
     };
-    $.when(me.financeService.updatePayRecState(data)).done(res => {
+    $.when(me.financeService.updateSettleToDeal(data)).done(res => {
       me._notification.success("成功", "操作成功");
+      me.querySettleList();
     })
   }
 
   /**
    * 标记为成功状态
    */
-  update2Done(projectCode: string) {
+  update2Done(data: object) {
     let me = this;
-    let data = {
-      projectCode: projectCode,
-      state: Setting.ENUMSTATE.payRecState.done
-    };
-    $.when(me.financeService.updatePayRecState(data)).done(res => {
-      me._notification.success("成功", "操作成功");
-    })
+    const modal = this.modalService.create({
+      nzTitle: '审核实名认证',
+      nzContent: BiddingSettleAuditWinComponent,
+      nzComponentParams: {data: data},
+      nzWidth: '700',
+      nzFooter: null,
+      nzOnOk: function () {
+        me.querySettleList();
+      }
+    });
   }
 
   resetSearch() {

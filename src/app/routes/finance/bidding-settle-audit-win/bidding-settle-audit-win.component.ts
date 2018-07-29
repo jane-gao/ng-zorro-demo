@@ -1,8 +1,10 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {MainService} from "../../../public/service/main.service";
-import {NzModalRef} from "ng-zorro-antd";
+import {NzModalRef, UploadFile} from "ng-zorro-antd";
 import {FinanceService} from "../finance.service";
 import {Setting} from "../../../public/setting/setting";
+import {Util} from "../../../public/util/util";
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 
@@ -13,49 +15,60 @@ declare var $: any;
 })
 export class BiddingSettleAuditWinComponent implements OnInit {
   @Input('data') data: any = {};
-  public state: any;//审核状态
-  public yesOrNo: any;         //审核是否通过枚举
-  images: Array<string> = [];
+  public validateForm: any = {};                   //表单
+  public ngValidateStatus = Util.ngValidateStatus;//表单项状态
+  public ngValidateErrorMsg = Util.ngValidateErrorMsg;//表单项提示状态
+  public valitateState: any = Setting.valitateState;//表单验证状态
+  public isConfirmLoading: boolean = false;            //是否加载中
+  public enumState: any = Setting.ENUMSTATE;
 
-  public payRecStateEnum: any = Setting.ENUMSTATE.payRecState;
+  public uploadUrl: string = SettingUrl.URL.base.uploadRetHttpUrl;
+  public bucketNameEnum: string = "space_name_finace"; //图片空间
+  public fileList: Array<any> = [];
+  public previewVisible = false;
+  public previewImage = '';
+
   constructor(private financeService: FinanceService, private modal: NzModalRef) {
   }
 
   ngOnInit() {
-    this.yesOrNo = MainService.getEnumDataList('9000');  // 用户审核是否通过
-    let me = this;
-    me.images = me.images.concat(me.data.realUrl);
-  }
-  /**
-   * 改为处理中
-   * @param id
-   */
-  deal(id) {
-    let me = this;
-    let data = {
-      id: id,
-      state: Setting.ENUMSTATE.payRecState.deal
-    };
-    $.when(me.financeService.updateSettleRecState(data)).done(res => {
-      me.modal.triggerOk();
-    })
   }
 
   /**
-   * 认证通过
+   * 添加平台标准
    */
-  access(id) {
-    let me = this;
-    let data = {
-      id: id,
-      state: Setting.ENUMSTATE.payRecState.done
-    };
-    $.when(me.financeService.updateSettleRecState(data)).done(res => {
-      me.modal.triggerOk();
-    })
+  addVou() {
+    let me = this, uploadedFileAry: Array<any> = [], uploadFileUrl: string = '';
+    me.isConfirmLoading = true;
+    uploadedFileAry = me.fileList.filter(item => {
+      return item.status == 'done';
+    });
+    uploadedFileAry.forEach(function (value, i) {
+      uploadFileUrl += "," + value.response.data;
+    });
+    uploadFileUrl = uploadFileUrl.substring(1);
+    me.validateForm.url = uploadFileUrl;
+    me.validateForm.id = me.data.id;
+    $.when(me.financeService.updateSettleRecToDone(me.validateForm)).done(res => {
+      if (res.success) {
+        me.modal.destroy(true);
+        me.isConfirmLoading = false;
+        me.modal.triggerOk();
+      }
+    });
   }
+
 
   closeWin() {
     this.modal.destroy();
+  }
+
+  /**
+   * 图片预览
+   * @param file
+   */
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
   }
 }

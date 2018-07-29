@@ -12,7 +12,7 @@ export class SettingUrl {
      */
     base: {
       enum: '/resource/enum/',            //获取枚举接口
-      uploadRetHttpUrl: '/upload/basic/uploadRetHttpUrl',  //上传图片
+      uploadRetHttpUrl: '/upload/basic/uploadRetHttpURL',  //上传图片
       upload: '/upload/basic/upload',  //上传图片
       uuid: '/upload/basic/uid',      //获取上传图片的编码
     },
@@ -93,7 +93,8 @@ export class SettingUrl {
       load: "/admin/finacePlat/load", //平台账户流水
       loadBalance: "/admin/finacePlat/loadBalance", //平台账户余额
       payRecList: "/admin/biddngPayRec/queryPayRecs",  //查询付款记录列表
-      updatePayRecState: "/admin/biddngPayRec/updatePayRecState",  //查询列表付款记录
+      updateSettleRecToDone: "/admin/biddngSettleRec/updateSettleRecToDone",  //修改结算记录为已到账
+      updateSettleToDeal: "/admin/biddngSettleRec/updateSettleToDeal",  //修改结算记录为处理中
       loadPayRec: "/admin/biddngPayRec/loadPayRecInfoByTc",  //加载付款记录
       settleRecList: "/admin/biddngSettleRec/querySettleRecsPage", //项目结算记录列表
       updateSettleRecState: "/admin/biddngSettleRec/updateSettleRecState", //项目结算记录列表

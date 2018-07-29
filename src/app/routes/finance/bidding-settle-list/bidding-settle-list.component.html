@@ -13,7 +13,8 @@
         <nz-option *ngFor="let option of subject" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>
       </nz-select>
     </div>
-  </div>·
+  </div>
+  ·
   <div class="search-group">
     <span class="search-title">交易对象：</span>
     <div class="search-main">
@@ -29,12 +30,12 @@
     </div>
   </div>
   <!--<div class="search-group">-->
-    <!--<span class="search-title">状态：</span>-->
-    <!--<div class="search-main">-->
-      <!--<nz-select style="width: 200px;" [(ngModel)]="searchParams.subject" name="authState">-->
-        <!--<nz-option *ngFor="let option of subject" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>-->
-      <!--</nz-select>-->
-    <!--</div>-->
+  <!--<span class="search-title">状态：</span>-->
+  <!--<div class="search-main">-->
+  <!--<nz-select style="width: 200px;" [(ngModel)]="searchParams.subject" name="authState">-->
+  <!--<nz-option *ngFor="let option of subject" [nzLabel]="option.val" [nzValue]="option.key"></nz-option>-->
+  <!--</nz-select>-->
+  <!--</div>-->
   <!--</div>-->
   <div class="inline-block">
     <button nz-button class="ml-20 mr" [nzType]="'primary'" title="搜索" type="submit">
@@ -85,9 +86,14 @@
         <button nz-button title="查看详情" class="btn-blue" routerLink="/main/finance/biddingSetttleRecDetail" [queryParams]="{tc: data.tc}">
           <i class="anticon anticon-search"></i>
         </button>
-        <!--<button nz-button title="审核" *ngIf="data.state == 'DEAL'">-->
-        <!--<i class="anticon anticon-check-circle-o"></i>-->
-        <!--</button>-->
+        <nz-popconfirm [nzPlacement]="'top'" [nzTitle]="'您确认标记此记录为处理中吗？'" (nzOnConfirm)="update2Deal(data.id)">
+          <button nz-button nz-popconfirm title="标记处理" class="btn-green" *ngIf="data.state == 'CR'">
+            <i class="anticon anticon-pay-circle"></i>
+          </button>
+        </nz-popconfirm>
+        <button nz-button title="确认转账" class="btn-green" *ngIf="data.state == 'DEAL'" (click)="update2Done(data)">
+          <i class="anticon anticon-check-circle-o"></i>
+        </button>
       </td>
     </tr>
   </ng-template>

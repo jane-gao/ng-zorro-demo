@@ -15,6 +15,7 @@ export class BiddingSettleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.crList.state = this.payRecState.cr;
     this.crList.querySettleList(1);
   }
 
