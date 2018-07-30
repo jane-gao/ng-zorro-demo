@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AjaxService} from "../../public/service/ajax.service";
 import {SettingUrl} from "../../public/setting/setting_url";
+import {NzNotificationService} from "ng-zorro-antd";
 declare var $: any;
 
 @Injectable()
 export class HomeService {
 
-  constructor() {
+  constructor( private _notification :NzNotificationService) {
   }
 
   /**

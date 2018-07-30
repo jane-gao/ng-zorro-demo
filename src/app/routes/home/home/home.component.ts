@@ -11,7 +11,7 @@ declare var $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  public homeInfo: object = {};
+  public homeInfo: any;
   public contactUs: Array<any> = [];
   public commonFunctions: Array<any> = [];//常用功能
   public statisticsDatas: Array<any> = [];//统计数据
