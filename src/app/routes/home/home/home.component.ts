@@ -3,7 +3,7 @@ import {Setting} from "../../../public/setting/setting";
 import {HomeService} from "../home.service";
 import {SettingUrl} from "../../../public/setting/setting_url";
 import {Util} from "../../../public/util/util";
-
+declare var $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,39 +11,46 @@ import {Util} from "../../../public/util/util";
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  public homeInfo: object = {};
   public contactUs: Array<any> = [];
   public commonFunctions: Array<any> = [];//常用功能
   public statisticsDatas: Array<any> = [];//统计数据
   public chartOptionOfUserRatio: any;//用户比例
   public chartOptionOfUserRise: any;//用户增长
 
-  constructor() {
+  constructor(private homeService: HomeService) {
   }
 
   ngOnInit() {
     let _this = this;
-    //设置联系我们的信息内容
-    _this.setContactUsInfo();
-    _this.setCommonFns();
-    _this.setStatisticsDatas();
-    setTimeout(_ => {
-      _this.setChartOptionOfUserRatio();
-      _this.setChartOptionOfUserRise();
+    $.when(_this.homeService.loadHomePageInfo()).always(res => {
+      _this.homeInfo = res;
+
+      //设置联系我们的信息内容
+      _this.setContactUsInfo();
+      _this.setCommonFns();
+      _this.setStatisticsDatas();
+      setTimeout(_ => {
+        _this.setChartOptionOfUserRatio();
+        _this.setChartOptionOfUserRise();
+      })
     })
   }
 
   /*统计数据*/
   private setStatisticsDatas() {
+    let me = this;
     this.statisticsDatas = [
       {
         icon: 'iconfont icon-zhanghu',
         themeColor: {
-          bdColor: 'bd-cyan',
-          ftColor: 'color-cyan',
-          bgColor: 'bg-cyan'
+          bdColor: 'bd-red',
+          ftColor: 'color-red',
+          bgColor: 'bg-red'
         },
-        data: '2396',
-        description: '用户总量'
+        data: me.homeInfo.balance,
+        unit:"￥",
+        description: '平台账户金额'
       },
       {
         icon: 'iconfont icon-daijiesuan',
@@ -52,18 +59,19 @@ export class HomeComponent implements OnInit {
           ftColor: 'color-orange',
           bgColor: 'bg-orange'
         },
-        data: '2302396',
-        description: '糖果总量'
+        data: me.homeInfo.settleMoney,
+        unit:"￥",
+        description: '待结算金额'
       },
       {
         icon: 'iconfont icon-manage',
         themeColor: {
-          bdColor: 'bd-green',
-          ftColor: 'color-green',
-          bgColor: 'bg-green'
+          bdColor: 'bd-pink',
+          ftColor: 'color-pink',
+          bgColor: 'bg-pink'
         },
-        data: '6842096',
-        description: '算力总量'
+        data: me.homeInfo.normalBiddingCount,
+        description: '进行中的招标'
       }
     ]
   }
@@ -73,38 +81,39 @@ export class HomeComponent implements OnInit {
     const routerLinks = SettingUrl.ROUTERLINK;
     this.commonFunctions = [
       {
-        icon: "anticon anticon-usergroup-add color-orange",
-        info: "管理权限",
-        url: routerLinks.staff.list,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.staff.list)
-      },
-      {
         icon: "anticon anticon-notification color-blue",
-        info: "发布公告",
-        url: routerLinks.announce.list,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.announce.list)
+        info: "平台标准",
+        url: routerLinks.norm.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.norm.list)
       },
       {
-        icon: "anticon anticon-usergroup-add color-orange",
-        info: "管理权限",
-        url: routerLinks.staff.list,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.staff.list)
+        icon: "anticon anticon-pay-circle-o color-red",
+        info: "财务管理",
+        url: routerLinks.finance.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.finance.list)
       },
       {
-        icon: "anticon anticon-usergroup-add color-orange",
-        info: "管理权限",
-        url: routerLinks.staff.list,
-        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.staff.list)
+        icon: "anticon anticon-global color-orange",
+        info: "企业审核",
+        url: routerLinks.enterprise.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.enterprise.list)
+      },
+      {
+        icon: "anticon anticon-usergroup-add color-blue",
+        info: "用户审核",
+        url: routerLinks.cust.list,
+        isShow: Util.haveJurisdiction(Setting.MENUS, routerLinks.cust.list)
       }
     ];
   }
 
   /*用户状态统计表*/
   private setChartOptionOfUserRatio() {
+    let me = this;
     this.chartOptionOfUserRatio = {
       title: {
-        text: '用户账户状态',
-        subtext: '纯属虚构',
+        text: '用户账户统计',
+        subtext: '平台注册用户的角色分布',
         x: 'center'
       },
       tooltip: {
@@ -114,17 +123,17 @@ export class HomeComponent implements OnInit {
       legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['正常', '冻结']
+        data: ['企业', '用户']
       },
       series: [
         {
-          name: '访问来源',
+          name: '角色',
           type: 'pie',
           radius: '55%',
           center: ['50%', '60%'],
           data: [
-            {value: 335, name: '正常'},
-            {value: 62, name: '冻结'}
+            {value: me.homeInfo.enterCount, name: '企业'},
+            {value: me.homeInfo.custCount, name: '用户'}
           ],
           color: ['#8378ea', '#e7bcf3'],
           itemStyle: {
@@ -141,17 +150,22 @@ export class HomeComponent implements OnInit {
 
   /*用户增长统计*/
   private setChartOptionOfUserRise() {
+    let me = this, dataAry: Array<any> = [];
+    for (let obj in me.homeInfo.biddingMap) {
+      dataAry.push(me.homeInfo.biddingMap[obj]);
+    }
+    console.log("data",dataAry)
     this.chartOptionOfUserRise = {
       title: {
-        text: '用户总量变化情况',
-        subtext: '纯属虚构',
+        text: '招标数量变化情况',
+        subtext: '招标数量变化情况',
         x: 'center'
       },
       tooltip: {
         trigger: 'axis'
       },
       legend: {
-        data: ['新用户']
+        data: ['新招标']
       },
       color: ['#ff9f7f'],
       toolbox: {
@@ -174,17 +188,17 @@ export class HomeComponent implements OnInit {
       yAxis: [
         {
           type: 'value',
-          name: '用户量',
+          name: '招标数量',
           min: 0,
-          max: 1600,
-          interval: 400
+          max: 100,
+          interval: 10
         }
       ],
       series: [
         {
-          name: '用户总数',
+          name: '招标数量',
           type: 'bar',
-          data: [20, 150, 590, 420, 860, 760, 820, 1230, 1287, 896, 801, 265]
+          data: dataAry
         }
       ]
     };

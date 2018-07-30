@@ -1,12 +1,36 @@
 import {Injectable} from '@angular/core';
 import {AjaxService} from "../../public/service/ajax.service";
 import {SettingUrl} from "../../public/setting/setting_url";
-declare var $:any;
+declare var $: any;
 
 @Injectable()
 export class HomeService {
 
   constructor() {
+  }
+
+  /**
+   * 加载首页统计信息
+   * @returns {any<T>}
+   */
+  loadHomePageInfo() {
+    let me = this, defer = $.Deferred();
+    AjaxService.post({
+      url: SettingUrl.URL.home.homePageInfo,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          defer.reject(false);
+          me._notification.error(`错误提示`, res.info);
+        }
+      },
+      error: () => {
+        defer.reject(false);
+        me._notification.error(`错误提示`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise(); //返回异步请求消息
   }
 
   /**

@@ -6,7 +6,7 @@
           <i class="{{data.icon}} font36"></i>
         </div>
         <div class="w75 fl text-left pl-30 pt-5">
-          <div class="font30 {{data.themeColor.ftColor}}">{{data.data | number}}</div>
+          <div class="font30 {{data.themeColor.ftColor}}">{{data.data | number}}{{data.unit}}</div>
           <div class="text-uppercase">{{data.description}}</div>
         </div>
       </div>
@@ -36,11 +36,11 @@
   </div>
   <!--数据统计 end-->
   <!--联系我们 start-->
-  <div class="contact-us" nz-row>
-    <p class="font16 strong mb title">联系我们</p>
-    <div nz-col [nzSpan]="6" class="pt-20 pb-20 pl font16 cursor" *ngFor="let cUs of contactUs">
-      <i class="{{cUs.icon}} font24 mr"></i>{{cUs.info}}
-    </div>
-  </div>
+  <!--<div class="contact-us" nz-row>-->
+    <!--<p class="font16 strong mb title">联系我们</p>-->
+    <!--<div nz-col [nzSpan]="6" class="pt-20 pb-20 pl font16 cursor" *ngFor="let cUs of contactUs">-->
+      <!--<i class="{{cUs.icon}} font24 mr"></i>{{cUs.info}}-->
+    <!--</div>-->
+  <!--</div>-->
   <!--联系我们 end-->
 </div>

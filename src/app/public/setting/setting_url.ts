@@ -6,7 +6,9 @@ export class SettingUrl {
     /**
      * 首页统计
      */
-    home: {},
+    home: {
+      homePageInfo: "admin/bidding/homePageInfo",  //加载首页统计信息
+    },
     /**
      * 基础路径配置
      */
@@ -192,8 +194,16 @@ export class SettingUrl {
       upQuestion: 'question-up',
     },
     norm: {
-      params: 'param',
-      paramAdd: 'param-add',
+      list: '/main/plat_norms'
+    },
+    finance: {
+      list: '/main/finance/financeManager'
+    },
+    enterprise:{
+      list:'/main/enterprise/enterpriseAudit'
+    },
+    cust:{
+      list:'/main/enterprise/enterpriseAudit'
     }
   }
 }
