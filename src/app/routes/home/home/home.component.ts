@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   private setStatisticsDatas() {
     this.statisticsDatas = [
       {
-        icon: 'iconfont icon-yonghu',
+        icon: 'iconfont icon-zhanghu',
         themeColor: {
           bdColor: 'bd-cyan',
           ftColor: 'color-cyan',
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
         description: '用户总量'
       },
       {
-        icon: 'iconfont icon-tangguo',
+        icon: 'iconfont icon-daijiesuan',
         themeColor: {
           bdColor: 'bd-orange',
           ftColor: 'color-orange',
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
         description: '糖果总量'
       },
       {
-        icon: 'iconfont icon-push',
+        icon: 'iconfont icon-manage',
         themeColor: {
           bdColor: 'bd-green',
           ftColor: 'color-green',
