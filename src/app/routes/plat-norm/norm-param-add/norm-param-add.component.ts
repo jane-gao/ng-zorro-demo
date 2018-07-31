@@ -3,6 +3,7 @@ import {Location} from "@angular/common";
 import {PlatNormService} from "../plat-norm.service";
 import {Setting} from "../../../public/setting/setting";
 import {ActivatedRoute} from "@angular/router";
+import {PatternService} from "../../../public/service/pattern.service";
 declare var $: any;
 
 @Component({
@@ -17,6 +18,7 @@ export class NormParamAddComponent implements OnInit {
   public normParamList: Array<any> = [];
   public normName: string;
   public normCode: string;
+  public patterns = PatternService;
 
   constructor(public location: Location, public route: ActivatedRoute, public platNormService: PlatNormService,) {
   }
@@ -31,7 +33,16 @@ export class NormParamAddComponent implements OnInit {
    * 添加新参数
    */
   addNewParam() {
-    this.normParamList.push({});
+    this.normParamList.push({paramFactor: 1, key: (new Date()).getTime().toString()});
+  }
+
+  /**
+   * 只能输入正整数
+   */
+  onlyPositive(target,e){
+    if(!PatternService.POSITIVE_REGEXP.test(e)){
+      target.value = null;
+    }
   }
 
   /**
@@ -51,7 +62,7 @@ export class NormParamAddComponent implements OnInit {
     }
     $.when(me.platNormService.addPlatNormParam(data)).always(success => {
       me.isConfirmLoading = false;
-      if(success) {
+      if (success) {
         me.back();
         me.refresh = true;
       }

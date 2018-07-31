@@ -15,10 +15,12 @@ export class PatternService {
   public static doubleDigit: string = '^[0-9]{1,2}$';      // 两位整数（0-99）
   public static twodecimal: string = '^[0-9]+(.[0-9]{1,2})?$';    //两位小数
   public static integer: string = '^[0-9]*[1-9][0-9]*$';   //只能正整数
+  public static positive: string = '^[0-9]+\.?[0-9]{0,9}$';//只能正数
   public static EMAIL_REGEXP: RegExp = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;//邮箱
   public static PWD_REGEXP: RegExp = /^\S{6,16}$/;//密码
   public static SMS_REGEXP: RegExp = /^[0-9]{6}$/;//短信验证码
   public static PHONE_REGEXP: RegExp = /^1[0-9]{10}$/;//手机号
   public static IDCARD_REGEXP: RegExp = /^(^[1-9][0-9]{7}((0[0-9])|(1[0-2]))(([0|1|2][0-9])|3[0-1])[0-9]{3}$)|(^[1-9][0-9]{5}[1-9][0-9]{3}((0[0-9])|(1[0-2]))(([0|1|2][0-9])|3[0-1])(([0-9]{4})|[0-9]{3}[Xx])$)$/;//身份证号
+  public static POSITIVE_REGEXP: RegExp = /^[0-9]+\.?[0-9]{0,9}$/;//只能正数
 
 }

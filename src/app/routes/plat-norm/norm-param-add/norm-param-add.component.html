@@ -11,11 +11,11 @@
       <th nz-th class="text-center" nzWidth="8%"><span>需求标准值<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="8%"><span>单位</span></th>
       <th nz-th class="text-center" nzWidth="8%"><span>参数说明</span></th>
-      <th nz-th class="text-center" nzWidth="8%"><span>参数因子<i class="color-red">*</i></span></th>
+      <th nz-th class="text-center" nzWidth="10%"><span>参数因子<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="8%"><span>参数溢价因子<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="8%"><span>参数权重<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="8%"><span>可允许最大差值<i class="color-red">*</i></span></th>
-      <th nz-th class="text-center" nzWidth="8%"><span>是否强制<i class="color-red">*</i></span></th>
+      <th nz-th class="text-center" nzWidth="6%"><span>是否强制<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="6%"><span>是否使用<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="6%"><span>是否必填<i class="color-red">*</i></span></th>
       <th nz-th class="text-center" nzWidth="6%"><span>排序<i class="color-red">*</i></span></th>
@@ -27,54 +27,57 @@
       <tr nz-tbody-tr>
         <td nz-td class="text-center">{{i+1}}</td>
         <td nz-td class="text-center">
-          <input type="text" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.paramName" required
+          <input type="text" nz-input [name]="'paramName'+data.key" [(ngModel)]="data.paramName" required
                  placeholder="参数名">
         </td>
         <td nz-td class="text-center">
-          <input type="number" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.standardVal" required
+          <input type="number" nz-input [name]="'standardVal'+data.key" [(ngModel)]="data.standardVal" required
                  placeholder="需求标准值">
         </td>
         <td nz-td class="text-center">
-          <input type="text" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.unit" placeholder="单位">
+          <input type="text" nz-input [name]="'unit'+data.key" [(ngModel)]="data.unit" placeholder="单位">
         </td>
         <td nz-td class="text-center">
-          <input type="text" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.paramDesc"
+          <input type="text" nz-input [name]="'paramDesc'+data.key" [(ngModel)]="data.paramDesc"
                  placeholder="参数说明">
         </td>
         <td nz-td class="text-center">
-          <input type="number" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.paramFactor" required
-                 placeholder="参数因子,-1/1" title="1 代表参数越大越好；-1代表参数越小越好">
+          <nz-radio-group [(ngModel)]="data.paramFactor" [name]="'paramFactor'+data.key" required>
+            <label nz-radio [nzValue]="1">1</label>
+            <label nz-radio [nzValue]="-1">-1</label>
+          </nz-radio-group>
         </td>
         <td nz-td class="text-center">
-          <input type="number" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.redundancyQualityFactor"
-                 required
-                 placeholder="参数溢价因子" title="因子越大，溢价能产生的分数越高">
+          <nz-input-number [nzMin]="0" [nzStep]="0.25" title="因子越大，溢价能产生的分数越高" required
+                           placeholder="参数溢价因子" [name]="'redundancyQualityFactor'+data.key"
+                           [(ngModel)]="data.redundancyQualityFactor"></nz-input-number>
         </td>
         <td nz-td class="text-center">
-          <input type="number" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.weight" required
+          <input type="number" nz-input [name]="'weight'+data.key" [(ngModel)]="data.weight" required
                  placeholder="参数权重">
         </td>
         <td nz-td class="text-center">
-          <input type="number" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.allowDifference"
+          <input type="number" nz-input [name]="'allowDifference'+data.key" #allowDifference [(ngModel)]="data.allowDifference"
+                 required [min]="0" [pattern]="patterns.positive" (ngModelChange)="onlyPositive(allowDifference,$event)"
                  placeholder="可允许最大差值" title="参数差值一旦超过此值，则认为不合格">
         </td>
         <td nz-td class="text-center">
           <nz-switch class="thc" [(ngModel)]="data.isNecessary"
-                     nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}">
+                     nzCheckedChildren="是" nzUnCheckedChildren="否" [name]="'isNecessary'+data.key">
           </nz-switch>
         </td>
         <td nz-td class="text-center">
           <nz-switch class="thc" [(ngModel)]="data.isRequired"
-                     nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}">
+                     nzCheckedChildren="是" nzUnCheckedChildren="否" [name]="'isRequired'+data.key">
           </nz-switch>
         </td>
         <td nz-td class="text-center">
           <nz-switch class="thc" [(ngModel)]="data.isUse"
-                     nzCheckedChildren="是" nzUnCheckedChildren="否" [ngModelOptions]="{standalone: true}">
+                     nzCheckedChildren="是" nzUnCheckedChildren="否" [name]="'isUse'+data.key">
           </nz-switch>
         </td>
         <td nz-td class="text-center">
-          <input type="number" nz-input [ngModelOptions]="{standalone: true}" [(ngModel)]="data.ord" required
+          <input type="number" nz-input [name]="'ord'+data.key" [(ngModel)]="data.ord" required
                  placeholder="排序" title="排序序列号">
         </td>
         <td nz-td class="text-center">
