@@ -4,7 +4,6 @@ import {Setting} from "../../../public/setting/setting";
 import {SettingUrl} from "../../../public/setting/setting_url";
 import {LoginService} from "../login.service";
 import {Router} from "@angular/router";
-import {CookieService} from "angular2-cookie/core";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;//登录的表单
   app = Setting.APP; //平台基本信息
 
-  constructor(public fb: FormBuilder, public loginService: LoginService, public router: Router, public cookieService: CookieService) {
+  constructor(public fb: FormBuilder, public loginService: LoginService, public router: Router) {
     this.validateForm = this.fb.group({
       loginCode: [null, [Validators.required]],
       pwd: [null, [Validators.required]],

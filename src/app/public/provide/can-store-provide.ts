@@ -26,7 +26,6 @@ export class CanStoreProvide implements CanActivate, OnInit {
               state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     let me = this;
     let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
-    if (loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.basic.home]); //路由跳转（首页）
     return new Observable((observer) => {
       if(loginCookie){
         if(!me.isPermission(state.url)){
@@ -44,6 +43,7 @@ export class CanStoreProvide implements CanActivate, OnInit {
         observer.next(false);
         observer.complete();
         me.router.navigate([SettingUrl.ROUTERLINK.pass.login]); //去登录
+        return;
       }
     });
   }
