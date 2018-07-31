@@ -43,8 +43,8 @@
         </td>
         <td nz-td class="text-center">
           <nz-radio-group [(ngModel)]="data.paramFactor" [name]="'paramFactor'+data.key" required>
-            <label nz-radio [nzValue]="1">1</label>
-            <label nz-radio [nzValue]="-1">-1</label>
+            <label nz-radio [nzValue]="1">越大越好</label>
+            <label nz-radio [nzValue]="-1">越小越好</label>
           </nz-radio-group>
         </td>
         <td nz-td class="text-center">
@@ -58,7 +58,7 @@
         </td>
         <td nz-td class="text-center">
           <input type="number" nz-input [name]="'allowDifference'+data.key" #allowDifference [(ngModel)]="data.allowDifference"
-                 required [min]="0" [pattern]="patterns.positive" (ngModelChange)="onlyPositive(allowDifference,$event)"
+                 required [pattern]="patterns.positive" (ngModelChange)="onlyPositive(allowDifference,$event)"
                  placeholder="可允许最大差值" title="参数差值一旦超过此值，则认为不合格">
         </td>
         <td nz-td class="text-center">
