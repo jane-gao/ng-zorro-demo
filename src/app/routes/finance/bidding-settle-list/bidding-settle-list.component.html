@@ -75,7 +75,7 @@
     <tr nz-tbody-tr>
       <td nz-td class="text-center">{{i+1}}</td>
       <td nz-td class="text-center">{{data.projectCode}}</td>
-      <td nz-td class="text-center">{{data.settleMoney}}￥</td>
+      <td nz-td class="text-center">￥{{data.settleMoney | number}}</td>
       <td nz-td class="text-center">{{data.subjectName }}</td>
       <td nz-td class="text-center">{{data.payCustType | stateName: enums.userType}}-{{data.payCustCode}}</td>
       <td nz-td class="text-center">{{data.payWay | stateName: enums.payWay}}</td>

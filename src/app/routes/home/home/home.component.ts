@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     let me = this;
     this.statisticsDatas = [
       {
-        icon: 'iconfont icon-zhanghu',
+        icon: 'anticon anticon-bank',
         themeColor: {
           bdColor: 'bd-red',
           ftColor: 'color-red',

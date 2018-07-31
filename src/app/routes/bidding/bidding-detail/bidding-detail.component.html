@@ -47,7 +47,7 @@
         </tr>
         <tr class="t-item clearfix">
           <td class="item-hd" nz-col nzSpan="4">项目预算：</td>
-          <td class="item-bd" nz-col nzSpan="20">{{data.biddingBudget || 0}}￥</td>
+          <td class="item-bd" nz-col nzSpan="20">￥{{(data.biddingBudget | number) || 0}}</td>
         </tr>
         <tr class="t-item clearfix">
           <td class="item-hd" nz-col nzSpan="4">只允许企业投标：</td>
@@ -59,7 +59,7 @@
         </tr>
         <tr class="t-item clearfix" *ngIf="data.state == 'PUBLICITY' || data.state == 'TRADING' ||data.state == 'SUCCESS' ">
           <td class="item-hd" nz-col nzSpan="4">成交总金额：</td>
-          <td class="item-bd" nz-col nzSpan="20">{{data.bacct || 0}}￥</td>
+          <td class="item-bd" nz-col nzSpan="20">￥{{(data.bacct| number) || 0}}</td>
         </tr>
         <tr class="t-item clearfix">
           <td class="item-hd" nz-col nzSpan="4">状态：</td>

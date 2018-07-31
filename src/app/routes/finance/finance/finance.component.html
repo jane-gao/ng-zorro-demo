@@ -77,7 +77,7 @@
     <tr nz-tbody-tr>
       <td nz-td class="text-center">{{i+1}}</td>
       <td nz-td class="text-center">{{data.tc}}</td>
-      <td nz-td class="text-center">{{data.income >0 ? data.income: "-"+data.expenditure}}￥</td>
+      <td nz-td class="text-center">￥{{data.income >0 ? (data.income| number): "-"+(data.expenditure) | number}}</td>
       <td nz-td class="text-center">{{data.subjectName }}</td>
       <td nz-td class="text-center">{{data.toType | stateName: enums.userType}}-{{data.toCode}}</td>
       <td nz-td class="text-center">{{data.payWay | stateName: enums.payWay}}</td>
