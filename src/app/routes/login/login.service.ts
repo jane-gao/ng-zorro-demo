@@ -25,7 +25,7 @@ export class LoginService {
       data: requestDate,
       success: (res) => {
         if (res.success) {
-          callback()
+          callback(res.data)
         } else {
           me._notification.error(`失败`, res.info);
         }

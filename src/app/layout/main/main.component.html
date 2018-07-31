@@ -7,9 +7,9 @@
       </div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
         <!--循环显示menu start-->
-        <ng-container *ngFor="let menu of menus">
+        <ng-container *ngFor="let menu of menus;let i = index;">
           <!--有下级menu start-->
-          <li nz-submenu *ngIf="menu.subMenuList && menu.subMenuList.length>0">
+          <li nz-submenu *ngIf="menu.subMenuList && menu.subMenuList.length>0" [(nzOpen)]="menu.isOpen" (nzOpenChange)="openHandler(i)">
           <span title>
             <i class="{{menu.menuIcon}} font18"></i>
             <span class="nav-text">{{menu.menuName}}</span>

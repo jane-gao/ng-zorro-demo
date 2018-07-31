@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {Setting} from "../../public/setting/setting";
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 import {SettingUrl} from "../../public/setting/setting_url";
 import {AjaxService} from "../../public/service/ajax.service";
 import "rxjs/add/operator/filter";
@@ -155,16 +155,54 @@ export class MainComponent implements OnInit {
       ]
     };
 
-    Setting.MENUS = [authLimit, set, cust, enterprise, finance, bidding, product, plat_norms, ad, operation]
+    // Setting.MENUS = [authLimit, set, cust, enterprise, finance, bidding, product, plat_norms, ad, operation];
   }
 
   ngOnInit() {
     const _this = this;
     _this.menus = Setting.MENUS; //菜单信息
+    //监听路由变化，反选menu信息
+    _this.selMenu(_this.menus, location.pathname);//取刷新等初始化页面的路由
+    _this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event) => {
+      _this.selMenu(_this.menus, event["url"]);
+    });
     //设置消息通知
     //判断是否已经登录，已经登录，引导进入首页
     let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
     if (!loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.pass.login]); //路由登录
+  }
+
+  openHandler(i) {
+    this.menus.forEach((menu,idx)=> {
+      if(i==idx) menu.isOpen = true;
+      else menu.isOpen = false;
+    })
+  }
+
+  /**
+   * 反选中menu
+   * @param {string} url
+   */
+  selMenu(menuList: Array<any>, url: string) {
+    let _this = this;
+    menuList.forEach(menu => {
+      menu.isOpen = false;
+      if (menu.subMenuList && menu.subMenuList.length > 0) {
+        menu.subMenuList.forEach(childMenu => {
+          if ((url).indexOf(childMenu.menuUrl) == 0) {
+            childMenu.isSel = true;
+            menu.isOpen = true;
+          } else {
+            childMenu.isSel = false;
+          }
+        })
+      } else if ((url).indexOf(menu.menuUrl) == 0) {
+        menu.isSel = true;
+        menu.isOpen = true;
+      } else {
+        menu.isSel = false;
+      }
+    })
   }
 
   /**

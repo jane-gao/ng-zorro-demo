@@ -1,12 +1,13 @@
 import {MainComponent} from "../layout/main/main.component";
 import {PageComponent} from "../layout/page/page.component";
 import {SettingUrl} from "../public/setting/setting_url";
+import {CanStoreProvide} from "../public/provide/can-store-provide";
 
 export const routes = [
   {
     path: 'main',
     component: MainComponent,
-    // canActivate: [CanStoreProvide], //路由守卫
+    canActivate: [CanStoreProvide], //路由守卫
     children: [
       {path: 'home', loadChildren: './home/home.module#HomeModule'}, //首页
       {path: 'finance', loadChildren: './finance/finance.module#FinanceModule'}, //财务

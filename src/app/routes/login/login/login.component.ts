@@ -24,9 +24,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    //判断是否已经登录，已经登录，引导进入首页
-    let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
-    if (loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.basic.home]); //路由跳转（首页）
   }
 
   /**
@@ -41,7 +38,10 @@ export class LoginComponent implements OnInit {
     for (const key in me.validateForm.controls) {
       me.validateForm.controls[key].markAsDirty();
     }
-    let callback = function () {
+    let callback = function (data) {
+      //menus菜单
+      if (data && data.menuVOList) Setting.MENUS = data.menuVOList; //menus菜单
+      localStorage.setItem(Setting.cookie.menusInfo, JSON.stringify(Setting.MENUS)); //menus菜单存入localStorage
       me.router.navigate([SettingUrl.ROUTERLINK.basic.home])
     }
     me.loginService.login(me.validateForm.value, callback);
