@@ -95,11 +95,11 @@ export class SettingUrl {
       load: "/admin/finacePlat/load", //平台账户流水
       loadBalance: "/admin/finacePlat/loadBalance", //平台账户余额
       payRecList: "/admin/biddngPayRec/queryPayRecs",  //查询付款记录列表
-      updateSettleRecToDone: "/admin/biddngSettleRec/updateSettleRecToDone",  //修改结算记录为已到账
-      updateSettleToDeal: "/admin/biddngSettleRec/updateSettleToDeal",  //修改结算记录为处理中
+      updatePayRecState: "/admin/biddngPayRec/updatePayRecState",  //查询列表付款记录
       loadPayRec: "/admin/biddngPayRec/loadPayRecInfoByTc",  //加载付款记录
       settleRecList: "/admin/biddngSettleRec/querySettleRecsPage", //项目结算记录列表
-      updateSettleRecState: "/admin/biddngSettleRec/updateSettleRecState", //项目结算记录列表
+      updateSettleRecToDone: "/admin/biddngSettleRec/updateSettleRecToDone",  //修改结算记录为已到账
+      updateSettleToDeal: "/admin/biddngSettleRec/updateSettleToDeal",  //修改结算记录为处理中
       loadSettleRec: "/admin/biddngSettleRec/loadSettleInfoByTc",  //加载结算记录
     },
     bidding: {
@@ -194,7 +194,9 @@ export class SettingUrl {
       upQuestion: 'question-up',
     },
     norm: {
-      list: '/main/plat_norms'
+      list: '/main/plat_norms',
+      params: 'param',
+      paramAdd: 'param-add',
     },
     finance: {
       list: '/main/finance/financeManager'
