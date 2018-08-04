@@ -6,7 +6,8 @@
     "ng": "ng",
     "start": "ng serve --host 192.168.10.112 --port 4200 --proxy-config proxy.conf.js",
     "start:aot": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve --host 192.168.10.124 --port 800 --proxy-config proxy.conf.js -aot",
-    "build": "ng build --prod",
+    "build": "ng build",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
