@@ -205,7 +205,7 @@ export class SettingUrl {
       list:'/main/enterprise/enterpriseAudit'
     },
     cust:{
-      list:'/main/enterprise/enterpriseAudit'
+      list:'/main/cust/custAudit'
     }
   }
 }
