@@ -120,6 +120,7 @@ export class Setting {
 
   //存入cookie信息的键名
   public static cookie: any = {
+    menusInfo: 'menus',
     loginCookie: "RBAC_LINFO", //是否已经登录，若cookie中取不出此键名对应的信息，说明未登录，反之说明已登录
   }
 

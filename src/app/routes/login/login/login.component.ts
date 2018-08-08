@@ -39,10 +39,11 @@ export class LoginComponent implements OnInit {
     }
     let callback = function (data) {
       //menus菜单
-      if (data && data.menuVOList) Setting.MENUS = data.menuVOList; //menus菜单
+      me.router.navigate([SettingUrl.ROUTERLINK.basic.home]);
+      if (data && data.menuVOList) Setting.MENUS = data.menuVOList;  //menus菜单
+      else Setting.MENUS =  [];
       localStorage.setItem(Setting.cookie.menusInfo, JSON.stringify(Setting.MENUS)); //menus菜单存入localStorage
-      me.router.navigate([SettingUrl.ROUTERLINK.basic.home])
-    }
+    };
     me.loginService.login(me.validateForm.value, callback);
   };
 
