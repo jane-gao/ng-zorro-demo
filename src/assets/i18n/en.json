@@ -1,8 +1,20 @@
 {
   "home": {
-    "html": {
-      "title": "welcome to international demo",
-      "description": "there is an example of ngx-translate for international"
+    "commonFunction": "common function",
+    "dataSta": "data statistics",
+    "description": "there is an example of ngx-translate for international",
+    "platformAccount": "Account amount of platform"
+  },
+  "auth": {
+    "menu": {
+      "title": "menu list",
+      "btnAdd": "add menu",
+      "menuLimit": "menu limit"
+    }
+  },
+  "ts": {
+    "home": {
+      "platformAccount": "Account amount of platform"
     }
   }
 }

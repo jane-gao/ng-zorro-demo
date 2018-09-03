@@ -7,6 +7,7 @@ import "rxjs/add/operator/filter";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
 import {CookieService} from "angular2-cookie/core";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-main',
@@ -22,7 +23,17 @@ export class MainComponent implements OnInit {
   public msgNum: number = 0; //消息通知总条数
   public home: string = SettingUrl.ROUTERLINK.basic.home; //首页路由
 
-  constructor(public router: Router, public cookieService: CookieService) {
+  constructor(public router: Router, public cookieService: CookieService,public translate: TranslateService) {
+    //添加语言支持
+    translate.addLangs(['zh-CN', 'en']);
+    //设置默认语言，一般在无法匹配的时候使用
+    translate.setDefaultLang('zh-CN');
+
+    //获取当前浏览器环境的语言比如en、 zh
+    let broswerLang = translate.getBrowserLang();
+    translate.use(broswerLang.match(/en|zh-CN/) ? broswerLang : 'zh-CN');
+
+
     const finance = {
       menuName: '财务管理',
       menuIcon: 'anticon anticon-pay-circle-o',
@@ -158,6 +169,11 @@ export class MainComponent implements OnInit {
     // Setting.MENUS = [authLimit, set, cust, enterprise, finance, bidding, product, plat_norms, ad, operation];
   }
 
+  changeLang(lang) {
+    console.log(lang);
+    this.translate.use(lang);
+  }
+
   ngOnInit() {
     const _this = this;
     _this.menus = Setting.MENUS; //菜单信息
@@ -170,6 +186,11 @@ export class MainComponent implements OnInit {
     //判断是否已经登录，已经登录，引导进入首页
     let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
     if (!loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.pass.login]); //路由登录
+
+    this.translate.onLangChange.subscribe((params) => {
+      console.log("█ params ►►►",  params);
+      Setting.I18nData = params.translations.ts;
+    });
   }
 
   openHandler(i) {

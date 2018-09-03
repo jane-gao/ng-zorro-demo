@@ -15,6 +15,7 @@ import {CanStoreProvide} from "../public/provide/can-store-provide";
 import {SpliceStrPipe} from "../public/pipes/splice-str.pipe";
 import {NgxEchartsModule} from "ngx-echarts";
 import {ENgxViewerModule} from "e-ngx-viewer";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {ENgxViewerModule} from "e-ngx-viewer";
     CKEditorModule,               //富文本编辑器
     NgxEchartsModule,             //echarts
     ENgxViewerModule,
+    TranslateModule,
     NgZorroAntdModule.forRoot()   //zorroUI库
   ],
   declarations: [
@@ -44,6 +46,7 @@ import {ENgxViewerModule} from "e-ngx-viewer";
     ReactiveFormsModule,    //表单支持
     NgZorroAntdModule,      //zorroUI库
     NgxEchartsModule,             //echarts
+    TranslateModule,
     StateNamePipe,          //将状态值转为对应状态名得管道
     ImgPreviewPipe,         //本地图片上传预览管道
     ImgSizePipe,            //设置图片大小

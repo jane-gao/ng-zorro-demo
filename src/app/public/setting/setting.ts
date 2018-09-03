@@ -124,4 +124,6 @@ export class Setting {
     loginCookie: "RBAC_LINFO", //是否已经登录，若cookie中取不出此键名对应的信息，说明未登录，反之说明已登录
   }
 
+  public static I18nData: any = {};
+
 }

@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public chartOptionOfUserRatio: any;//用户比例
   public chartOptionOfUserRise: any;//用户增长
 
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: HomeService, public setting: Setting) {
   }
 
   ngOnInit() {
@@ -49,8 +49,8 @@ export class HomeComponent implements OnInit {
           bgColor: 'bg-red'
         },
         data: me.homeInfo.balance,
-        unit:"￥",
-        description: '平台账户金额'
+        unit: "￥",
+        description: "home.platformAccount"
       },
       {
         icon: 'iconfont icon-daijiesuan',
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
           bgColor: 'bg-orange'
         },
         data: me.homeInfo.settleMoney,
-        unit:"￥",
+        unit: "￥",
         description: '待结算金额'
       },
       {
@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit {
     for (let obj in me.homeInfo.biddingMap) {
       dataAry.push(me.homeInfo.biddingMap[obj]);
     }
-    console.log("data",dataAry)
+    console.log("data", dataAry)
     this.chartOptionOfUserRise = {
       title: {
         text: '招标数量变化情况',

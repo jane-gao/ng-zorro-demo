@@ -58,6 +58,11 @@
             </ul>
           </nz-dropdown>
         </li>
+        <li>
+          <select #langSelect (change)="changeLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+          </select>
+        </li>
         <li (click)="logout()"><i class="anticon anticon-logout" title="退出登录"></i></li>
       </ul>
     </nz-header>

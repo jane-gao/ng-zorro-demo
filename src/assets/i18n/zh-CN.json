@@ -1,8 +1,20 @@
 {
   "home": {
-    "html": {
-      "title": "欢迎来到国际化demo首页",
-      "description": "这里演示了国际化方法中调用第三方服务ngx-translate的方法"
+    "commonFunction": "常用功能",
+    "dataSta": "数据统计",
+    "description": "这里演示了国际化方法中调用第三方服务ngx-translate的方法",
+    "platformAccount": "平台账户金额"
+  },
+  "auth": {
+    "menu": {
+      "title": "菜单列表",
+      "btnAdd": "添加菜单",
+      "menuLimit": "菜单权限"
+    }
+  },
+  "ts": {
+    "home": {
+      "platformAccount": "平台账户金额"
     }
   }
 }
