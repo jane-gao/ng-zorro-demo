@@ -1,0 +1,8 @@
+{
+  "home": {
+    "html": {
+      "title": "欢迎来到国际化demo首页",
+      "description": "这里演示了国际化方法中调用第三方服务ngx-translate的方法"
+    }
+  }
+}
