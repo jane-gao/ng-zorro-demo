@@ -13,8 +13,13 @@
     }
   },
   "ts": {
+    "public": {
+      "appName": "仁中和科技-集合竞价管理系统",
+      "phone": "电话",
+      "email": "邮箱"
+    },
     "home": {
-      "platformAccount": "平台账户金额"
+      "echarts": "用户账户统计"
     }
   }
 }

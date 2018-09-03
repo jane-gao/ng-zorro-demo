@@ -13,8 +13,13 @@
     }
   },
   "ts": {
+    "public": {
+      "appName": "Renzhong Technology - collective bidding management system",
+      "phone": "Phone",
+      "email": "Email"
+    },
     "home": {
-      "platformAccount": "Account amount of platform"
+      "echarts": "User account statistics"
     }
   }
 }

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {SettingUrl} from "./public/setting/setting_url";
 import {CookieService} from "angular2-cookie/core";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import {CookieService} from "angular2-cookie/core";
 })
 export class AppComponent {
 
-  constructor(public router: Router, public location: Location, public cookieService: CookieService) {
+  constructor(public router: Router, public location: Location, public cookieService: CookieService, private translate:TranslateService) {
     //判断是否已经登录，已经登录，引导进入首页
     let menusInfo: any = localStorage.getItem(Setting.cookie.menusInfo); //localStorage中取出menu菜单
     if (menusInfo) Setting.MENUS = JSON.parse(menusInfo); //menu菜单

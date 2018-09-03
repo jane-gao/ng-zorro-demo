@@ -71,7 +71,7 @@
     <nz-content class="m-15 bg-white">
       <div class="p">
         <!--路由嵌套-业务处理区域 start-->
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="activate($event)"></router-outlet>
         <!--路由嵌套-业务处理区域 end-->
       </div>
     </nz-content>

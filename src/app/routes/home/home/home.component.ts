@@ -3,6 +3,7 @@ import {Setting} from "../../../public/setting/setting";
 import {HomeService} from "../home.service";
 import {SettingUrl} from "../../../public/setting/setting_url";
 import {Util} from "../../../public/util/util";
+import {TranslateService} from "@ngx-translate/core";
 declare var $: any;
 @Component({
   selector: 'app-home',
@@ -18,7 +19,11 @@ export class HomeComponent implements OnInit {
   public chartOptionOfUserRatio: any;//用户比例
   public chartOptionOfUserRise: any;//用户增长
 
-  constructor(private homeService: HomeService, public setting: Setting) {
+  constructor(private homeService: HomeService, private translate: TranslateService) {
+    let _this = this;
+   /* this.translate.onLangChange.subscribe((event) => {
+     _this.ngOnInit();
+     });*/
   }
 
   ngOnInit() {
@@ -112,7 +117,7 @@ export class HomeComponent implements OnInit {
     let me = this;
     this.chartOptionOfUserRatio = {
       title: {
-        text: '用户账户统计',
+        text: Setting.I18nData.home.echarts,
         subtext: '平台注册用户的角色分布',
         x: 'center'
       },
@@ -216,11 +221,11 @@ export class HomeComponent implements OnInit {
     me.contactUs = [
       {
         icon: "anticon anticon-phone color-pink",
-        info: "电话：" + Setting.APP.contactInformation.phone
+        info: Setting.I18nData.public.phone + Setting.APP.contactInformation.phone
       },
       {
         icon: "iconfont icon-youxiang color-blue",
-        info: "Email：" + Setting.APP.contactInformation.email
+        info: Setting.I18nData.public.email + Setting.APP.contactInformation.email
       }
     ];
   }

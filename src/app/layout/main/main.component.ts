@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {Setting} from "../../public/setting/setting";
 import {NavigationEnd, Router} from "@angular/router";
 import {SettingUrl} from "../../public/setting/setting_url";
@@ -22,8 +22,9 @@ export class MainComponent implements OnInit {
   public msg: Array<any> = new Array(); //消息通知
   public msgNum: number = 0; //消息通知总条数
   public home: string = SettingUrl.ROUTERLINK.basic.home; //首页路由
+  public curComponent: any;
 
-  constructor(public router: Router, public cookieService: CookieService,public translate: TranslateService) {
+  constructor(public router: Router, public cookieService: CookieService, public translate: TranslateService, public changeDetectorRef: ChangeDetectorRef) {
     //添加语言支持
     translate.addLangs(['zh-CN', 'en']);
     //设置默认语言，一般在无法匹配的时候使用
@@ -170,7 +171,6 @@ export class MainComponent implements OnInit {
   }
 
   changeLang(lang) {
-    console.log(lang);
     this.translate.use(lang);
   }
 
@@ -187,15 +187,33 @@ export class MainComponent implements OnInit {
     let loginCookie = this.cookieService.get(Setting.cookie.loginCookie);
     if (!loginCookie) this.router.navigate([SettingUrl.ROUTERLINK.pass.login]); //路由登录
 
-    this.translate.onLangChange.subscribe((params) => {
-      console.log("█ params ►►►",  params);
-      Setting.I18nData = params.translations.ts;
+    _this.onTranslateChange();//当切换语言时
+  }
+
+  /**
+   * 当切换语言时，
+   * 1.将ts里用到的语言信息保存下来
+   * 2.初始化当前组件，因为有些文本并不会重新渲染
+   */
+  onTranslateChange(){
+    let _this = this;
+    _this.translate.onLangChange.subscribe((event) => {
+      Setting.I18nData = event.translations.ts;
+      _this.curComponent.ngOnInit()
     });
   }
 
+  /**
+   * 监听子路由，找到当前激活的组件
+   * @param e
+   */
+  activate(e){
+    this.curComponent = e;
+  }
+
   openHandler(i) {
-    this.menus.forEach((menu,idx)=> {
-      if(i==idx) menu.isOpen = true;
+    this.menus.forEach((menu, idx) => {
+      if (i == idx) menu.isOpen = true;
       else menu.isOpen = false;
     })
   }
